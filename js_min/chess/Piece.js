@@ -1,0 +1,2 @@
+function _aZZZ(piece){this._cZ=_$ZZZ.type(piece);this.___VZ=_$ZZZ.colour(piece);}
+_aZZZ.tZZZZZ=[];_aZZZ.tZZZZZ[_tZZZ]=1;_aZZZ.tZZZZZ[__DZZZ]=3;_aZZZ.tZZZZZ[_uZZZZ]=3;_aZZZ.tZZZZZ[__LZZZ]=5;_aZZZ.tZZZZZ[vZZZZ]=9;

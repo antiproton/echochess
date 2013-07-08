@@ -1,0 +1,13 @@
+<?php
+//JsRequestInfo::output();
+//
+//loads("/lib/js/util");
+//loads("/lib/js/data");
+//loads("/lib/js/server");
+//loads("/lib/js/events");
+//loads("/lib/js/dom");
+//loads("/lib/js/base");
+//loads("/lib/js/Base.js");
+//
+//loadw("/js/page/signin.js");
+?>

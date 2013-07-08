@@ -1,0 +1,1 @@
+/var/www/chess/js_src

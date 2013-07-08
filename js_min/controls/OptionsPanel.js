@@ -1,0 +1,5 @@
+function __BZZZZ(parent){__CZZZZ.iZZ(this,parent);this.__DZZZZ();_.a.___GZ.___QZ.__vZZ._zZZ(this,function(){this.__DZZZZ();});}
+__BZZZZ.prototype.nZZ=function(){__CZZZZ.prototype.nZZ.call(this);var _KZZZ;var __EZZZZ=75;_KZZZ=UZZ(this.TZZ);this.__FZZZZ=new Checkbox(_KZZZ,"Highlight last move");_KZZZ=UZZ(this.TZZ);this.__GZZZZ=new Checkbox(_KZZZ,"Show coords");_KZZZ=UZZ(this.TZZ);this.__HZZZZ=new JZZ(_KZZZ,"Size",__EZZZZ);for(var size=30;size<=90;size+=15){this.__HZZZZ._P(size,size);}
+_KZZZ=UZZ(this.TZZ);this.__IZZZZ=new JZZ(_KZZZ,"Pieces",__EZZZZ);for(var code in _bZ[yZ]){this.__IZZZZ._P(code,_bZ[yZ][code]._fZ);}
+_KZZZ=UZZ(this.TZZ);this.__JZZZZ=new Button(_KZZZ,"Save");this.__JZZZZ.kZZ._zZZ(this,function(){____v.____X(G("/xhr/save_prefs.php"),{"highlight_last_move":this.__FZZZZ.uZZ.__wZ(),"show_coords":this.__GZZZZ.uZZ.__wZ(),"board_size":this.__HZZZZ.NZZ.__wZ(),"piece_style":this.__IZZZZ.NZZ.__wZ()});});}
+__BZZZZ.prototype.__DZZZZ=function(){this.__FZZZZ.uZZ.BZZ(_.a.___GZ.___QZ.__GZZ.__wZ());this.__GZZZZ.uZZ.BZZ(_.a.___GZ.___QZ.__FZZ.__wZ());this.__HZZZZ.NZZ.BZZ(_.a.___GZ.___QZ.__EZZ.__wZ());this.__IZZZZ.NZZ.BZZ(_.a.___GZ.___QZ.__CZZ.__wZ());}

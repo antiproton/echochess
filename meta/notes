@@ -1,0 +1,19 @@
+bughouse - opposing teams can both win on time.  not sure if this is a problem or not, does anyone really care what the result of a game is?
+
+firefox dark png bug is to do with gamma - pngstrip, pngcrush
+
+select tab with table with game with least time on load?
+
+table chat messages - need to do a message when the game is over, when a new games tsarts etgc
+
+css probably more flexible than Dom.Style - allows special selectors etc.  way of naming classes, arranging css files etc
+
+buttons and possibly other controls should be custom (should be easy with inline-block divs).  will make the ready/rematch buttons much more palatable
+
+hist ctrl buttons need a mousedown state.
+
+custom controls without an input element need to be tabstops and keyboard controls
+
+table lists - ordering should be handled clientside, and possibly have all rows divs there and only update innards, or at least go through and delete no longer there ones/insert new ones in right order.  fields should be orderable
+
+table.UiByRel - the history UiByRel.Player.History won't necessarily be attached to the player game - see UpdateView

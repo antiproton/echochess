@@ -1,0 +1,2 @@
+function NZZZZ(fs,ts){this.OZZZZ=false;var PZZZZ=[4,60];var QZZZZ;var _v,RZZZZ,SZZZZ,TZZZZ;for(var O=0;O<PZZZZ.length;O++){_v=PZZZZ[O];if(fs===_v){QZZZZ=[_v+2,_v-2];for(var _xZ=0;_xZ<QZZZZ.length;_xZ++){RZZZZ=_xZ;SZZZZ=QZZZZ[RZZZZ];if(ts===SZZZZ){TZZZZ=[[SZZZZ+1,SZZZZ-1],[SZZZZ-2,SZZZZ+1]];this.UZZZZ=RZZZZ;this.VZZZZ=TZZZZ[RZZZZ][0];this.WZZZZ=TZZZZ[RZZZZ][1];this.XZZZZ=NZZZZ.YZZZZ[RZZZZ];this.OZZZZ=true;}}}}}
+NZZZZ.YZZZZ=[ZZZZZ,______];

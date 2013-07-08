@@ -1,0 +1,77 @@
+#!/usr/bin/python
+
+import os
+import time
+import tornado.ioloop
+import tornado.web
+import urllib2
+
+"""
+NOTE this now forks on its own so can be set up as a daemon using a regular
+init script
+"""
+
+"""
+tornado server - there doesn't seem to be a better way to handle tasks that
+need to be done at a certain (fairly precise) time where the code needs to
+be triggered by a script the user is requesting, but the request should return
+straight away as opposed to sleeping until the task needs doing.  (php wasn't
+installed with pcntl support, and the way of getting the request to return
+seemed a bit hacky anyway).
+
+this is currently used to do an initial premove check when the clock start
+delay is up for bughouse games.  the InitialPremoveCheckHandler could probably
+be generalised into something that can request any script, but it is specific
+because it needs to know which gids it is already waiting to check premoves for.
+"""
+
+"""
+initial premove check - if the game has a clock start delay the user can
+make premoves before the game starts properly, but then there needs to be
+something that checks the premoves as soon as the clock start delay is over.
+The user sending an XHR is too unreliable (too much network delay, and
+client/server time difference), so the premove xhr sends a request to this
+with a gid and an amount of seconds to wait for.
+
+This waits for the specified amount of time (hopefully until just after the
+game has started) and then sends a request to another php script telling it
+to check premoves for the gid.
+
+It forks to do this so that the curl request from the premove xhr comes back
+straight away.
+
+Each user that makes a premove before the game start will send a request to
+this, but it will only do one request to each url.  NOTE - it is important
+that only one initial check gets done; if more than one (n) is done at
+the same time then n of whatever the first premove is will be added and it
+completely fucks everything.  up the arse.
+"""
+
+class InitialPremoveCheckHandler(tornado.web.RequestHandler):
+	def get(self):
+		global premove_checks_waiting
+
+		gid=self.get_argument("gid")
+		sleep_time=float(self.get_argument("sleep"))
+
+		if not premove_checks_waiting.has_key(gid):
+			premove_checks_waiting[gid]=sleep_time
+
+			if os.fork()==0:
+				time.sleep(sleep_time)
+				urllib2.urlopen("http://chess/curl/check_premoves.php?gid="+gid)
+				del premove_checks_waiting[gid]
+
+if os.fork()==0:
+	fp=open("/var/run/tornado-chess.pid", "w")
+	fp.write(str(os.getpid()))
+	fp.close()
+
+	premove_checks_waiting={}
+
+	application = tornado.web.Application([
+		(r"/check_premoves", InitialPremoveCheckHandler)
+	])
+
+	application.listen(10250)
+	tornado.ioloop.IOLoop.instance().start()

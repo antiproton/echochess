@@ -1,0 +1,3 @@
+function _______vZ(){this._vZZ=false;this.Body=new _______VZ(this._tZZ.__KZ);this._sZZ.___l.BZZ("Games");this._sZZ.fZZZ.BZZ(false);this._sZZ.gZZZ.BZZ(false);this._______WZ=this.Body._______XZ.yZZZ;}
+_______vZ.prototype.Select=function(){_lZZ.prototype.Select.call(this);if(this._______WZ!==null){this.Body._______XZ.EZZZ(this._______WZ);}}
+_______vZ.prototype._CZZ=function(){_lZZ.prototype._CZZ.call(this);this._______WZ=this.Body._______XZ.yZZZ;this.Body._______XZ.EZZZ(null);}

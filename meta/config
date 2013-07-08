@@ -1,0 +1,55 @@
+Server:
+
+	64-bit ints required for handling mtimes and BIGINT ids.
+	hosts - 127.0.0.1 chess
+	cron job 1 min /scripts/cron_sweep.php
+
+Apache:
+
+	vhost/dir_setup line
+	custom SetEnvs (SRVROOT, WWW_DIR)
+
+Memcached:
+
+	$install memcached
+
+PHP:
+
+	>=5.4 for square bracket array syntax
+	mysqli
+	/var/www/lib/php on include path
+	php-memcached
+	sessions use symfony (only way of pages and websocket getting same session)
+	libevent extension (php-pear, php5-dev, libevent, libevent-dev, sudo pecl install "channel://pecl.php.net/libevent-0.1.0")
+
+Tornado:
+
+	/scripts/tornado_server helps with asynchronous timed events, e.g.
+	check premoves when the clock start delay is over.  Best run with
+	supervisord, or alternatively /scripts/chess_tornado-initscript
+
+	tornado in python modules dir
+
+	NOTE there can't be any files called "tornado" in the same dir as the
+	server script (including the script itself) otherwise it won't find the
+	tornado module
+
+Websocket:
+
+	/scripts/wsd is the PHP websocket server
+	ratchet is in lib/php
+	$ulimit -n 10000 (sets max. open file descriptors; each ws connection is one fd).  effect is temporary.
+
+Scripts:
+
+	dbload generates javascript and PHP constants from codes and
+	codetypes tables.
+
+	dbl adds column names to the js obfuscation blacklist
+	(~/bin/jsmin_files/blacklist)
+
+	min minifies (obfuscates) the javascript
+
+	js changes which directory "js" symlinks to - js_src or js_min.
+	development machines should usually have it set to src; production
+	to min.  e.g. $js min.

@@ -1,0 +1,81 @@
+#!/usr/bin/php
+<?php
+/*
+clean up anything that can be left hanging around
+*/
+
+chdir(dirname($_SERVER["SCRIPT_FILENAME"]));
+
+require_once "base.php";
+require_once "../php/db.php";
+require_once "../php/constants.php";
+require_once "Data.php";
+
+$now=mtime();
+$now_minus_1m=$now-(60*MSEC_PER_SEC);
+$now_minus_1d=$now-(60*60*24*MSEC_PER_SEC);
+$now_minus_min_live_quit=$now-(MIN_DC_TIME_TO_FORCE_RESIGN*MSEC_PER_SEC);
+
+/*
+abort non-started games (no move within 1m)
+
+NOTE commented out - nothing is done at the moment for aborted games
+(no dialog displayed etc), and for correspondence games this doesn't
+make sense.
+*/
+
+//$nonstarted_games=Db::table("
+//	select * from games
+//	where mtime_start < $now_minus_1m
+//	and not exists (
+//		select * from moves
+//		where moves.gid = games.gid
+//	)
+//");
+//
+//foreach($nonstarted_games as $gid) {
+//	$game=new LiveGame($gid);
+//	$game->server_cancel();
+//	$game->save();
+//}
+
+/*
+delete abandoned tables (no players seated, no updates in last day)
+*/
+
+Db::query("
+	delete from tables
+	where mtime_last_update < $now_minus_1d
+	and not exists (
+		select * from seats
+		where seats.tables = tables.id
+	)
+");
+
+/*
+discard un-acknowledged invites (more than a day old)
+*/
+
+Db::query("
+	delete from invites
+	where mtime_created < $now_minus_1d
+");
+
+/*
+TODO delete inactive quick challenges
+
+accepted
+last game to start finished more than 1h ago
+
+on load: "this table is no longer active - to view games played at it,
+go here"  or just it views the games - live table tab is also archived
+game viewer tab, same hash
+*/
+
+/*
+delete inactive longpolls (they build up if one returns with updates
+and then no more requests are fired with the same window id)
+*/
+
+//Db::query("delete from longpolls where mtime < ".($now-LONGPOLL_TIMEOUT*MSEC_PER_SEC));
+?>

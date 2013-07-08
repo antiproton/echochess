@@ -1,0 +1,3 @@
+function __oZZ(type,subject){_pZZ.iZZ(this);this.type=type||null;this.subject=subject||null;this.___m=new h(this);this.__gZZ();}
+__oZZ.prototype.__gZZ=function(){_.j.____f._zZZ(this,function(__hZZ){__hZZ.____L(this,__U,{"type":this.type,"subject":this.subject});});_.j.____g._zZZ(this,function(__hZZ){var data=__hZZ.____N(this);if(data!==null){this.___m.t({o:data});}});}
+__oZZ.prototype.__jZZ=function(){this._DZZ();}

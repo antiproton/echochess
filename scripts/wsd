@@ -1,0 +1,24 @@
+#!/usr/bin/php
+<?php
+$www="/var/www";
+
+file_put_contents("/var/run/wsd-chess.pid", getmypid());
+
+require_once "$www/lib/php/vendor/autoload.php";
+require_once "$www/chess/ws/App.php";
+
+use Ratchet\Session\SessionProvider;
+use Ratchet\WebSocket\WsServer;
+use Ratchet\Server\IoServer;
+use Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcachedSessionHandler;
+
+$memcached=new Memcached();
+$memcached->addServer("localhost", 11211);
+$app=new App();
+$handler=new MemcachedSessionHandler($memcached);
+$session=new SessionProvider($app, $handler);
+$ws_server=new WsServer($session);
+
+$server=IoServer::factory($ws_server, 8080);
+$server->run();
+?>

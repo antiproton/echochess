@@ -1,0 +1,3 @@
+var ___lZZ={};___lZZ.String={};___lZZ.String[__B]="1-0";___lZZ.String[__z]="0-1";___lZZ.String[__A]="\u00bd-\u00bd";___lZZ._qZZZZ=[__B,__z];___lZZ.DZZZZZ={};___lZZ.DZZZZZ[__B]=_____d;___lZZ.DZZZZZ[__z]=kZZZZ;___lZZ.EZZZZZ=function(FZZZZZ){var K;var GZZZZZ=[FZZZZZ.___cZZ,FZZZZZ.___dZZ][___lZZ.DZZZZZ[FZZZZZ.___lZZ]];if(FZZZZZ.___lZZ===__A){K="Drawn by ";}
+else{K=GZZZZZ+" won by ";}
+K+=_bZ[lZ][FZZZZZ.___mZZ]._fZ.toLowerCase();return K;}
