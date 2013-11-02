@@ -53,3 +53,9 @@ Scripts:
 	js changes which directory "js" symlinks to - js_src or js_min.
 	development machines should usually have it set to src; production
 	to min.  e.g. $js min.
+
+Directories:
+
+	VirtualHost DocumentRoot must match root dir of website (obviously)
+	/js is a symlink so the target needs to be updated if the root dir changes.
+	~/bin/js (which is also a symlink) has it hardcoded.

@@ -41,10 +41,10 @@ It forks to do this so that the curl request from the premove xhr comes back
 straight away.
 
 Each user that makes a premove before the game start will send a request to
-this, but it will only do one request to each url.  NOTE - it is important
+this, but it will only do one request for each gid.  NOTE - it is important
 that only one initial check gets done; if more than one (n) is done at
 the same time then n of whatever the first premove is will be added and it
-completely fucks everything.  up the arse.
+completely messes up everything.
 """
 
 class InitialPremoveCheckHandler(tornado.web.RequestHandler):

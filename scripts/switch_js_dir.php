@@ -6,7 +6,7 @@ to make it use the min or source version
 */
 
 $dirs=[
-	"/var/www/chess",
+	"/var/www/echochess",
 	"/var/www/lib"
 ];
 
