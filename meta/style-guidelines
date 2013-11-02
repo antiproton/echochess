@@ -1,0 +1,67 @@
+Coding style
+
+The most important thing is consistency in whatever formatting and naming
+conventions you use.  All of the existing code follows the same particular
+style, which will probably be a bit on the compact side for most people's
+tastes - for speed/ease of typing I don't hit the space bar much - but I
+appreciate that a lot of people find spaced out expressions easier to read
+and are in the habit of putting spaces around operators, so if you feel the
+need to deviate from the rest of the code in this aspect that's OK.
+
+The following rules should be adhered to strictly:
+
+Opening braces: on the same line
+
+Indentation: one real tab
+
+Here are my spacing rules, should you want to follow them:
+
+Spaces:
+
+	Between list items and function parameters -
+
+	var a=[1, 2, 3];
+
+	Between the closing bracket of the parameter list and the opening brace of a function -
+
+	function fn(a, b) {
+
+	}
+
+	Between the colon and the property value in object literals -
+
+	var obj={
+		x: 123
+	};
+
+No spaces:
+
+	Between operators/operands in an expression like this -
+
+	var b = 1 + 2; //too many spaces
+
+	Between the first/last list element/function parameter and the opening/closing
+	bracket -
+
+	var a=[ 1, 2, 3 ]; //too many spaces
+
+	Or between the function name and the parameter list opening bracket -
+
+	function fn ( a, b ) { //too many spaces
+
+	}
+
+Naming conventions - identifier names carry meaning (especially in the Javascript code)
+so these rules should be followed wherever possible, although there is some old
+code that doesn't follow them (/js/chess/Util.js - public methods in lowercase):
+
+Javascript class names*: title case e.g. LiveGame
+Javascript public properties/methods: title case e.g. GameId
+Javascript private properties/methods: lowercase with underscores e.g. game_id
+
+PHP class names: title case
+PHP properties/methods: lowercase with underscores
+
+*a class name in Javascript is the name of any function which is used directly as a
+constructor, or which is used to add functionality to an existing object either by
+looking at its prototype or calling its call or apply methods.
