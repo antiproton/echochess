@@ -14,8 +14,8 @@ require_once "php/livechess/Table.php";
 
 $result=false;
 
-if($session->user->signedin) {
-	$result=Table::cancel_open_challenges($session->user->username);
+if($user->signedin) {
+	$result=Table::cancel_open_challenges($user->username);
 }
 
 echo Data::serialise($result);

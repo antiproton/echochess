@@ -35,11 +35,11 @@ require_once "php/chess/Timing.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 
 	$user_rating=Ratings::get_rating(
-		$session->user->username,
+		$user->username,
 		GAME_TYPE_STANDARD,
 		$q["variant"],
 		Timing::get_format(TIMING_FISCHER_AFTER, $q["timing_initial"], $q["timing_increment"])
@@ -80,8 +80,8 @@ if($session->user->signedin) {
 			select id
 			from tables
 			where challenge_type='".CHALLENGE_TYPE_QUICK."'
-			and challenge_accepted=".Db::BOOL_FALSE."
-			and owner!='{$session->user->username}'
+			and challenge_accepted=".$db->db_value(false)."
+			and owner!='{$user->username}'
 		");
 
 		$query->add_cond($rating_min, "owner_rating", ">=");
@@ -95,17 +95,17 @@ if($session->user->signedin) {
 		$query->str.=" and (accept_rating_max is null or $user_rating<=accept_rating_max)";
 
 		if($q["choose_colour"]) {
-			$query->str.=" and (choose_colour=".Db::BOOL_FALSE." or challenge_colour=".opp_colour($q["challenge_colour"]).")";
+			$query->str.=" and (choose_colour=".$db->db_value(false)." or challenge_colour=".opp_colour($q["challenge_colour"]).")";
 		}
 
 		$query->str.=" order by abs(owner_rating-$user_rating) asc limit 1";
 
-		$existing_challenge=Db::cell($query->str);
+		$existing_challenge=$db->cell($query->str);
 	}
 
 	if($existing_challenge!==false) { //accept the challenge
 		$table=new Table($existing_challenge);
-		$table->challenge_accept($session->user->username);
+		$table->challenge_accept($user->username);
 		$result=$existing_challenge;
 	}
 
@@ -113,7 +113,7 @@ if($session->user->signedin) {
 		$table=new Table();
 
 		$table->setup(
-			$session->user->username,
+			$user->username,
 			GAME_TYPE_STANDARD,
 			$q["rated"],
 			EVENT_TYPE_CASUAL,
@@ -141,7 +141,7 @@ if($session->user->signedin) {
 		$id=$table->id;
 
 		session_commit();
-		Db::commit();
+		$db->commit();
 
 		$timeout=time()+QUICK_CHALLENGE_SEEK_TIMEOUT;
 		$usec_delay=LONGPOLL_DELAY*USEC_PER_SEC;
@@ -149,7 +149,7 @@ if($session->user->signedin) {
 		while(time()<$timeout) {
 			usleep($usec_delay);
 
-			$data=Db::row("select challenge_accepted, challenge_declined from tables where id=$id");
+			$data=$db->row("select challenge_accepted, challenge_declined from tables where id=$id");
 
 			if($data["challenge_accepted"]) {
 				$result=$id;

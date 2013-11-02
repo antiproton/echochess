@@ -14,12 +14,12 @@ require_once "Data.php";
 require_once "php/init.php";
 require_once "php/livechess/Table.php";
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 
 	if(isset($q["table"])) {
 		$table=new Table($q["table"]);
-		$table->challenge_decline($session->user->username);
+		$table->challenge_decline($user->username);
 		$result=$table->save();
 	}
 }

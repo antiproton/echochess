@@ -24,7 +24,7 @@ require_once "php/constants.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 
 	$query=new Query("
@@ -84,7 +84,7 @@ if($session->user->signedin) {
 
 				$query->str.="
 					and owner_rating $operator get_rating(
-						'{$session->user->username}',
+						'{$user->username}',
 						tables.type,
 						tables.variant,
 						tables.format
@@ -105,7 +105,7 @@ if($session->user->signedin) {
 	$query->str.=" order by owner_rating desc";
 	$query->str.=" limit ".TABLE_LIST_LIMIT_CUSTOM;
 
-	$result=Db::table($query->str);
+	$result=$db->table($query->str);
 }
 
 echo Data::serialise($result);

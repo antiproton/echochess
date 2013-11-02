@@ -31,7 +31,7 @@ $q=Data::unserialise_clean($_GET["q"]);
 
 if(isset($q["table"])) {
 	$table=new Table($q["table"]);
-	$result=($table->leave($session->user->username) && $table->save());
+	$result=($table->leave($user->username) && $table->save());
 }
 
 echo Data::serialise($result);

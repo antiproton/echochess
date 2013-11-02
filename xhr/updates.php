@@ -11,30 +11,20 @@ the response contains the server time as well, so it's:
 }
 */
 
-/*
-NOTE input is stripped of single quotes, but data that is supposed to be
-numeric can still be text, so numbers should be cast outside the sql query
-or quoted inside it:
-
-"select * from tables where id='0 or 1=1; drop table users\c'"
-
-or
-
-$id=(int) "0 or 1=1; drop table users\\c";
-"select * from tables where id=$id"
-*/
-
 require_once "base.php";
 require_once "dbcodes/chess.php";
 require_once "Data.php";
+require_once "Db.php";
+require_once "php/User.php";
 require_once "php/chess/util.php";
 require_once "php/constants.php";
 require_once "php/init.php";
-require_once "php/db.php";
-require_once "Clean.php";
 require_once "php/Messages.php";
 require_once "php/GenericUpdates.php";
 require_once "php/livechess/Premoves.php";
+
+$db=$db->getinst();
+$user=User::getinst();
 
 session_commit();
 
@@ -43,27 +33,26 @@ $q=Data::unserialise_clean($_GET["q"]);
 $usec_delay=LONGPOLL_DELAY*USEC_PER_SEC;
 $timeout=time()+LONGPOLL_TIMEOUT;
 $mtime=mtime();
-$window_id=Clean::$get["id"];
+$window_id=$_GET["id"];
 
-if($session->user->signedin) {
-	$user=$session->user->username;
+if($user->signedin) {
+	$user=$user->username;
 
-	Db::insert_or_update("longpolls", [
+	$db->insert_or_update("longpolls", [
 		"user"=>$user,
 		"window_id"=>$window_id,
 		"mtime"=>$mtime
 	]);
 
-	msg("\n----------------------------------------------------------------");
 	msg("$user $window_id $mtime starting");
 
-	Db::commit();
+	$db->commit();
 
 	while(true) {
 		$iteration_start_time=mtime();
 		$have_updates=false;
 
-		$current_mtime=Db::cell("
+		$current_mtime=$db->cell("
 			select mtime
 			from longpolls
 			where user='$user'
@@ -81,19 +70,19 @@ if($session->user->signedin) {
 		}
 
 		if(time()>$timeout || $mtime!==$current_mtime) {
-			msg("$user $window_id $mtime $current_mtime deleting - count ".Db::cell("select count(*) from longpolls where user='$user'"));
+			msg("$user $window_id $mtime $current_mtime deleting - count ".$db->cell("select count(*) from longpolls where user='$user'"));
 
-			Db::remove("longpolls", [
+			$db->remove("longpolls", [
 				"user"=>$user,
 				"mtime"=>$mtime,
 				"window_id"=>$window_id
 			]);
 
-			msg(Data::serialise(Db::table("select * from longpolls where user='$user'")));
+			error_log(Data::serialise($db->table("select * from longpolls where user='$user'")));
 			msg("printing mysql error");
-			msg(mysqli_error(Db::$default_link));
+			//msg(mysqli_error($db->$default_link));
 
-			msg("$user $window_id $mtime $current_mtime deleted - count ".Db::cell("select count(*) from longpolls"));
+			msg("$user $window_id $mtime $current_mtime deleted - count ".$db->cell("select count(*) from longpolls"));
 
 			break;
 		}
@@ -162,7 +151,7 @@ if($session->user->signedin) {
 					returns a list of open challenges directed at the user
 					*/
 
-					$table=Db::table("
+					$table=$db->table("
 						select
 							owner,
 							variant,
@@ -175,7 +164,7 @@ if($session->user->signedin) {
 							id
 						from tables
 						where challenge_type='".CHALLENGE_TYPE_QUICK."'
-						and challenge_accepted=".Db::BOOL_FALSE."
+						and challenge_accepted=".$db->db_value(false)."
 						and challenge_to='$user'
 						and mtime_created>'{$data["last_challenge_mtime"]}'
 					");
@@ -194,7 +183,7 @@ if($session->user->signedin) {
 					"mtime_last_update"
 					*/
 
-					$row=Db::row("
+					$row=$db->row("
 						select *
 						from tables
 						where id='{$data["id"]}'
@@ -223,7 +212,7 @@ if($session->user->signedin) {
 					unnecessary so has been taken out
 					*/
 
-					$row=Db::row("
+					$row=$db->row("
 						select user, colour, ready
 						from seats
 						where tables='{$data["table"]}'
@@ -260,7 +249,7 @@ if($session->user->signedin) {
 					"mtime_last_update"
 					*/
 
-					$row=Db::row("
+					$row=$db->row("
 						select
 							state,
 							threefold_claimable,
@@ -304,7 +293,7 @@ if($session->user->signedin) {
 					*/
 
 					$where="gid='{$data["gid"]}' and move_index>'{$data["move_index"]}'";
-					$table=Db::table("select * from moves where $where order by move_index");
+					$table=$db->table("select * from moves where $where order by move_index");
 					$count=count($table);
 
 					if($table!==false && $count>0) {
@@ -325,7 +314,7 @@ if($session->user->signedin) {
 					"move_index"
 					*/
 
-					$exists=Db::row("
+					$exists=$db->row("
 						select move_index
 						from moves
 						where gid='{$data["gid"]}'
@@ -352,7 +341,7 @@ if($session->user->signedin) {
 					premoves update
 					*/
 
-					$opp_moves=Db::cell("
+					$opp_moves=$db->cell("
 						select count(*)
 						from moves
 						where gid='{$data["gid"]}'
@@ -361,7 +350,7 @@ if($session->user->signedin) {
 					");
 
 					if($opp_moves>0) {
-						$update[$id]=Db::table("
+						$update[$id]=$db->table("
 							select fs, ts, promote_to, move_index
 							from premoves
 							where gid='{$data["gid"]}'
@@ -396,7 +385,7 @@ if($session->user->signedin) {
 					if($data["type"]===COMMENT_TYPE_TABLE) {
 						$query.="
 							and (
-								(select game_in_progress from tables where id='{$data["subject"]}')=".Db::BOOL_FALSE."
+								(select game_in_progress from tables where id='{$data["subject"]}')=".$db->BOOL_FALSE."
 								or
 								not exists (
 									select * from seats
@@ -415,7 +404,7 @@ if($session->user->signedin) {
 						";
 					}
 
-					$comments=Db::table($query);
+					$comments=$db->table($query);
 
 					if(count($comments)>0) {
 						$update[$id]=$comments;
@@ -445,7 +434,6 @@ if($session->user->signedin) {
 	}
 
 	msg("$user $window_id $mtime $current_mtime quitting");
-	msg("----------------------------------------------------------------\n");
 
 	echo Data::serialise([
 		"data"=>$update,

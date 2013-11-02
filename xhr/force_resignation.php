@@ -17,7 +17,7 @@ require_once "php/constants.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 
 	if(isset($q["gid"])) {
@@ -32,7 +32,7 @@ if($session->user->signedin) {
 
 		if($game->state===GAME_STATE_IN_PROGRESS && $game->timing_initial<=LONGEST_GAME_TO_RESIGN_IF_QUIT) {
 			foreach($colours as $field=>$colour) {
-				if($game->$field!==$session->user->username) {
+				if($game->$field!==$user->username) {
 					$opp_colour=$colour;
 					$opponent=$game->$field;
 
@@ -41,7 +41,7 @@ if($session->user->signedin) {
 			}
 
 			if($opponent!==null) {
-				$mtime_quit=Db::cell("
+				$mtime_quit=$db->cell("
 					select mtime_quit
 					from live_table_quit
 					where user='$opponent'

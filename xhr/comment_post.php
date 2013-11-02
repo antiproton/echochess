@@ -22,8 +22,8 @@ require_once "php/init.php";
 
 $result=false;
 
-if($session->user->signedin) {
-	$q=Data::unserialise_clean($_GET["q"]);
+if($user->signedin) {
+	$q=Data::unserialise($_GET["q"]);
 
 	if(isset($q["type"]) && isset($q["subject"]) && isset($q["body"]) && strlen($q["body"])>0) {
 		$subject_line="";
@@ -33,7 +33,7 @@ if($session->user->signedin) {
 		}
 
 		$data=[
-			"user"=>$session->user->username,
+			"user"=>$user->username,
 			"type"=>$q["type"],
 			"subject"=>$q["subject"],
 			"body"=>$q["body"],
@@ -46,7 +46,7 @@ if($session->user->signedin) {
 			$data["mtime_posted"]=0;
 		}
 
-		$result=Db::insert("comments", $data);
+		$result=$db->insert("comments", $data);
 	}
 }
 

@@ -36,7 +36,7 @@ FIXME insecure (commented for now)
 //			and moves.label='{$line[0]}'
 //		";
 //
-//		$games=Db::col($query);
+//		$games=$db->col($query);
 //
 //		echo Data::serialise($games);
 //	}

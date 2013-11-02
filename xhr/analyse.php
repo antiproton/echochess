@@ -24,7 +24,7 @@ require_once "php/stockfish.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 
 	$fen=FEN_INITIAL;

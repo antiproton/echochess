@@ -21,7 +21,7 @@ $result=false;
 $q=Data::unserialise_clean($_GET["q"]);
 
 if(isset($q["user"]) && isset($q["type"]) && isset($q["variant"]) && isset($q["format"])) {
-	$result=Db::cell("select round(get_rating('{$q["user"]}', '{$q["type"]}', '{$q["variant"]}', '{$q["format"]}'))");
+	$result=$db->cell("select round(get_rating('{$q["user"]}', '{$q["type"]}', '{$q["variant"]}', '{$q["format"]}'))");
 }
 
 echo Data::serialise($result);

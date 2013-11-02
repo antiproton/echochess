@@ -13,11 +13,11 @@ require_once "dbcodes/chess.php";
 require_once "php/constants.php";
 require_once "php/init.php";
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 
 	session_commit();
-	Db::commit();
+	$db->commit();
 
 	$timeout=time()+QUICK_CHALLENGE_SEEK_TIMEOUT;
 	$usec_delay=LONGPOLL_DELAY*USEC_PER_SEC;
@@ -26,10 +26,10 @@ if($session->user->signedin) {
 		select id
 		from tables
 		where id='{$q["id"]}'
-		and challenge_accepted=".Db::BOOL_FALSE."
+		and challenge_accepted=".$db->db_value(false)."
 	";
 
-	while(time()<$timeout && Db::cell($query)) {
+	while(time()<$timeout && $db->cell($query)) {
 		usleep($usec_delay);
 	}
 }

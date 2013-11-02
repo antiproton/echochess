@@ -23,7 +23,7 @@ $result=false;
 $q=Data::unserialise_clean($_GET["q"]);
 
 if(isset($q["type"]) && isset($q["subject"])) {
-	$result=Db::table("
+	$result=$db->table("
 		select user, body, subject_line, mtime_posted
 		from comments
 		where type='{$q["type"]}'

@@ -15,11 +15,11 @@ require_once "php/init.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 
-	$update=Db::update("user_prefs", $q, [
-		"user"=>$session->user->username
+	$update=$db->update("user_prefs", $q, [
+		"user"=>$user->username
 	]);
 
 	if($update!==false) {

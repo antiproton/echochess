@@ -23,11 +23,11 @@ require_once "dbcodes/chess.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 	$limit=(int) $q["games"];
 
-	$result=Db::table("
+	$result=$db->table("
 		select gid, game_id
 		from games
 		where tables='{$q["table"]}'

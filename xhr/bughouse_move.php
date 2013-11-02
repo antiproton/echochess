@@ -19,7 +19,7 @@ require_once "php/init.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 
 	if(isset($q["gid"]) && isset($q["piece"]) && isset($q["ts"])) {
@@ -30,10 +30,10 @@ if($session->user->signedin) {
 		$piece=$q["piece"];
 		$square=$q["ts"];
 
-		$colour=Db::cell("
+		$colour=$db->cell("
 			select colour
 			from seats
-			where user='{$session->user->username}'
+			where user='{$user->username}'
 			and gid='{$q["gid"]}'
 			and type='".SEAT_TYPE_PLAYER."'
 		");
@@ -41,7 +41,7 @@ if($session->user->signedin) {
 		if($colour!==false) {
 			$game=new LiveGame($q["gid"]);
 
-			if($game->bughouse_move($session->user->username, $piece, $square, false, $move_mtime)->success) {
+			if($game->bughouse_move($user->username, $piece, $square, false, $move_mtime)->success) {
 				$result=$game->history->main_line->last_move->mtime;
 				$game->save();
 			}

@@ -19,7 +19,7 @@ require_once "php/livechess/LiveGame.php";
 
 session_commit();
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 	$gid=$q["gid"];
 

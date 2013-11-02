@@ -24,7 +24,7 @@ require_once "php/constants.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 
 	$rating_conditions=[
@@ -48,8 +48,8 @@ if($session->user->signedin) {
 		where
 			event_type='".EVENT_TYPE_CASUAL."'
 			and challenge_type='".CHALLENGE_TYPE_QUICK."'
-			and challenge_accepted=".Db::BOOL_FALSE."
-			and (challenge_to is null or challenge_to='{$session->user->username}')
+			and challenge_accepted=".$db->db_value(false)."
+			and (challenge_to is null or challenge_to='{$user->username}')
 	");
 
 	/*
@@ -62,7 +62,7 @@ if($session->user->signedin) {
 		$query->str.=" and (
 			accept_$field is null
 			or get_rating(
-				'{$session->user->username}',
+				'{$user->username}',
 				'".GAME_TYPE_STANDARD."',
 				tables.variant,
 				tables.format
@@ -75,7 +75,7 @@ if($session->user->signedin) {
 	$query->add_cond_arr($q, "rated");
 
 	if(isset($q["colour"])) {
-		$query->str.=" and choose_colour=".Db::BOOL_TRUE;
+		$query->str.=" and choose_colour=".$db->db_value(true);
 		$query->str.=" and challenge_colour=".opp_colour($q["colour"]);
 	}
 
@@ -101,7 +101,7 @@ if($session->user->signedin) {
 
 				$query->str.="
 					and owner_rating $operator get_rating(
-						'{$session->user->username}',
+						'{$user->username}',
 						tables.type,
 						tables.variant,
 						tables.format
@@ -122,7 +122,7 @@ if($session->user->signedin) {
 	$query->str.=" order by owner_rating desc";
 	$query->str.=" limit ".TABLE_LIST_LIMIT_QUICK;
 
-	$result=Db::table($query->str);
+	$result=$db->table($query->str);
 }
 
 echo Data::serialise($result);

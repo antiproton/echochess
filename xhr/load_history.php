@@ -17,9 +17,9 @@ require_once "dbcodes/chess.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
-	$result=Db::table("select * from moves where gid='{$q["gid"]}'");
+	$result=$db->table("select * from moves where gid='{$q["gid"]}'");
 }
 
 echo Data::serialise($result);

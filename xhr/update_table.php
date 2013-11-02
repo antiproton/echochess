@@ -29,7 +29,7 @@ require_once "php/livechess/Table.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 
 	if(isset($q["id"])) {

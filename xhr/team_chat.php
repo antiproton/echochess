@@ -11,10 +11,10 @@ require_once "dbcodes/chess.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise($_GET["q"]);
 
-	$result=Messages::send($session->user->username, $q["partner"], MESSAGE_TYPE_TEAM_CHAT, $q["table"], $q["message"]);
+	$result=Messages::send($user->username, $q["partner"], MESSAGE_TYPE_TEAM_CHAT, $q["table"], $q["message"]);
 }
 
 echo Data::serialise($result);

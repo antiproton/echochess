@@ -16,10 +16,10 @@ require_once "php/init.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 	$gid=$q["gid"];
-	$result=Db::row("select * from games where gid='$gid'");
+	$result=$db->row("select * from games where gid='$gid'");
 
 	/*
 	add a timestamp for use in calculating player clock times

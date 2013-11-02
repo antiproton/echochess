@@ -21,10 +21,10 @@ require_once "php/livechess/LiveGame.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 	$id=$q["id"];
-	$result=Db::row("select * from tables where id='$id'");
+	$result=$db->row("select * from tables where id='$id'");
 
 	if($result!==false) {
 		/*
@@ -32,7 +32,7 @@ if($session->user->signedin) {
 		xhr when time got low
 		*/
 
-		$games_in_progress=Db::col("
+		$games_in_progress=$db->col("
 			select gid
 			from games
 			where state='".GAME_STATE_IN_PROGRESS."'
@@ -48,13 +48,13 @@ if($session->user->signedin) {
 				}
 			}
 		}
-		
+
 		/*
 		de-quit from the table and message other seated players saying the user
 		has connected
 		*/
 
-		$seats=Db::col("
+		$seats=$db->col("
 			select user
 			from seats
 			where tables='$id'
@@ -65,7 +65,7 @@ if($session->user->signedin) {
 
 		if($seats!==false) {
 			foreach($seats as $user) {
-				if($user===$session->user->username) {
+				if($user===$user->username) {
 					$seated=true;
 
 					break;
@@ -74,14 +74,14 @@ if($session->user->signedin) {
 		}
 
 		if($seated) {
-			Db::remove("live_table_quit", [
-				"user"=>$session->user->username,
+			$db->remove("live_table_quit", [
+				"user"=>$user->username,
 				"tables"=>$id
 			]);
 
 			foreach($seats as $user) {
-				if($user!==$session->user->username) {
-					Messages::send($session->user->username, $user, MESSAGE_TYPE_OPPONENT_CONNECT, $id);
+				if($user!==$user->username) {
+					Messages::send($user->username, $user, MESSAGE_TYPE_OPPONENT_CONNECT, $id);
 				}
 			}
 		}

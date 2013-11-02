@@ -25,7 +25,7 @@ require_once "php/livechess/Seat.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 	$promote_to=null;
 
@@ -33,10 +33,10 @@ if($session->user->signedin) {
 		$promote_to=$q["promote_to"];
 	}
 
-	if(Seat::is_seated($session->user->username, $q["gid"])) {
+	if(Seat::is_seated($user->username, $q["gid"])) {
 		$game=new LiveGame($q["gid"]);
 		$game->check_premoves();
-		$success=$game->premove($session->user->username, $q["fs"], $q["ts"], $q["move_index"], $promote_to);
+		$success=$game->premove($user->username, $q["fs"], $q["ts"], $q["move_index"], $promote_to);
 
 		if($success) {
 			$game->check_premoves();

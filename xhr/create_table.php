@@ -37,7 +37,7 @@ require_once "php/livechess/Table.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 
 	if(isset($q["type"])) {
@@ -50,7 +50,7 @@ if($session->user->signedin) {
 
 		$table=new Table();
 
-		if($table->setup($session->user->username, $q["type"], $q["rated"], EVENT_TYPE_CASUAL, CHALLENGE_TYPE_CUSTOM, false, WHITE, null, $fen)) {
+		if($table->setup($user->username, $q["type"], $q["rated"], EVENT_TYPE_CASUAL, CHALLENGE_TYPE_CUSTOM, false, WHITE, null, $fen)) {
 			$optional_fields=[
 				"variant",
 				"subvariant",
@@ -90,7 +90,7 @@ if($session->user->signedin) {
 				$format=Timing::get_format($q["timing_style"], $q["timing_initial"], $increment);
 			}
 
-			$table->owner_rating=Ratings::get_rating($session->user->username, $q["type"], $variant, $format);
+			$table->owner_rating=Ratings::get_rating($user->username, $q["type"], $variant, $format);
 
 			foreach($optional_fields as $field) {
 				if(isset($q[$field])) {

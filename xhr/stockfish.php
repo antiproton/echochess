@@ -19,8 +19,8 @@ require_once "php/chess/Fen.php";
 
 $result=false;
 
-if($session->user->signedin) {
-	$fen=Db::cell("select fen from games where gid='{$q["gid"]}'");
+if($user->signedin) {
+	$fen=$db->cell("select fen from games where gid='{$q["gid"]}'");
 
 	if($fen!==false) {
 		/*
@@ -38,7 +38,7 @@ if($session->user->signedin) {
 			$position_cmd.=" $fen";
 		}
 
-		$table=Db::table("select fs, ts, promote_to from moves where gid='{$q["gid"]}' order by move_index");
+		$table=$db->table("select fs, ts, promote_to from moves where gid='{$q["gid"]}' order by move_index");
 		$moves=[];
 
 		foreach($table as $row) {

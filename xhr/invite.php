@@ -21,11 +21,11 @@ require_once "php/init.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::serialise($_GET["q"]);
 
 	if(isset($q["table"]) && isset($q["user"])) {
-		$owner=Db::row("select id from tables where id='{$q["table"]}' and owner='{$session->user->username}'");
+		$owner=$db->row("select id from tables where id='{$q["table"]}' and owner='{$user->username}'");
 
 		if($owner!==false) {
 			$result=Invites::invite($q["table"], $q["user"]);

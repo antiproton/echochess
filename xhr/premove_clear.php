@@ -20,7 +20,7 @@ require_once "dbcodes/chess.php";
 require_once "php/livechess/Seat.php";
 require_once "php/livechess/Premoves.php";
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 	$move_index=null;
 
@@ -28,8 +28,8 @@ if($session->user->signedin) {
 		$move_index=$q["move_index"];
 	}
 
-	if(Seat::is_seated($session->user->username, $q["gid"])) {
-		Premoves::delete($session->user->username, $q["gid"], $move_index);
+	if(Seat::is_seated($user->username, $q["gid"])) {
+		Premoves::delete($user->username, $q["gid"], $move_index);
 	}
 }
 ?>

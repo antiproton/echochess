@@ -16,19 +16,19 @@ require_once "php/init.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 
 	if(isset($q["gid"])) {
-		$colour=Db::cell("
+		$colour=$db->cell("
 			select colour from seats
-			where user='{$session->user->username}'
+			where user='{$user->username}'
 			and gid='{$q["gid"]}'
 			and type='".SEAT_TYPE_PLAYER."'
 		");
 
 		if($colour!==false) {
-			$result=Messages::send($session->user->username, "opponent", MESSAGE_TYPE_DRAW_DECLINE);
+			$result=Messages::send($user->username, "opponent", MESSAGE_TYPE_DRAW_DECLINE);
 		}
 	}
 }

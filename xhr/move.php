@@ -19,7 +19,7 @@ require_once "php/init.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 
 	/*
@@ -36,9 +36,9 @@ if($session->user->signedin) {
 	$move_mtime=$now-$time_compensation;
 
 	if(isset($q["gid"]) && isset($q["fs"]) && isset($q["ts"])) {
-		$colour=Db::cell("
+		$colour=$db->cell("
 			select colour from seats
-			where user='{$session->user->username}'
+			where user='{$user->username}'
 			and gid='{$q["gid"]}'
 			and type='".SEAT_TYPE_PLAYER."'
 		");
@@ -54,7 +54,7 @@ if($session->user->signedin) {
 			$game->check_premoves();
 
 			if($game->position->active===$colour) {
-				if($game->move($session->user->username, $q["fs"], $q["ts"], $promote_to, false, false, $move_mtime)->success) {
+				if($game->move($user->username, $q["fs"], $q["ts"], $promote_to, false, false, $move_mtime)->success) {
 					$result=$now;
 					$game->check_premoves();
 					$game->save();

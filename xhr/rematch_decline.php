@@ -19,12 +19,12 @@ require_once "php/livechess/Table.php";
 
 $result=false;
 
-if($session->user->signedin) {
+if($user->signedin) {
 	$q=Data::unserialise_clean($_GET["q"]);
 
 	if(isset($q["table"])) {
 		$table=new Table($q["table"]);
-		$table->rematch_decline($session->user->username);
+		$table->rematch_decline($user->username);
 		$result=$table->save();
 	}
 }
