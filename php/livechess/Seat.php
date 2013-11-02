@@ -4,11 +4,13 @@ require_once "Db.php";
 
 /*
 TODO switch to update_row
+
+have switched, prop is tables now...
 */
 
 class Seat extends DbRow {
 	public $user;
-	public $table;
+	public $tables;
 	public $type;
 	public $gid=null;
 	public $game_id=null;
@@ -17,7 +19,7 @@ class Seat extends DbRow {
 
 	protected $fields=[
 		"user",
-		"table",
+		"tables",
 		"type",
 		"gid",
 		"game_id",
@@ -30,7 +32,7 @@ class Seat extends DbRow {
 
 	public function setup($user, $table, $type, $colour=null, $game_id=null) {
 		$this->user=$user;
-		$this->table=$table;
+		$this->tables=$table;
 		$this->type=$type;
 		$this->game_id=$game_id;
 		$this->colour=$colour;

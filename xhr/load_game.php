@@ -11,7 +11,7 @@ the game data or false
 
 require_once "base.php";
 require_once "Data.php";
-require_once "php/db.php";
+require_once "Db.php";
 require_once "php/init.php";
 
 $result=false;

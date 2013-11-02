@@ -13,7 +13,7 @@ opponents are notified that the user has connected.
 
 require_once "base.php";
 require_once "Data.php";
-require_once "php/db.php";
+require_once "Db.php";
 require_once "php/init.php";
 require_once "dbcodes/chess.php";
 require_once "php/Messages.php";

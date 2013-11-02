@@ -385,7 +385,7 @@ if($user->signedin) {
 					if($data["type"]===COMMENT_TYPE_TABLE) {
 						$query.="
 							and (
-								(select game_in_progress from tables where id='{$data["subject"]}')=".$db->BOOL_FALSE."
+								(select game_in_progress from tables where id='{$data["subject"]}')=".$db->db_value(false)."
 								or
 								not exists (
 									select * from seats

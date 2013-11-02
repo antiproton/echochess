@@ -21,6 +21,7 @@ require_once "dbcodes/chess.php";
 require_once "php/init.php";
 require_once "Query.php";
 require_once "php/constants.php";
+require_once "php/chess/constants.php";
 
 $result=false;
 
