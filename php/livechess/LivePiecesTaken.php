@@ -3,10 +3,13 @@
 simple class for dealing with the pieces_taken table
 
 TODO could do with indexing it by colour or summat
+
+FIXME all these have too many Db::getinst calls - they need to extend DbRow,
+but then they need to extend their own stuff as well - what to do...
 */
 
 require_once "php/chess/PiecesTaken.php";
-require_once "php/db.php";
+require_once "Db.php";
 
 class LivePiecesTaken extends PiecesTaken{
 	public $gid;
@@ -17,9 +20,10 @@ class LivePiecesTaken extends PiecesTaken{
 	}
 
 	public function add($piece) {
+		$db=Db::getinst();
 		$success=false;
 
-		$ins=Db::insert($this->table_name, array(
+		$ins=$db->insert($this->table_name, array(
 			"colour"=>colour($piece),
 			"type"=>type($piece),
 			"piece"=>$piece,
@@ -36,8 +40,9 @@ class LivePiecesTaken extends PiecesTaken{
 	}
 
 	public function remove($piece) {
+		$db=Db::getinst();
 		$success=false;
-		$del=Db::query("delete from {$this->table_name} where gid='{$this->gid}' and piece='$piece' limit 1");
+		$del=$db->query("delete from {$this->table_name} where gid='{$this->gid}' and piece='$piece' limit 1");
 
 		if($del) {
 			$success=parent::remove($piece);
@@ -47,10 +52,11 @@ class LivePiecesTaken extends PiecesTaken{
 	}
 
 	public function db_load() {
+		$db=Db::getinst();
 		$success=false;
 		$this->pieces=array();
 
-		$table=Db::table("select piece from {$this->table_name} where gid='{$this->gid}'");
+		$table=$db->table("select piece from {$this->table_name} where gid='{$this->gid}'");
 
 		if($table!==false) {
 			foreach($table as $row) {
@@ -64,7 +70,8 @@ class LivePiecesTaken extends PiecesTaken{
 	}
 
 	public function clear() {
-		return Db::remove($this->table_name, [
+		$db=Db::getinst();
+		return $db->remove($this->table_name, [
 			"gid"=>$this->gid
 		]);
 	}

@@ -1,6 +1,9 @@
 <?php
 require_once "base.php";
 require_once "php/init_page.php";
+require_once "Page.php";
+require_once "php/UserPrefs.php";
+require_once "JsRequestInfo.php";
 
 /*
 some heads change the req - this loop makes sure the new head file is
@@ -9,20 +12,22 @@ loaded if that happens.
 
 $original_path=null;
 
-while($session->page->path!==$original_path) {
-	$original_path=$session->page->path;
+$page=Page::getinst();
 
-	if(file_exists($session->page->head)) {
-		include $session->page->head;
+while($page->path!==$original_path) {
+	$original_path=$page->path;
+
+	if(file_exists($page->head)) {
+		include $page->head;
 	}
 
 	JsRequestInfo::$data["user"]=[
-		"signedin"=>$session->user->signedin,
-		"username"=>$session->user->username
+		"signedin"=>$user->signedin,
+		"username"=>$user->username
 	];
 
-	if($session->user->signedin) {
-		JsRequestInfo::$data["user_prefs"]=UserPrefs::get($session->user->username);
+	if($user->signedin) {
+		JsRequestInfo::$data["user_prefs"]=UserPrefs::get($user->username);
 	}
 }
 ?>
@@ -39,23 +44,23 @@ while($session->page->path!==$original_path) {
 		loadw("/css/main.css");
 		loadw("/css/fonts.css");
 
-		if(file_exists($session->page->css)) {
-			include $session->page->css;
+		if(file_exists($page->css)) {
+			include $page->css;
 		}
 		?>
 		</style>
 		<script type="text/javascript">
 		<?php
-		if(file_exists($session->page->js)) {
-			include $session->page->js;
+		if(file_exists($page->js)) {
+			include $page->js;
 		}
 		?>
 		</script>
 	</head>
-	<body class="<?php echo $session->page->name; ?>">
+	<body class="<?php echo $page->name; ?>">
 		<?php
-		if(file_exists($session->page->body)) {
-			include $session->page->body;
+		if(file_exists($page->body)) {
+			include $page->body;
 		}
 		?>
 		<!-- Start of StatCounter Code for Default Guide -->

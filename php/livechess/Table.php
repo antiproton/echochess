@@ -2,6 +2,7 @@
 require_once "base.php";
 require_once "dbcodes/chess.php";
 require_once "Data.php";
+require_once "Db.php";
 require_once "php/constants.php";
 require_once "php/chess/constants.php";
 require_once "php/chess/Timing.php";
@@ -56,6 +57,7 @@ class Table{
 	private $is_setup=false;
 	private $row=null;
 	private $table_name="tables";
+	private $db;
 
 	private static $update_row=[
 		"owner",
@@ -102,6 +104,8 @@ class Table{
 	];
 
 	public function __construct($id=null) {
+		$this->db=Db::getinst();
+
 		if($id!==null) {
 			$this->load($id);
 		}
@@ -179,7 +183,7 @@ class Table{
 				$ratios=[];
 
 				foreach($players as $key=>$plr) { //a minimum value of 1 is used to avoid div by 0
-					$ratio[$key]=Db::cell("
+					$ratio[$key]=$this->db->cell("
 						select round(quick_challenges_as_white/greatest(1, quick_challenges_as_black), 4)
 						from users
 						where username='$plr'
@@ -502,7 +506,7 @@ class Table{
 
 	public function load($id) {
 		$success=false;
-		$row=Db::row("select * from {$this->table_name} where id='$id'");
+		$row=$this->db->row("select * from {$this->table_name} where id='$id'");
 
 		if($row!==false) {
 			$this->load_row($row);
@@ -551,7 +555,7 @@ class Table{
 
 				$row["mtime_last_update"]=$update_time;
 
-				$id=Db::insert($this->table_name, $row);
+				$id=$this->db->insert($this->table_name, $row);
 
 				if($id!==false) {
 					$this->id=$id;
@@ -582,7 +586,7 @@ class Table{
 				$update_time=mtime();
 				$update["mtime_last_update"]=$update_time;
 
-				$success=Db::update($this->table_name, $update, [
+				$success=$this->db->update($this->table_name, $update, [
 					"id"=>$this->id
 				]);
 
@@ -601,7 +605,7 @@ class Table{
 
 	public function delete() {
 		if(!$this->is_new) {
-			Db::remove($this->table_name, [
+			$this->db->remove($this->table_name, [
 				"id"=>$this->id
 			]);
 		}
@@ -757,7 +761,7 @@ class Table{
 			$this->guest_rematch_ready=false;
 			$success=$this->save();
 
-			Db::remove("live_table_quit", [
+			$this->db->remove("live_table_quit", [
 				"tables"=>$this->id
 			]);
 		}
@@ -795,7 +799,7 @@ class Table{
 				$this->last_starting_fen=$game->starting_position->get_fen();
 				$this->games_played++; //only increment once for bughouse games
 
-				Db::remove("live_table_quit", [
+				$this->db->remove("live_table_quit", [
 					"tables"=>$this->id
 				]);
 			}
@@ -818,7 +822,7 @@ class Table{
 
 	private function load_seats() {
 		if(!$this->is_new) {
-			$table=Db::table("select * from seats where tables='{$this->id}'");
+			$table=$this->db->table("select * from seats where tables='{$this->id}'");
 
 			foreach($table as $row) {
 				$seat=new Seat();
@@ -829,7 +833,7 @@ class Table{
 	}
 
 	public static function cancel_open_challenges($user) {
-		return Db::remove("tables", [
+		return $this->db->remove("tables", [
 			"owner"=>$user,
 			"challenge_type"=>CHALLENGE_TYPE_QUICK,
 			"challenge_accepted"=>false
@@ -838,7 +842,7 @@ class Table{
 
 	public function load_games() { //NOTE not sure if this will ever be used, might be useful for debugging though
 		if(!$this->is_new) {
-			$table=Db::table("select * from games where tables='{$this->id}'");
+			$table=$this->db->table("select * from games where tables='{$this->id}'");
 
 			foreach($table as $row) {
 				$game=new LiveGame();

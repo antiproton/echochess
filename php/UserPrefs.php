@@ -3,21 +3,24 @@
 UserPrefs
 */
 
-require_once "php/db.php";
+require_once "Db.php";
 
 class UserPrefs {
 	public $row;
 
 	public function load($user) {
-		$this->load_row(Db::row("select * from user_prefs where user='$user'"));
+		$db=Db::getinst();
+		$this->load_row($db->row("select * from user_prefs where user='$user'"));
 	}
 
 	public function load_row($row) {
+		$db=Db::getinst();
 		$this->row=$row;
 	}
 
 	public static function get($username) {
-		return Db::row("select * from user_prefs where user='$username'");
+		$db=Db::getinst();
+		return $db->row("select * from user_prefs where user='$username'");
 	}
 
 	public static function get_defaults() {
@@ -26,7 +29,8 @@ class UserPrefs {
 		default prefs.
 		*/
 
-		return Db::row("select * from user_prefs where user is null");
+		$db=Db::getinst();
+		return $db->row("select * from user_prefs where user is null");
 	}
 }
 ?>

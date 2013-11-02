@@ -1,7 +1,7 @@
 <?php
 require_once "dbcodes/chess.php";
 require_once "base.php";
-require_once "php/db.php";
+require_once "Db.php";
 require_once "php/constants.php";
 require_once "php/User.php";
 require_once "php/chess/Game.php";
@@ -461,8 +461,9 @@ class LiveGame extends Game {
 	}
 
 	public function load($gid) {
+		$db=Db::getinst();
 		$success=false;
-		$row=Db::row("select * from {$this->table_name} where gid='$gid'");
+		$row=$db->row("select * from {$this->table_name} where gid='$gid'");
 
 		if($row!==false) {
 			$this->load_row($row);
@@ -506,6 +507,8 @@ class LiveGame extends Game {
 	}
 
 	public function save() {
+		$db=Db::getinst();
+
 		$success=false;
 
 		if($this->is_new) {
@@ -528,7 +531,7 @@ class LiveGame extends Game {
 					$row["fen"]=$fen;
 				}
 
-				if(Db::insert($this->table_name, $row)) {
+				if($db->insert($this->table_name, $row)) {
 					$this->is_new=false;
 					$this->row=$row;
 					$this->mtime_last_update=$update_time;
@@ -555,7 +558,7 @@ class LiveGame extends Game {
 
 				$update["mtime_last_update"]=$update_time;
 
-				$success=Db::update($this->table_name, $update, array(
+				$success=$db->update($this->table_name, $update, array(
 					"gid"=>$this->gid
 				));
 

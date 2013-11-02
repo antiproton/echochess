@@ -9,19 +9,20 @@ there are no variations and no way to select other moves (moves always added on 
 NOTE the game might not have a gid - if it doesn't throw an error (is what i should do)
 */
 
-require_once "php/db.php";
+require_once "Db.php";
 require_once "php/chess/History.php";
 
 class LiveHistory extends History {
 	private $table_name="moves";
 
 	public function db_load() {
+		$db=Db::getinst();
 		$success=false;
 		$temp=$this->main_line->auto_update_pointers;
 		$this->main_line->auto_update_pointers=false; //for performance
 		$this->main_line->clear(); //delete all moves
 
-		$table=Db::table("select * from {$this->table_name} where gid='{$this->game->gid}' order by move_index");
+		$table=$db->table("select * from {$this->table_name} where gid='{$this->game->gid}' order by move_index");
 
 		if($table!==false) {
 			foreach($table as $row) {
@@ -59,12 +60,13 @@ class LiveHistory extends History {
 	}
 
 	public function move($move) {
+		$db=Db::getinst();
 		$success=false;
 		$move->gid=$this->game->gid;
 
 		parent::move($move);
 
-		$ins=Db::insert($this->table_name, [
+		$ins=$db->insert($this->table_name, [
 			"move_index"=>$move->move_index,
 			"label_piece"=>$move->label->piece,
 			"label_disambiguation"=>$move->label->disambiguation,
@@ -97,12 +99,13 @@ class LiveHistory extends History {
 	}
 
 	public function undo() {
+		$db=Db::getinst();
 		$success=false;
 		$move=$this->main_line->last_move;
 
 		parent::undo();
 
-		$del=Db::remove($this->table_name, [
+		$del=$db->remove($this->table_name, [
 			"move_index"=>$move->move_index,
 			"gid"=>$move->gid
 		]);

@@ -1,9 +1,14 @@
 <?php
+require_once "php/User.php";
+
+$user=User::getinst();
+?>
+<?php
 include "html/basic_top.php";
 ?>
 <div class="signin">
 	<?php
-	if(isset(Clean::$post["signin"]) && !$session->user->signedin) {
+	if(isset($_POST["signin"]) && !$user->signedin) {
 		echo "<span class=\"signin_error\">Incorrect username or password</span><br><br>";
 	}
 	?>

@@ -3,7 +3,7 @@
 maintains both player's premoves.
 */
 
-require_once "php/db.php";
+require_once "Db.php";
 require_once "php/livechess/Premove.php";
 
 class Premoves {
@@ -11,8 +11,10 @@ class Premoves {
 	public $by_user=[];
 
 	private $game;
+	private $db;
 
 	public function __construct($game) {
+		$this->db=Db::getinst();
 		$this->game=$game;
 		$this->by_user[$game->white]=[];
 		$this->by_user[$game->black]=[];
@@ -33,7 +35,7 @@ class Premoves {
 	*/
 
 	public function delete_line($premove) {
-		Db::query("
+		$this->db->query("
 			delete
 			from premoves
 			where gid='{$this->game->gid}'
@@ -47,7 +49,7 @@ class Premoves {
 	*/
 
 	public function delete_old_premoves($current_move_index) {
-		Db::query("
+		$this->db->query("
 			delete
 			from premoves
 			where gid='{$this->game->gid}'
@@ -61,7 +63,7 @@ class Premoves {
 	}
 
 	public static function count($user, $gid) {
-		return Db::cell("
+		return $this->db->cell("
 			select count(*)
 			from premoves
 			where user='$user'
@@ -79,7 +81,7 @@ class Premoves {
 			$where["move_index"]=$move_index;
 		}
 
-		Db::remove("premoves", $where);
+		$this->db->remove("premoves", $where);
 	}
 
 	public static function get_premoves($gid, $user=null) {
@@ -95,7 +97,7 @@ class Premoves {
 
 		$q.=" order by move_index asc";
 
-		return Db::table($q);
+		return $this->db->table($q);
 	}
 
 	public function add($user, $fs, $ts, $move_index, $promote_to=null) {
@@ -108,7 +110,7 @@ class Premoves {
 			"promote_to"=>$promote_to
 		];
 
-		$success=Db::insert("premoves", $row);
+		$success=$this->db->insert("premoves", $row);
 
 		if($success) {
 			$premove=new Premove($row);
@@ -119,7 +121,7 @@ class Premoves {
 	}
 
 	public function delete_all() {
-		Db::remove("premoves", [
+		$this->db->remove("premoves", [
 			"gid"=>$this->game->gid
 		]);
 	}

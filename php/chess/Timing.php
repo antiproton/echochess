@@ -30,13 +30,6 @@ class Timing {
 	if less than 15 moves it's 1; more than 90 it's 0.01
 
 	everything in between scales up in a straight line
-
-	TODO make it a slight concave curve
-
-	e.g. for 5m + 1h @ 100 moves, the chances of getting into overtime are
-	small so it is still a blitz game
-
-	but 1m + 1d @ 1 moves is a correspondence game
 	*/
 
 	private static function overtime_chance($cutoff) {

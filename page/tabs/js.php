@@ -21,6 +21,7 @@ loads("/lib/js/dbcodes/chess.js");
 //chess-specific libraries
 
 loadw("/js/constants.js");
+loadw("/js/domutil.js"); //
 loadw("/js/chess/constants.js");
 loadw("/js/chess");
 loadw("/js/analysis");

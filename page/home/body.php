@@ -1,3 +1,10 @@
+<?php
+require_once "php/User.php";
+require_once "Page.php";
+
+$page=Page::getinst();
+$user=User::getinst();
+?>
 <div class="main">
 	<div class="top">
 		<div class="logo title">
@@ -8,8 +15,8 @@
 		</div>-->
 		<div class="user">
 			<?php
-			if($session->user->signedin) {
-				echo "Hello, {$session->user->username} | <a href=\"".ap("/signout")."\">Sign out</a>";
+			if($user->signedin) {
+				echo "Hello, {$user->username} | <a href=\"".ap("/signout")."\">Sign out</a>";
 			}
 
 			else {
@@ -22,7 +29,7 @@
 		</div>
 	</div>
 	<?php
-	if($session->page->url_path==="/register" && $session->user->signedin) {
+	if($page->url_path==="/register" && $user->signedin) {
 		echo "<div class=\"register_success\">Registration successful! <a href=\"/tabs\">Go to live chess</a></div>";
 	}
 	?>

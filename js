@@ -1,1 +1,1 @@
-/var/www/chess/js_src
+/var/www/echochess/js_src

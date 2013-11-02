@@ -1,6 +1,11 @@
 <?php
-//captcha
+require_once "Db.php";
+require_once "php/User.php";
+require_once "Data.php";
+require_once "Page.php";
 
+$page=Page::getinst();
+$user=User::getinst();
 
 if(!isset($_POST["register"])) {
 	msg("register noform {$_SERVER["REMOTE_ADDR"]}");
@@ -62,7 +67,8 @@ if(isset($_POST["register"])) {
 			"username"=>Clean::$post["username"],
 			"password"=>Clean::$post["password"],
 			"email"=>Clean::$post["email"],
-			"join_date"=>time()
+			"join_date"=>time(),
+			"reg_ip"=>$_SERVER["REMOTE_ADDR"]
 		]);
 
 		$prefs=Db::row("
@@ -95,8 +101,8 @@ if(isset($_POST["register"])) {
 			$redir=$_SESSION["redir"];
 		}
 
-		$session->page->load($redir);
-		$session->user->sign_in(Clean::$post["username"], Clean::$post["password"]);
+		$page->load($redir);
+		$user->sign_in(Clean::$post["username"], Clean::$post["password"]);
 	}
 }
 ?>

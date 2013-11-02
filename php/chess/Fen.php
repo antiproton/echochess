@@ -1,6 +1,6 @@
 <?php
 /*
-fen.static.php - FEN conversion and utility functions.
+FEN conversion and utility functions.
 */
 
 require_once "php/chess/constants.php";

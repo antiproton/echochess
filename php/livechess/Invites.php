@@ -1,15 +1,18 @@
 <?php
-require_once "php/db.php";
+require_once "Db.php";
 
 class Invites {
 	public static function is_invited($table, $user) {
-		return (Db::row("select user from invite where tables='$table' and user='$user'")!==false);
+		$db=Db::getinst();
+
+		return ($db->row("select user from invite where tables='$table' and user='$user'")!==false);
 	}
 
 	public static function invite($table, $user) {
+		$db=Db::getinst();
 		$success=false;
 
-		$ins=Db::insert("invite", array(
+		$ins=$db->insert("invite", array(
 			"table"=>$q["table"],
 			"user"=>$q["user"],
 			"mtime_created"=>mtime()
@@ -23,7 +26,9 @@ class Invites {
 	}
 
 	public function remove($table, $user) {
-		Db::remove("invite", array(
+		$db=Db::getinst();
+
+		$db->remove("invite", array(
 			"tables"=>$table,
 			"user"=>$user
 		));

@@ -71,7 +71,9 @@ class Ratings {
 	}
 
 	public static function update_rating($user, $type, $variant, $format, $rating) {
-		Db::insert_or_update("ratings", array(
+		$db=Db::getinst();
+
+		$db->insert_or_update("ratings", array(
 			"user"=>$user,
 			"type"=>$type,
 			"variant"=>$variant,
@@ -81,7 +83,9 @@ class Ratings {
 	}
 
 	public static function get_rating($user, $type, $variant, $format) {
-		return Db::cell("select get_rating('$user', '$type', '$variant', '$format')");
+		$db=Db::getinst();
+		
+		return $db->cell("select get_rating('$user', '$type', '$variant', '$format')");
 	}
 
 	/*
@@ -91,6 +95,8 @@ class Ratings {
 	*/
 
 	public static function is_provisional($user, $type, $variant, $format) {
+		$db=Db::getinst();
+
 		$where="(";
 
 		$where.="white='$user' or black='$user' and type='$type' and variant='$variant'";
@@ -101,7 +107,7 @@ class Ratings {
 
 		$where.=")";
 
-		return (Db::cell("select count(*) from games where $where")<PROVISIONAL_LIMIT);
+		return ($db->cell("select count(*) from games where $where")<PROVISIONAL_LIMIT);
 	}
 
 	public static function elo($p, $o, $s) {

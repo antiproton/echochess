@@ -15,7 +15,7 @@ used for chat messages that don't need to be kept after they're received.
 */
 
 require_once "base.php";
-require_once "db.php";
+require_once "Db.php";
 
 class Messages {
 	const MESSAGE_MAX_AGE_SECONDS=5;
@@ -25,7 +25,7 @@ class Messages {
 	*/
 
 	public static function send($from, $to, $type, $subject=null, $body=null) {
-		return Db::insert("messages", [
+		return Db::getinst()->insert("messages", [
 			"sender"=>$from,
 			"recipient"=>$to,
 			"type"=>$type,
@@ -57,10 +57,10 @@ class Messages {
 			$where["sender"]=$sender;
 		}
 
-		$msgs=Db::table("
+		$msgs=Db::getinst()->table("
 			select sender, type, subject, body, mtime_sent
 			from messages
-			where sender!='$user' and ".Db::where_string($where, false)."
+			where sender!='$user' and ".Db::getinst()->where_string($where, false)."
 		");
 
 		if($msgs!==false && count($msgs)>0) {
@@ -91,7 +91,7 @@ class Messages {
 			$where["sender"]=$sender;
 		}
 
-		Db::remove("messages", $where);
+		Db::getinst()->remove("messages", $where);
 	}
 
 	/*
@@ -100,7 +100,7 @@ class Messages {
 
 	public static function cleanup() {
 		$cutoff=mtime()-(self::MESSAGE_MAX_AGE_SECONDS*MSEC_PER_SEC);
-		Db::query("delete from messages where mtime_sent<$cutoff");
+		Db::getinst()->query("delete from messages where mtime_sent<$cutoff");
 	}
 }
 ?>

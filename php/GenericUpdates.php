@@ -8,11 +8,13 @@ a typical use for this would be for pages where each user should only
 have one open at a time
 */
 
+require_once "Db.php";
+
 class GenericUpdates {
 	public static function update($type, $user) {
 		$mtime=mtime();
 
-		Db::insert_or_update("generic_updates", [
+		Db::getinst()->insert_or_update("generic_updates", [
 			"type"=>$type,
 			"user"=>$user,
 			"last_updated"=>$mtime
@@ -22,7 +24,7 @@ class GenericUpdates {
 	}
 
 	public static function get_last_update($type, $user) {
-		return Db::cell("select last_updated from generic_updates where user='$user' and type='$type'");
+		return Db::getinst()->cell("select last_updated from generic_updates where user='$user' and type='$type'");
 	}
 }
 ?>
