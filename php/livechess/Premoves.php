@@ -63,7 +63,9 @@ class Premoves {
 	}
 
 	public static function count($user, $gid) {
-		return $this->db->cell("
+		$db=Db::getinst();
+
+		return $db->cell("
 			select count(*)
 			from premoves
 			where user='$user'
@@ -72,6 +74,8 @@ class Premoves {
 	}
 
 	public static function delete($user, $gid, $move_index=null) {
+		$db=Db::getinst();
+
 		$where=[
 			"gid"=>$gid,
 			"user"=>$user
@@ -81,10 +85,12 @@ class Premoves {
 			$where["move_index"]=$move_index;
 		}
 
-		$this->db->remove("premoves", $where);
+		$db->remove("premoves", $where);
 	}
 
 	public static function get_premoves($gid, $user=null) {
+		$db=Db::getinst();
+
 		$q="
 			select user, fs, ts, move_index, promote_to
 			from premoves
@@ -97,7 +103,7 @@ class Premoves {
 
 		$q.=" order by move_index asc";
 
-		return $this->db->table($q);
+		return $db->table($q);
 	}
 
 	public function add($user, $fs, $ts, $move_index, $promote_to=null) {
