@@ -8,8 +8,6 @@ function LiveGame(table, gid, board, history, pieces_taken, clock) {
 	this.Table=table;
 	this.Gid=gid;
 
-	__GAME__=this; //DEBUG this can be taken out, was just for easy access from dev console
-
 	/*
 	freeze the time of the player who has just moved so that it doesn't jump up
 	or down on the next calculation.  when the player becomes active again -
@@ -1476,7 +1474,7 @@ LiveGame.prototype.game_over=function(result, result_details) {
 	if(result_details!==RESULT_DETAILS_TIMEOUT) {
 		this.clock_pause();
 	}
-	
+
 	this.deactivate();
 	this.GameOver.Fire();
 }

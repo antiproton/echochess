@@ -1,3 +1,5 @@
+//add every event to this, just call it Game and make sure it works properly for everything
+
 function IGameCommon(board, history, pieces_taken, clock) {
 	IEventHandlerLogging.implement(this);
 

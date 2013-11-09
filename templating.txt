@@ -1,0 +1,29 @@
+templating
+
+<script id="live_table_template">
+<div class="blah">
+	<!--all ui code for live table-->
+	<div class="board_container" data-id="board_container">
+	</div>
+</div>
+</script>
+
+var ui=TemplateLibrary.InsertTemplate(g("container"), "live_table_template");
+
+this.Ui.Board=new Board(ui.board_container);
+this.Ui.History=new History(ui.history_container);
+//etc
+
+this.Table=new LiveTable(); //table knows nothing of UI
+
+this.Table.BoardUpdate.AddHandler .. //the table fires this, update history, etc when the user moves
+//then takes it back with another event if the server rejects
+
+UI classes can have an associated template that they always have (to justify
+coupling between e.g. the Tab ui init and the data-ids in the template)
+
+hard and fast rule - only widgets are created in-code.  simple form widgets should
+probably have automatic templating syntax for creation from the template html
+
+or just automatically convert selects to DropDowns, buttons to Buttons, and radio
+button groups with a certain class to SelectorButtons
