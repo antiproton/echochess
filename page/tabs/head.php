@@ -43,7 +43,7 @@ if($user->signedin) {
 	//don't send texts at night (between 11pm and 10am)
 
 	$servertime=(int) date("Hi");
-	$localtime=($time+800)%2400;
+	$localtime=($servertime+800)%2400;
 
 	//echo $realtime;
 
