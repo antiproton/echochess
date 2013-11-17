@@ -1,5 +1,6 @@
 <?php
 require_once "base.php";
+require_once "include_utils.php";
 require_once "php/init_page.php";
 require_once "Page.php";
 require_once "php/UserPrefs.php";
