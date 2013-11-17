@@ -17,6 +17,4 @@ $db->select("chess");
 $user=User::getinst();
 
 $user->session_login();
-
-session_start(); //NOTE only have this if not using symfony sessions
 ?>
