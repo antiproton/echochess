@@ -1,0 +1,12 @@
+create table tournaments(owner char(32), title char(32), format char(3),
+rounds int unsigned, variant char(3), timing_style, timing_initial,
+timing_inc... mtime_start bigint unsigned)
+
+format is warzone, round robin etc
+
+scheduled or sit n go
+
+rating_min rating_max
+
+if outside range, "note - you will not be able to take part in this tournament,
+as your rating is outside its range" but still allow it

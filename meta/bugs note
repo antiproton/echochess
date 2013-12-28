@@ -1,0 +1,35 @@
+time carries on
+
+longpoll clean up - early run seems to have fucked something up (deleting a
+longpoll that was too young or the re-request was never sent, or hung .. but
+there was an lp in progress (updates came back when a new table was created))
+fuck knows
+
+seating - standing just switches to SPC, ready still on (and sitting back
+down re takes same seat)
+
+direct challenge sb stays on tab switch
+
+time - user's time looks less than it appears to the opponent - error
+increases as game goes on.  increment?
+
+apostrophes in table chat are coming back with visible backslashes
+
+abort game if no start - use a tornado timer
+
+xhr - specify whether to restart if not going
+
+mem tbls limit
+
+xhr check - not on update (no way of diff. betweenn hanging problem and
+legit long polling)
+
+users tab reload - should probably be auto, and stop when the challenge
+dialog is open.  or not stop.  users online probs doesn't change very often an
+
+tables - need to delete if anyone leaves, not just seated (currently deletes
+if spec closes app tab but not if closes browser)
+
+hanging - intermittent, any page, never gets to apache, about 1 in 30 or
+40 requests hangs forever (ended by chrome timeout after about 15 min).
+seems to be a problem with chrome, possibly adblock.

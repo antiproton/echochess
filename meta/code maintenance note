@@ -1,0 +1,38 @@
+use getter/setter methods - if arg passed, set, else get
+
+parallel constants:
+
+MIN_DC_TIME_TO_FORCE_RESIGN Updates.TYPE_PROP/UPDATES_TYPE_PROP
+LONGEST_GAME_TO_RESIGN_IF_QUIT QUICK_CHALLENGE_SEEK_TIMEOUT - used on
+client to make the direct challenge alert disappear when it's timed out
+(or slightly before)
+
+inconsistent use of ->table_name and hardcoded table name in database classes
+(static functions can't get ...)
+
+a lot of stuff relies on prefs being sensible values
+
+some indecision to do with how much "authorisation" logic should be in the
+Game/LiveGame class and how much should be done outside before calling methods.
+move and bughouse move now take a username, so can check whether the player
+is on the move etc.  resign, undo etc just take a colour, and see if that
+colour is or isn't on the move depending on the action.  problem is that
+having to pass a user on standard Game methods could be irritating as it
+doesn't mean anything.  there are a few options for this, user could be
+either a username or a colour and then Game could allow move(WHITE, etc)
+which is a bit more palatable.
+
+return value of Db::cell is ambiguous for BIT fields
+
+hiding and showing inline block controls sets display to "" not "inline-block"
+
+a lot of the same init stuff in live table Save and Load
+
+=null if(isset(something)) { =something } and loads of optional args that
+always get passed anyway
+
+player info load rating - the rating should really be handled by the Seats,
+and PlayerInfo just gets assigned a Seat to get its values from.  then the
+Seat can just have LoadRating and RatingLoaded=true.  because the seats
+keep their username, makes sense for them to have the rating as well.
+probs wouldn't even need to tell them to load it.
