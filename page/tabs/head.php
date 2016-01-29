@@ -8,7 +8,7 @@ require_once "Db.php";
 require_once "php/User.php";
 require_once "Page.php";
 
-$db=Db::getinst();
+$db=$db->getinst();
 $user=User::getinst();
 $page=Page::getinst();
 

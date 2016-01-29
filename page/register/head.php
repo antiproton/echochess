@@ -7,19 +7,6 @@ require_once "Page.php";
 $page=Page::getinst();
 $user=User::getinst();
 
-if(!isset($_POST["register"])) {
-	msg("register noform {$_SERVER["REMOTE_ADDR"]}");
-
-	$row=Db::row("select * from captchas order by rand() limit 1");
-	$_SESSION["captcha_fen"]=$row["fen"];
-	$_SESSION["captcha_message"]=$row["message"];
-	$_SESSION["captcha_answer"]=$row["answer"];
-}
-
-JsRequestInfo::$data["page"]=[
-	"captcha"=>$_SESSION["captcha_fen"]
-];
-
 if(isset($_POST["register"])) {
 	$errors=[];
 
@@ -48,12 +35,7 @@ if(isset($_POST["register"])) {
 		$errors[]="Password didn't match confirmation";
 	}
 
-	if($_POST["captcha"]!==$_SESSION["captcha_answer"]) {
-		msg("bad captcha ".Data::serialise($_POST)." {$_SERVER["REMOTE_ADDR"]}");
-		//$errors[]="Incorrect move for chess captcha";
-	}
-
-	if(Db::row("select username from users where username='".Clean::$post["username"]."'")!==false) {
+	if($db->row("select username from users where username='".Clean::$post["username"]."'")!==false) {
 		if(strtolower(Clean::$post["username"])==="taken") {
 			$errors="Sorry, that username is already \"taken\".";
 		}
@@ -63,15 +45,14 @@ if(isset($_POST["register"])) {
 	}
 
 	if(count($errors)===0) {
-		Db::insert("users", [
+		$db->insert("users", [
 			"username"=>Clean::$post["username"],
 			"password"=>Clean::$post["password"],
 			"email"=>Clean::$post["email"],
-			"join_date"=>time(),
-			"reg_ip"=>$_SERVER["REMOTE_ADDR"]
+			"join_date"=>time()
 		]);
 
-		$prefs=Db::row("
+		$prefs=$db->row("
 			select
 				board_style,
 				piece_style,
@@ -92,7 +73,7 @@ if(isset($_POST["register"])) {
 		if($prefs!==false) {
 			$prefs["user"]=Clean::$post["username"];
 
-			Db::insert("user_prefs", $prefs);
+			$db->insert("user_prefs", $prefs);
 		}
 
 		$redir="/";

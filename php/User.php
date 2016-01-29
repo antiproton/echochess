@@ -6,7 +6,6 @@ table like a regular DbRow class.
 
 require_once "date.php";
 require_once "Db.php";
-require_once "php/Session.php";
 require_once "DbRow.php";
 
 class User extends DbRow {
@@ -73,22 +72,19 @@ class User extends DbRow {
 	}
 
 	public function sign_in($user, $pass) {
-		$session=Session::getinst();
-
 		$row=$this->db->row("select * from {$this->table_name} where username='$user' and password='$pass'");
 
 		if($row!==false) {
 			$this->load_row($row);
 			$this->signedin=true;
 
-			$session->set(__CLASS__, $user);
+			$_SESSION["user"] = $user;
 		}
 	}
 
 	public function sign_out() {
-		$session=Session::getinst();
 		$this->signedin=false;
-		$session->remove($this->session_key);
+		$_SESSION["user"] = null;
 	}
 
 	/*
@@ -96,8 +92,7 @@ class User extends DbRow {
 	*/
 
 	public function session_login() {
-		$session=Session::getinst();
-		$user=$session->get(__CLASS__);
+		$user=$_SESSION["user"] ?: null;
 
 		if($user) {
 			$this->sign_in_noauth($user);

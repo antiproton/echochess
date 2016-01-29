@@ -5,13 +5,13 @@ JsRequestInfo::output();
 
 //generic libraries
 
-loads("/lib/js/util");
-loads("/lib/js/data");
-loads("/lib/js/server");
-loads("/lib/js/events");
-loads("/lib/js/dom");
-loads("/lib/js/base");
-loads("/lib/js/Base.js");
+//loads("/lib/js/util");
+//loads("/lib/js/data");
+//loads("/lib/js/server");
+//loads("/lib/js/events");
+//loads("/lib/js/dom");
+//loads("/lib/js/base");
+//loads("/lib/js/Base.js");
 
 //database constants and enums
 

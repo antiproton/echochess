@@ -201,3 +201,6 @@ printing mysql error
 
 gus _1383242155090 1383242432012 1383242432012 deleted - count 18
 gus _1383242155090 1383242432012 1383242432012 quitting
+register noform 127.0.0.1
+register noform 127.0.0.1
+user taken {"captcha":"","username":"test","email":"","password":"test12","password_confirm":"test12","register":"Register"} 127.0.0.1
