@@ -8,16 +8,16 @@ and closes the current one if there isn't a game in progress.
 */
 
 function ILiveTableTab() {
-	this.Table=null;
-	this.Detachable=false;
+	this.Table = null;
+	this.Detachable = false;
 	this.TabButton.ButtonDetach.Hide();
 
 	this.TabButton.ButtonDetach.Click.AddHandler(this, function() {
-		var self=this;
+		var self = this;
 
 		this.UserDetach.Fire();
 
-		var id=Base.Root.Popup(ap("/livetable_detached?id="+this.Table.Id), 750, 650);
+		var id = Base.Root.Popup(ap("/livetable_detached?id = "+this.Table.Id), 750, 650);
 
 		Base.Root.RegisterPopupInitDetails(id, {
 			Tab: this
@@ -25,14 +25,14 @@ function ILiveTableTab() {
 	});
 }
 
-ILiveTableTab.prototype.CreateTable=function() {
-	if(this.Table!==null) {
+ILiveTableTab.prototype.CreateTable = function() {
+	if(this.Table !== null) {
 		this.Table.Die();
 	}
 
 	Dom.ClearNode(this.TabPage.Inner);
 
-	this.Table=new LiveTable(this.TabPage.Inner);
+	this.Table = new LiveTable(this.TabPage.Inner);
 
 	this.update_tab_title();
 
@@ -44,7 +44,7 @@ ILiveTableTab.prototype.CreateTable=function() {
 		this.update_tab_title();
 
 		if(this.Selected) {
-			Base.App.FocussedObject=this.Table.CurrentPlayerGame;
+			Base.App.FocussedObject = this.Table.CurrentPlayerGame;
 		}
 
 		if(!this.Table.PlayerPresent) {
@@ -92,12 +92,12 @@ ILiveTableTab.prototype.CreateTable=function() {
 	//});
 
 	this.Table.UserNewQuickChallenge.AddHandler(this, function(data, sender) {
-		var tab=this.Controller.Add(ILiveTableTab);
+		var tab = this.Controller.Add(ILiveTableTab);
 
 		Base.LongPoll.Pause(function() {
 			tab.CreateTable();
 			tab.Table.Load(data.Id);
-			tab.Table.FromQuickChallenge=data.QuickChallenge;
+			tab.Table.FromQuickChallenge = data.QuickChallenge;
 
 			/*
 			wait til the new tab has established itself before closing the old one,
@@ -116,20 +116,20 @@ ILiveTableTab.prototype.CreateTable=function() {
 	});
 }
 
-ILiveTableTab.prototype.update_tab_title=function() {
+ILiveTableTab.prototype.update_tab_title = function() {
 	this.TabButton.Title.Set(this.Table.GetTitle());
 }
 
-ILiveTableTab.prototype.Select=function() {
+ILiveTableTab.prototype.Select = function() {
 	Tab.prototype.Select.call(this);
 
-	if(this.Table!==null) {
-		Base.App.FocusedObject=this.Table.CurrentPlayerGame;
+	if(this.Table !== null) {
+		Base.App.FocusedObject = this.Table.CurrentPlayerGame;
 	}
 }
 
-ILiveTableTab.prototype.Remove=function() {
-	if(this.Table!==null) {
+ILiveTableTab.prototype.Remove = function() {
+	if(this.Table !== null) {
 		this.Table.Leave();
 		this.Table.Die();
 	}

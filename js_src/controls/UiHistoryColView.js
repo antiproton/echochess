@@ -21,7 +21,7 @@ function UiHistoryColView(parent) {
 	this.Height.Set(120);
 }
 
-UiHistoryColView.prototype.get_new_variation=function() {
+UiHistoryColView.prototype.get_new_variation = function() {
 	/*
 	this will only be called once in IHistoryCommon to set up the root variation.
 
@@ -36,7 +36,7 @@ UiHistoryColView.prototype.get_new_variation=function() {
 	return new UiRootVariationColView(this);
 }
 
-UiHistoryColView.prototype.Move=function(move) {
+UiHistoryColView.prototype.Move = function(move) {
 	IUiMoveColView.implement(move);
 
 	return IHistoryCommon.prototype.Move.call(this, move);

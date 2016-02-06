@@ -1,9 +1,9 @@
 function DirectChallengeAlert(parent, data) {
 	Control.implement(this, parent);
 
-	var self=this;
+	var self = this;
 
-	this.challenge_data=data;
+	this.challenge_data = data;
 	this.SetupHtml();
 
 	/*
@@ -27,47 +27,47 @@ function DirectChallengeAlert(parent, data) {
 	}, this);
 }
 
-DirectChallengeAlert.prototype.SetupHtml=function() {
-	var self=this;
+DirectChallengeAlert.prototype.SetupHtml = function() {
+	var self = this;
 
 	Dom.AddClass(this.Node, "alert");
 
-	this.inner=div(this.Node);
+	this.inner = div(this.Node);
 
 	Dom.AddClass(this.inner, "inner");
 
-	var row=this.challenge_data;
+	var row = this.challenge_data;
 
-	this.inner.innerHTML=""
+	this.inner.innerHTML = ""
 		+row["owner"]+" has challenged you to a game ("+DbEnums[VARIANT][row["variant"]].Description
 		+" "+ClockTimeDisplay.Encode(TIMING_FISCHER_AFTER, row["timing_initial"], row["timing_increment"])
 		+" "+(row["rated"]?"rated":"unrated")
 		+"; you play "+(row["choose_colour"]?Util.colour_name(Util.opp_colour(row["challenge_colour"])):"random"+")")
-		+"<br><br>";
+		+" < br >  < br > ";
 
-	var link_accept=$("*a");
+	var link_accept = $("*a");
 	this.inner.appendChild(link_accept);
 
 	this.inner.appendChild($("% | "));
 
-	var link_decline=$("*a");
+	var link_decline = $("*a");
 	this.inner.appendChild(link_decline);
 
-	link_accept.href="javascript:void(0)";
-	link_accept.innerHTML="Accept";
+	link_accept.href = "javascript:void(0)";
+	link_accept.innerHTML = "Accept";
 
 	Dom.AddEventHandler(link_accept, "click", function() {
 		QuickChallenge.Accept(row["id"], function(response) {
 			this.Hide();
 
-			if(response!==false) {
+			if(response !== false) {
 				Base.App.OpenTable(row["id"]);
 			}
 
 			else {
 				this.Show();
 
-				this.Node.innerHTML=""
+				this.Node.innerHTML = ""
 					+"There was an error while accepting the challenge."
 					+"  Most likely the other player cancelled it before"
 					+" the request completed.";
@@ -79,8 +79,8 @@ DirectChallengeAlert.prototype.SetupHtml=function() {
 		}, this);
 	}, this);
 
-	link_decline.href="javascript:void(0)";
-	link_decline.innerHTML="Decline";
+	link_decline.href = "javascript:void(0)";
+	link_decline.innerHTML = "Decline";
 
 	Dom.AddEventHandler(link_decline, "click", function() {
 		QuickChallenge.Decline(row["id"]);

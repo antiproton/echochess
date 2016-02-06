@@ -4,15 +4,15 @@ function QuickChallengeListListTabBody(parent) {
 	this.SetupHtml();
 }
 
-QuickChallengeListListTabBody.prototype.SetupHtml=function() {
+QuickChallengeListListTabBody.prototype.SetupHtml = function() {
 	Dom.AddClass(this.Node, "noselect");
 
-	this.Grid=new Grid(this.Node, [
+	this.Grid = new Grid(this.Node, [
 		{
 			Title: "Variant",
 			Width: 60,
 			Value: function(row) {
-				return "<img src=\""+ap("/img/icon/code/"+VARIANT+"/"+row["variant"]+"-20.png")+"\" title=\""+DbEnums[VARIANT][row["variant"]].Description+"\">";
+				return " < img src = \""+ap("/img/icon/code/"+VARIANT+"/"+row["variant"]+"-20.png")+"\" title = \""+DbEnums[VARIANT][row["variant"]].Description+"\" > ";
 			}
 		},
 		{
@@ -53,21 +53,21 @@ QuickChallengeListListTabBody.prototype.SetupHtml=function() {
 			Title: "Colour",
 			Width: 45,
 			Value: function(row) {
-				var dot="grey";
+				var dot = "grey";
 
 				if(row["choose_colour"]) {
-					dot=Util.colour_name(Util.opp_colour(row["challenge_colour"]));
+					dot = Util.colour_name(Util.opp_colour(row["challenge_colour"]));
 				}
 
-				return "<img src=\""+ap("/img/icon/colour_dot/"+dot+".png")+"\">";
+				return " < img src = \""+ap("/img/icon/colour_dot/"+dot+".png")+"\" > ";
 			}
 		}
 	]);
 
 	this.Grid.RowClick.AddHandler(this, function(data) {
-		if(data.Row["owner"]!==Base.App.User.Username) {
+		if(data.Row["owner"] !== Base.App.User.Username) {
 			QuickChallenge.Accept(data.Row["id"], function(response) {
-				if(response!==false) {
+				if(response !== false) {
 					Base.App.OpenTable(data.Row["id"]);
 				}
 			});
@@ -77,15 +77,15 @@ QuickChallengeListListTabBody.prototype.SetupHtml=function() {
 	this.Grid.BeforeRowDraw.AddHandler(this, function(data) {
 		Dom.AddClass(data.RowDiv, "table_list_grid_row");
 
-		if(data.Row["owner"]===Base.App.User.Username) {
+		if(data.Row["owner"] === Base.App.User.Username) {
 			Dom.AddClass(data.RowDiv, "grid_row_quick_challenge_owner");
 		}
 	});
 
-	this.container_no_challenges=new Container(this.Node);
+	this.container_no_challenges = new Container(this.Node);
 
-	var nc=this.container_no_challenges.Node;
-	var tmp=div(nc);
+	var nc = this.container_no_challenges.Node;
+	var tmp = div(nc);
 
 	Dom.Style(tmp, {
 		fontSize: "1.5em",
@@ -94,9 +94,9 @@ QuickChallengeListListTabBody.prototype.SetupHtml=function() {
 		paddingTop: "1em"
 	});
 
-	tmp.innerHTML="Create a challenge";
+	tmp.innerHTML = "Create a challenge";
 
-	tmp=div(nc);
+	tmp = div(nc);
 
 	Dom.Style(tmp, {
 		fontSize: "1.1em",
@@ -106,40 +106,40 @@ QuickChallengeListListTabBody.prototype.SetupHtml=function() {
 		padding: "1em"
 	});
 
-	var msg="";
-	var users_online=Base.Request["page"]["users_online"]-1;
-	var singular=(users_online===1);
+	var msg = "";
+	var users_online = Base.Request["page"]["users_online"]-1;
+	var singular = (users_online === 1);
 
-	if(users_online<0) {
-		users_online=0;
+	if(users_online < 0) {
+		users_online = 0;
 	}
 
-	if(users_online===1) {
-		users_online=2; //lying for grammatical reasons there
+	if(users_online === 1) {
+		users_online = 2; //lying for grammatical reasons there
 	}
 
-	msg+="There are no quick challenges open at the moment.";
-	msg+="  There "+(singular?"is":"are")+" ";
+	msg += "There are no quick challenges open at the moment.";
+	msg += "  There "+(singular?"is":"are")+" ";
 
-	if(users_online>0) {
-		msg+="<a href=\"javascript:void(0)\">"+users_online+" other user"+s(users_online)+"</a>";
+	if(users_online > 0) {
+		msg += " < a href = \"javascript:void(0)\" > "+users_online+" other user"+s(users_online)+" < /a > ";
 	}
 
 	else {
-		msg+=users_online+" other user"+s(users_online);
+		msg += users_online+" other user"+s(users_online);
 	}
 
-	msg+=" online.";
+	msg += " online.";
 
-	tmp.innerHTML=msg;
+	tmp.innerHTML = msg;
 
 	this.container_no_challenges.Display.Set(false);
 }
 
-QuickChallengeListListTabBody.prototype.Update=function(data) {
+QuickChallengeListListTabBody.prototype.Update = function(data) {
 	this.Grid.Update(data);
 
-	//if(this.Grid.Rows.length===0) {
+	//if(this.Grid.Rows.length === 0) {
 	//	this.container_no_challenges.Display.Set(true);
 	//}
 }

@@ -4,12 +4,12 @@ function QuickChallengeListGraphTabBody(parent) {
 	this.SetupHtml();
 }
 
-QuickChallengeListGraphTabBody.prototype.SetupHtml=function() {
+QuickChallengeListGraphTabBody.prototype.SetupHtml = function() {
 	Dom.AddClass(this.Node, "noselect");
 
-	this.Graph=new Graph(this.Node);
+	this.Graph = new Graph(this.Node);
 }
 
-QuickChallengeListGraphTabBody.prototype.Update=function(data) {
+QuickChallengeListGraphTabBody.prototype.Update = function(data) {
 	this.Graph.Update(data);
 }

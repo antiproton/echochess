@@ -8,39 +8,39 @@ after submitting
 function QuickChallenge(variant, timing_initial, timing_increment, rating_min, rating_max, rated, choose_colour, challenge_colour, challenge_to) {
 	IEventHandlerLogging.implement(this);
 
-	this.Variant=variant;
-	this.TimingInitial=timing_initial;
-	this.TimingIncrement=timing_increment;
-	this.RatingMin=rating_min;
-	this.RatingMax=rating_max;
-	this.Rated=rated;
-	this.ChooseColour=choose_colour||false;
-	this.ChallengeColour=challenge_colour||WHITE;
-	this.ChallengeTo=challenge_to||null;
+	this.Variant = variant;
+	this.TimingInitial = timing_initial;
+	this.TimingIncrement = timing_increment;
+	this.RatingMin = rating_min;
+	this.RatingMax = rating_max;
+	this.Rated = rated;
+	this.ChooseColour = choose_colour||false;
+	this.ChallengeColour = challenge_colour||WHITE;
+	this.ChallengeTo = challenge_to||null;
 
-	this.waiting=false;
+	this.waiting = false;
 
-	this.Waiting=new Property(this, function() {
+	this.Waiting = new Property(this, function() {
 		return this.waiting;
 	});
 
-	this.Done=new Event(this);
+	this.Done = new Event(this);
 }
 
-QuickChallenge.SUCCESS=0;
-QuickChallenge.FAIL=1;
-QuickChallenge.CANCELLED=2;
+QuickChallenge.SUCCESS = 0;
+QuickChallenge.FAIL = 1;
+QuickChallenge.CANCELLED = 2;
 
-QuickChallenge.prototype.Submit=function() {
-	var self=this;
-	this.waiting=true;
+QuickChallenge.prototype.Submit = function() {
+	var self = this;
+	this.waiting = true;
 	Base.App.UpdateQuickChallenge();
 
 	Xhr.QueryAsync(ap("/xhr/challenge_open.php"), function(response) {
 		if(self.waiting) {
-			self.waiting=false;
+			self.waiting = false;
 
-			if(response===false) {
+			if(response === false) {
 				self.Done.Fire({
 					Info: QuickChallenge.FAIL
 				});
@@ -69,8 +69,8 @@ QuickChallenge.prototype.Submit=function() {
 	});
 }
 
-QuickChallenge.prototype.Cancel=function() {
-	this.waiting=false;
+QuickChallenge.prototype.Cancel = function() {
+	this.waiting = false;
 	this.ClearEventHandlers();
 	Base.App.UpdateQuickChallenge();
 	Xhr.RunAsync(ap("/xhr/challenge_cancel.php"));
@@ -84,8 +84,8 @@ QuickChallenge.prototype.Cancel=function() {
 static - accept a quick challenge
 */
 
-QuickChallenge.Accept=function(id, callback, obj) {
-	obj=obj||window;
+QuickChallenge.Accept = function(id, callback, obj) {
+	obj = obj||window;
 
 	Xhr.QueryAsync(ap("/xhr/challenge_accept.php"), function(response) {
 		if(is_function(callback)) {
@@ -100,7 +100,7 @@ QuickChallenge.Accept=function(id, callback, obj) {
 static - decline a quick challenge
 */
 
-QuickChallenge.Decline=function(id) {
+QuickChallenge.Decline = function(id) {
 	Xhr.RunQueryAsync(ap("/xhr/challenge_decline.php"), {
 		"table": id
 	});

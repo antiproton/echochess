@@ -1,10 +1,10 @@
 function IStartTab() {
-	this.Detachable=false;
-	this.Body=new StartTabBody(this.TabPage.Inner);
+	this.Detachable = false;
+	this.Body = new StartTabBody(this.TabPage.Inner);
 	this.TabButton.Title.Set("Games");
 	this.TabButton.ShowDetach.Set(false);
 	this.TabButton.ShowClose.Set(false);
-	this.last_inner_tab_selected=this.Body.TableListTabCtrl.SelectedTab;
+	this.last_inner_tab_selected = this.Body.TableListTabCtrl.SelectedTab;
 }
 
 /*
@@ -17,17 +17,17 @@ themselves anyway)
 selecting them updates the table lists immediately
 */
 
-IStartTab.prototype.Select=function() {
+IStartTab.prototype.Select = function() {
 	Tab.prototype.Select.call(this);
 
-	if(this.last_inner_tab_selected!==null) {
+	if(this.last_inner_tab_selected !== null) {
 		this.Body.TableListTabCtrl.SelectTab(this.last_inner_tab_selected);
 	}
 }
 
-IStartTab.prototype.Deselect=function() {
+IStartTab.prototype.Deselect = function() {
 	Tab.prototype.Deselect.call(this);
 
-	this.last_inner_tab_selected=this.Body.TableListTabCtrl.SelectedTab;
+	this.last_inner_tab_selected = this.Body.TableListTabCtrl.SelectedTab;
 	this.Body.TableListTabCtrl.SelectTab(null);
 }

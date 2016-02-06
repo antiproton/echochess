@@ -9,15 +9,15 @@ premove situation only changes when the opponent moves.
 function Premoves(game) {
 	IEventHandlerLogging.implement(this);
 
-	this.List=[];
-	this.Game=game;
-	this.BeforeUpdate=new Event(this);
-	this.Update=new Event(this);
+	this.List = [];
+	this.Game = game;
+	this.BeforeUpdate = new Event(this);
+	this.Update = new Event(this);
 	this.init_load();
 	this.start_updates();
 }
 
-Premoves.prototype.init_load=function() {
+Premoves.prototype.init_load = function() {
 	Xhr.QueryAsync(ap("/xhr/premove_list.php"), function(data) {
 		this.BeforeUpdate.Fire();
 		this.update_list(data);
@@ -27,18 +27,18 @@ Premoves.prototype.init_load=function() {
 	}, this);
 }
 
-Premoves.prototype.start_updates=function() {
+Premoves.prototype.start_updates = function() {
 	Base.LongPoll.GatheringClientState.AddHandler(this, function(update) {
 		var colour, seated;
-		var move_index=-1;
+		var move_index = -1;
 
-		seated=(this.Game.Table.PlayerSeat!==null);
+		seated = (this.Game.Table.PlayerSeat !== null);
 
 		if(seated) {
-			colour=this.Game.Table.PlayerSeat.Colour;
+			colour = this.Game.Table.PlayerSeat.Colour;
 
-			if(this.Game.History.MainLine.Line.Length>0) {
-				move_index=this.Game.History.MainLine.LastMove.MoveIndex;
+			if(this.Game.History.MainLine.Line.Length > 0) {
+				move_index = this.Game.History.MainLine.LastMove.MoveIndex;
 			}
 
 			update.AddClientData(this, UPDATE_TYPE_PREMOVES, {
@@ -50,9 +50,9 @@ Premoves.prototype.start_updates=function() {
 	});
 
 	Base.LongPoll.HaveUpdates.AddHandler(this, function(update) {
-		var data=update.GetUpdates(this);
+		var data = update.GetUpdates(this);
 
-		if(data!==null) {
+		if(data !== null) {
 			this.BeforeUpdate.Fire();
 			this.update_list(data);
 			this.Update.Fire();
@@ -60,7 +60,7 @@ Premoves.prototype.start_updates=function() {
 	});
 }
 
-Premoves.prototype.Add=function(move) {
+Premoves.prototype.Add = function(move) {
 	this.BeforeUpdate.Fire();
 	this.List.push(move);
 
@@ -72,7 +72,7 @@ Premoves.prototype.Add=function(move) {
 		if(!response["success"]) {
 			this.BeforeUpdate.Fire();
 
-			while(this.List.length>0 && end(this.List).MoveIndex>=response["move_index"]) {
+			while(this.List.length > 0 && end(this.List).MoveIndex >= response["move_index"]) {
 				this.List.pop();
 			}
 
@@ -89,14 +89,14 @@ Premoves.prototype.Add=function(move) {
 	this.Update.Fire();
 }
 
-Premoves.prototype.Undo=function() {
-	if(this.List.length>0) {
+Premoves.prototype.Undo = function() {
+	if(this.List.length > 0) {
 		this.BeforeUpdate.Fire();
 
-		var move=this.List.pop();
+		var move = this.List.pop();
 
 		Xhr.QueryAsync(ap("/xhr/premove_clear.php"), function(response) {
-			if(response===false) {
+			if(response === false) {
 				this.BeforeUpdate.Fire();
 				this.List.push(move);
 				this.Update.Fire();
@@ -110,19 +110,19 @@ Premoves.prototype.Undo=function() {
 	}
 }
 
-Premoves.prototype.Clear=function() {
-	var old_list=Data.Serialise(this.List);
+Premoves.prototype.Clear = function() {
+	var old_list = Data.Serialise(this.List);
 
 	this.BeforeUpdate.Fire();
 
-	this.List=[];
+	this.List = [];
 
-	if(this.List.length>0) {
+	if(this.List.length > 0) {
 		Xhr.QueryAsync(ap("/xhr/premove_clear.php"), function(response) {
-			if(response===false) {
+			if(response === false) {
 				this.BeforeUpdate.Fire();
 
-				this.List=Data.Unserialise(old_list);
+				this.List = Data.Unserialise(old_list);
 
 				this.Update.Fire();
 			}
@@ -134,16 +134,16 @@ Premoves.prototype.Clear=function() {
 	this.Update.Fire();
 }
 
-Premoves.prototype.update_list=function(table) {
+Premoves.prototype.update_list = function(table) {
 	var row, move;
 
 	if(is_array(table)) {
-		this.List=[];
+		this.List = [];
 
-		for(var i=0; i<table.length; i++) {
-			row=table[i];
+		for(var i = 0; i < table.length; i++) {
+			row = table[i];
 
-			move={
+			move = {
 				Fs: row["fs"],
 				Ts: row["ts"],
 				PromoteTo: row["promote_to"],
@@ -155,6 +155,6 @@ Premoves.prototype.update_list=function(table) {
 	}
 }
 
-Premoves.prototype.Die=function() {
+Premoves.prototype.Die = function() {
 	this.ClearEventHandlers();
 }

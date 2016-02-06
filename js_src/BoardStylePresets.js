@@ -1,4 +1,4 @@
-var BoardStylePresets=[
+var BoardStylePresets = [
 	{
 		Description: "Brown",
 		Light: "f0d9b5",

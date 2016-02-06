@@ -4,7 +4,7 @@ function ResultDisplay(parent) {
 	this.SetupHtml();
 }
 
-ResultDisplay.prototype.SetupHtml=function() {
+ResultDisplay.prototype.SetupHtml = function() {
 	Dom.Style(this.Node, {
 		fontWeight: "bold",
 		fontSize: 11,
@@ -21,17 +21,17 @@ ResultDisplay.prototype.SetupHtml=function() {
 	});
 }
 
-ResultDisplay.prototype.SetResult=function(result, result_details) {
-	this.Node.innerHTML=Result.String[result];
+ResultDisplay.prototype.SetResult = function(result, result_details) {
+	this.Node.innerHTML = Result.String[result];
 }
 
-//ResultDisplay.prototype.Show=function() {
+//ResultDisplay.prototype.Show = function() {
 //	Dom.Style(this.Node, {
 //		display: "inline-block"
 //	});
 //}
 //
-//ResultDisplay.prototype.Hide=function() {
+//ResultDisplay.prototype.Hide = function() {
 //	Dom.Style(this.Node, {
 //		display: "none"
 //	});

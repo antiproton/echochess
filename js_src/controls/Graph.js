@@ -10,13 +10,13 @@ function Graph(parent) {
 	this.SetupHtml();
 }
 
-Graph.prototype.SetupHtml=function() {
+Graph.prototype.SetupHtml = function() {
 /*	Dom.Style(this.Node, {
 		position: "absolute",
 		width: "100%"
 	})*/;
 
-	this.inner=div(this.Node);
+	this.inner = div(this.Node);
 
 	Dom.Style(this.inner, {
 		position: "absolute",
@@ -28,10 +28,10 @@ Graph.prototype.SetupHtml=function() {
 	this.UpdateHtml();
 }
 
-Graph.prototype.UpdateHtml=function() {
+Graph.prototype.UpdateHtml = function() {
 
 }
 
-Graph.prototype.Update=function(data) {
+Graph.prototype.Update = function(data) {
 
 }

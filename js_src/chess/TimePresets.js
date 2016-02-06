@@ -1,4 +1,4 @@
-var TimePresets=[
+var TimePresets = [
 	{
 		Style: TIMING_FISCHER_AFTER,
 		Initial: 1*60,

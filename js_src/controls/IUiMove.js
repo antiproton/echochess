@@ -7,20 +7,20 @@ SetupHtml.
 
 function IUiMove() {
 	IUiMoveListElementCommon.implement(this);
-	this.Node=$("*span");
+	this.Node = $("*span");
 
-	this.UserSelect=new Event(this);
+	this.UserSelect = new Event(this);
 
-	this.style_deselected={
+	this.style_deselected = {
 		border: "1px solid transparent"
 	};
 
-	this.style_selected={};
+	this.style_selected = {};
 
-	this.StyleSelected=new Property(this, function() {
+	this.StyleSelected = new Property(this, function() {
 		return this.style_selected;
 	}, function(value) {
-		this.style_selected=value;
+		this.style_selected = value;
 
 		/*
 		make sure each prop is set back to how it was before when deselected, in case it isn't explicitly
@@ -29,17 +29,17 @@ function IUiMove() {
 
 		for(var p in value) {
 			if(!this.style_deselected.hasOwnProperty(p)) {
-				this.style_deselected[p]=this.Node.style[p];
+				this.style_deselected[p] = this.Node.style[p];
 			}
 		}
 
 		this.UpdateHtml();
 	});
 
-	this.StyleDeselected=new Property(this, function() {
+	this.StyleDeselected = new Property(this, function() {
 		return this.style_deselected;
 	}, function(value) {
-		this.style_deselected=value;
+		this.style_deselected = value;
 		this.UpdateHtml();
 	});
 
@@ -48,15 +48,15 @@ function IUiMove() {
 		backgroundColor: "#FFFBB2"
 	});
 
-	this.NodeHeight=new Property(this, function() {
+	this.NodeHeight = new Property(this, function() {
 		return this.Node.offsetHeight;
 	});
 }
 
-IUiMove.prototype.SetupHtml=function() {
+IUiMove.prototype.SetupHtml = function() {
 	IUiMoveListElementCommon.prototype.SetupHtml.call(this);
 
-	var self=this;
+	var self = this;
 
 	/*
 	inner_span - the move label spans need to be whiteSpace: nowrap so that the
@@ -66,7 +66,7 @@ IUiMove.prototype.SetupHtml=function() {
 	the label node.
 	*/
 
-	this.inner_span=$("*span");
+	this.inner_span = $("*span");
 
 	Dom.AddEventHandler(this.Node, "click", function() {
 		self.UserSelect.Fire();
@@ -93,7 +93,7 @@ also will need to make sure there is definitely at least one space every
 time, otherwise all will come on one line
 */
 
-IUiMove.prototype.UpdateHtml=function() {
+IUiMove.prototype.UpdateHtml = function() {
 	if(this.html_is_setup) {
 		Dom.ClearNode(this.Node);
 		Dom.ClearNode(this.inner_span);
@@ -102,30 +102,30 @@ IUiMove.prototype.UpdateHtml=function() {
 			whiteSpace: "nowrap"
 		});
 
-		if(this.PreviousItem!==null) {
+		if(this.PreviousItem !== null) {
 			//this.Node.appendChild($("%\u00a0"));
 		}
 
-		var label=this.GetLabel();
+		var label = this.GetLabel();
 
 		if(this.DisplayFullmove) {
-			label=this.GetFullLabel();
+			label = this.GetFullLabel();
 		}
 
 		this.Node.appendChild(this.inner_span);
 		this.inner_span.appendChild($("%"+label+""));
 
-		if(this.NextItem!==null) {
+		if(this.NextItem !== null) {
 			this.Node.appendChild($("%\u00a0"));
 		}
 	}
 }
 
-IUiMove.prototype.Select=function() {
+IUiMove.prototype.Select = function() {
 	Dom.Style(this.inner_span, this.style_selected);
 }
 
-IUiMove.prototype.Deselect=function() {
+IUiMove.prototype.Deselect = function() {
 	Dom.Style(this.inner_span, this.style_deselected);
 }
 
@@ -143,6 +143,6 @@ NOTE this is the calling code saying "your pointers have been updated"
 not asking "have your pointers been updated?"
 */
 
-IUiMove.prototype.PointersUpdated=function() {
+IUiMove.prototype.PointersUpdated = function() {
 	this.UpdateHtml();
 }

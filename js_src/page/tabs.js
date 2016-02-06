@@ -1,5 +1,5 @@
 function Tabs() {
-	this.window=window;
+	this.window = window;
 	this.init_tab_ctrl();
 	this.init_alerts_container();
 	this.init_seated_tables();
@@ -22,8 +22,8 @@ function Tabs() {
 	//this.Ctrl.SelectedTab.Body.TableListTabCtrl.SelectTab(this.Ctrl.SelectedTab.Body.TableListTabCtrl.Tabs.FirstItem());
 }
 
-Tabs.prototype.init_alerts_container=function() {
-	this.alerts_container=div(Dom.GetBody());
+Tabs.prototype.init_alerts_container = function() {
+	this.alerts_container = div(Dom.GetBody());
 
 	Dom.Style(this.alerts_container, {
 		position: "absolute",
@@ -33,22 +33,22 @@ Tabs.prototype.init_alerts_container=function() {
 	});
 }
 
-Tabs.prototype.init_direct_challenge_listener=function() {
-	this.direct_challenge_listener=new DirectChallengeListener();
+Tabs.prototype.init_direct_challenge_listener = function() {
+	this.direct_challenge_listener = new DirectChallengeListener();
 
 	this.direct_challenge_listener.ChallengeReceived.AddHandler(this, function(data) {
-		var challenge_alert=new DirectChallengeAlert(this.alerts_container, data);
+		var challenge_alert = new DirectChallengeAlert(this.alerts_container, data);
 	});
 }
 
-Tabs.prototype.init_quit_cleanup=function() {
+Tabs.prototype.init_quit_cleanup = function() {
 	Dom.AddEventHandler(window, "beforeunload", function() {
-		var ids=[];
+		var ids = [];
 
 		this.Ctrl.Tabs.Each(function(item) {
 			if(
-				item.Type===ILiveTableTab
-				&& item.Table!==null
+				item.Type === ILiveTableTab
+				&& item.Table !== null
 				&& item.Table.PlayerIsSeated.Get()
 				&& item.Table.GameInProgress.Get()
 			) {
@@ -56,18 +56,18 @@ Tabs.prototype.init_quit_cleanup=function() {
 			}
 		});
 
-		if(ids.length>0) {
+		if(ids.length > 0) {
 			Xhr.RunQueryAsync(ap("/xhr/quit.php"), ids);
 		}
 	}, this);
 }
 
-Tabs.prototype.find_live_table=function(id) {
-	var table=null;
+Tabs.prototype.find_live_table = function(id) {
+	var table = null;
 
 	this.Ctrl.Tabs.Each(function(item) {
-		if(item.Type===ILiveTableTab && item.Table!==null && item.Table.Id===id) {
-			table=item.Table;
+		if(item.Type === ILiveTableTab && item.Table !== null && item.Table.Id === id) {
+			table = item.Table;
 
 			return true;
 		}
@@ -76,21 +76,21 @@ Tabs.prototype.find_live_table=function(id) {
 	return table;
 }
 
-Tabs.prototype.init_messages=function() {
-	this.Messages=new Messages();
+Tabs.prototype.init_messages = function() {
+	this.Messages = new Messages();
 
 	this.Messages.Update.AddHandler(this, function(data, sender) {
 		if(is_array(data.Data)) {
 			var msg;
 
-			for(var i=0; i<data.Data.length; i++) {
-				msg=data.Data[i];
+			for(var i = 0; i < data.Data.length; i++) {
+				msg = data.Data[i];
 
 				switch(msg["type"]) {
 					case MESSAGE_TYPE_REMATCH_DECLINE: {
-						var table=this.find_live_table(msg["subject"]);
+						var table = this.find_live_table(msg["subject"]);
 
-						if(table!==null) {
+						if(table !== null) {
 							table.MessageRematchDeclined(msg["sender"]);
 						}
 
@@ -98,9 +98,9 @@ Tabs.prototype.init_messages=function() {
 					}
 
 					case MESSAGE_TYPE_REMATCH_CANCEL: {
-						var table=this.find_live_table(msg["subject"]);
+						var table = this.find_live_table(msg["subject"]);
 
-						if(table!==null) {
+						if(table !== null) {
 							table.MessageRematchCancelled(msg["sender"]);
 						}
 
@@ -108,9 +108,9 @@ Tabs.prototype.init_messages=function() {
 					}
 
 					case MESSAGE_TYPE_OPPONENT_CONNECT: {
-						var table=this.find_live_table(msg["subject"]);
+						var table = this.find_live_table(msg["subject"]);
 
-						if(table!==null) {
+						if(table !== null) {
 							table.MessageOpponentConnected(msg["sender"]);
 						}
 
@@ -118,9 +118,9 @@ Tabs.prototype.init_messages=function() {
 					}
 
 					case MESSAGE_TYPE_OPPONENT_DISCONNECT: {
-						var table=this.find_live_table(msg["subject"]);
+						var table = this.find_live_table(msg["subject"]);
 
-						if(table!==null) {
+						if(table !== null) {
 							table.MessageOpponentDisconnected(msg["sender"]);
 						}
 
@@ -128,9 +128,9 @@ Tabs.prototype.init_messages=function() {
 					}
 
 					case MESSAGE_TYPE_TEAM_CHAT: {
-						var table=this.find_live_table(msg["subject"]);
+						var table = this.find_live_table(msg["subject"]);
 
-						if(table!==null) {
+						if(table !== null) {
 							table.MessageTeamChat(msg["sender"], msg["body"]);
 						}
 
@@ -162,20 +162,20 @@ callback can check whether the accept was successful before opening a tab (or
 displaying a message if it was unsuccessful).
 */
 
-Tabs.prototype.init_game_setup_handlers=function() {
+Tabs.prototype.init_game_setup_handlers = function() {
 	Base.App.UserOpenTable.AddHandler(this, function(data) {
-		var tab=null;
+		var tab = null;
 
 		this.Ctrl.Tabs.Each(function(item) {
-			if(item.Type===ILiveTableTab && item.Table!==null && item.Table.Id===data.Id) {
-				tab=item;
+			if(item.Type === ILiveTableTab && item.Table !== null && item.Table.Id === data.Id) {
+				tab = item;
 
 				return true;
 			}
 		});
 
-		if(tab===null) {
-			tab=this.Ctrl.Add(ILiveTableTab);
+		if(tab === null) {
+			tab = this.Ctrl.Add(ILiveTableTab);
 
 			Base.LongPoll.Pause(function() {
 				tab.CreateTable();
@@ -189,18 +189,18 @@ Tabs.prototype.init_game_setup_handlers=function() {
 	});
 
 	Base.App.UserJoinTable.AddHandler(this, function(data) {
-		var tab=null;
+		var tab = null;
 
 		this.Ctrl.Tabs.Each(function(item) {
-			if(item.Type===ILiveTableTab && item.Table!==null && item.Table.Id===data.Id) {
-				tab=item;
+			if(item.Type === ILiveTableTab && item.Table !== null && item.Table.Id === data.Id) {
+				tab = item;
 
 				return true;
 			}
 		});
 
-		if(tab===null) {
-			tab=this.Ctrl.Add(ILiveTableTab);
+		if(tab === null) {
+			tab = this.Ctrl.Add(ILiveTableTab);
 
 			Base.LongPoll.Pause(function() {
 				tab.CreateTable();
@@ -221,23 +221,23 @@ Tabs.prototype.init_game_setup_handlers=function() {
 	});
 }
 
-Tabs.prototype.init_tab_ctrl=function() {
-	var self=this;
+Tabs.prototype.init_tab_ctrl = function() {
+	var self = this;
 
 	/*
 	a couple of flags to stop event handlers going crazy while updating
 	*/
 
-	this.updating_hash=false;
-	this.updating_from_hash=false;
+	this.updating_hash = false;
+	this.updating_from_hash = false;
 
-	this.hash_list=[];
+	this.hash_list = [];
 
 	/*
 	NOTE hash types in quotes to avoid getting minned
 	*/
 
-	this.hash_tab_types={
+	this.hash_tab_types = {
 		"l": ILiveTableTab,
 		"e": IAnalysisTab
 	};
@@ -246,7 +246,7 @@ Tabs.prototype.init_tab_ctrl=function() {
 	create the main tab control
 	*/
 
-	this.Ctrl=new TabController($("#tab_bar"), $("#tab_body"), "tab_button", "tab_button_on");
+	this.Ctrl = new TabController($("#tab_bar"), $("#tab_body"), "tab_button", "tab_button_on");
 	this.Ctrl.TabBar.Spacing.Set(1);
 
 	/*
@@ -255,22 +255,22 @@ Tabs.prototype.init_tab_ctrl=function() {
 
 	this.Ctrl.TabAdded.AddHandler(this, function(data, sender) {
 		for(var p in this.hash_tab_types) {
-			if(data.Tab.Type===this.hash_tab_types[p]) {
-				data.Tab.HashPrefix=p;
+			if(data.Tab.Type === this.hash_tab_types[p]) {
+				data.Tab.HashPrefix = p;
 
 				break;
 			}
 		}
 
-		if(data.Tab.HashPrefix!==null) {
+		if(data.Tab.HashPrefix !== null) {
 			data.Tab.HashAdd.AddHandler(this, function(data, sender) {
 				if(!this.updating_from_hash) {
-					var str=sender.HashPrefix+data.Id;
-					var already_added=false;
+					var str = sender.HashPrefix+data.Id;
+					var already_added = false;
 
-					for(var i=0; i<this.hash_list.length; i++) {
-						if(this.hash_list[i]===str) {
-							already_added=true;
+					for(var i = 0; i < this.hash_list.length; i++) {
+						if(this.hash_list[i] === str) {
+							already_added = true;
 
 							break;
 						}
@@ -285,10 +285,10 @@ Tabs.prototype.init_tab_ctrl=function() {
 
 			data.Tab.HashRemove.AddHandler(this, function(data, sender) {
 				if(!this.updating_from_hash) {
-					var str=sender.HashPrefix+data.Id;
+					var str = sender.HashPrefix+data.Id;
 
-					for(var i=0; i<this.hash_list.length; i++) {
-						if(this.hash_list[i]===str) {
+					for(var i = 0; i < this.hash_list.length; i++) {
+						if(this.hash_list[i] === str) {
 							this.hash_list.splice(i, 1);
 							i--;
 						}
@@ -310,8 +310,8 @@ Tabs.prototype.init_tab_ctrl=function() {
 	start tab
 	*/
 
-	this.StartTab=this.Ctrl.Add(IStartTab);
-	this.StartTab.Closeable=false;
+	this.StartTab = this.Ctrl.Add(IStartTab);
+	this.StartTab.Closeable = false;
 
 	/*
 	hash tabs
@@ -324,33 +324,33 @@ Tabs.prototype.init_tab_ctrl=function() {
 load tables the user is sat at
 */
 
-Tabs.prototype.init_seated_tables=function() {
-	var tables=Base.Request["page"]["tables"];
+Tabs.prototype.init_seated_tables = function() {
+	var tables = Base.Request["page"]["tables"];
 	var id;
 	var already_added;
 
-	for(var i=0; i<tables.length; i++) {
-		id=tables[i];
-		already_added=false;
+	for(var i = 0; i < tables.length; i++) {
+		id = tables[i];
+		already_added = false;
 
 		this.Ctrl.Tabs.Each(function(item) {
-			if(item.Type===ILiveTableTab && item.Table!==null && item.Table.Id===id) {
-				already_added=true;
+			if(item.Type === ILiveTableTab && item.Table !== null && item.Table.Id === id) {
+				already_added = true;
 
 				return true;
 			}
 		});
 
 		if(!already_added) {
-			var tab=this.Ctrl.Add(ILiveTableTab);
+			var tab = this.Ctrl.Add(ILiveTableTab);
 			tab.CreateTable();
 			tab.Table.Load(id);
 		}
 	}
 }
 
-Tabs.prototype.init_new_tab_links=function() {
-	this.new_tab_links={
+Tabs.prototype.init_new_tab_links = function() {
+	this.new_tab_links = {
 		Quick: $("#new_live"),
 		Custom: $("#new_custom"),
 		Editor: $("#new_analysis")
@@ -364,8 +364,8 @@ Tabs.prototype.init_new_tab_links=function() {
 		}
 
 		else {
-			var os=Dom.GetOffsets(this.new_tab_links.Quick);
-			var dim=[this.new_tab_links.Quick.offsetWidth, this.new_tab_links.Quick.offsetHeight];
+			var os = Dom.GetOffsets(this.new_tab_links.Quick);
+			var dim = [this.new_tab_links.Quick.offsetWidth, this.new_tab_links.Quick.offsetHeight];
 
 			this.sb_quick_challenge_form.Display.Set(true);
 			this.sb_quick_challenge_form.SetArrowLocation(os[X]+Math.round(dim[X]/2), os[Y]+dim[Y]+5);
@@ -381,8 +381,8 @@ Tabs.prototype.init_new_tab_links=function() {
 		}
 
 		else {
-			var os=Dom.GetOffsets(this.new_tab_links.Custom);
-			var dim=[this.new_tab_links.Custom.offsetWidth, this.new_tab_links.Custom.offsetHeight];
+			var os = Dom.GetOffsets(this.new_tab_links.Custom);
+			var dim = [this.new_tab_links.Custom.offsetWidth, this.new_tab_links.Custom.offsetHeight];
 
 			this.sb_custom_table_dialog.Display.Set(true);
 			this.sb_custom_table_dialog.SetArrowLocation(os[X]+Math.round(dim[X]/2), os[Y]+dim[Y]+5);
@@ -394,8 +394,8 @@ Tabs.prototype.init_new_tab_links=function() {
 	}, this);
 }
 
-Tabs.prototype.init_custom_table_form=function() {
-	this.sb_custom_table_dialog=new SpeechBubbleBox(TOP, {
+Tabs.prototype.init_custom_table_form = function() {
+	this.sb_custom_table_dialog = new SpeechBubbleBox(TOP, {
 		ArrowHeight: 8,
 		Width: 220,
 		BorderColour: "#808080"
@@ -403,10 +403,10 @@ Tabs.prototype.init_custom_table_form=function() {
 
 	this.sb_custom_table_dialog.Display.Set(false);
 
-	this.CustomTableForm=new CustomTableForm(this.sb_custom_table_dialog.Inner);
+	this.CustomTableForm = new CustomTableForm(this.sb_custom_table_dialog.Inner);
 
 	this.CustomTableForm.CreateTable.AddHandler(this, function(data) {
-		var tab=this.Ctrl.Add(ILiveTableTab);
+		var tab = this.Ctrl.Add(ILiveTableTab);
 
 		tab.CreateTable();
 		tab.Table.Type.Set(data.Type);
@@ -426,8 +426,8 @@ Tabs.prototype.init_custom_table_form=function() {
 	});
 }
 
-Tabs.prototype.init_quick_challenge_form=function() {
-	this.sb_quick_challenge_form=new SpeechBubbleBox(TOP, {
+Tabs.prototype.init_quick_challenge_form = function() {
+	this.sb_quick_challenge_form = new SpeechBubbleBox(TOP, {
 		ArrowHeight: 8,
 		Width: 220,
 		BorderColour: "#808080"
@@ -435,18 +435,18 @@ Tabs.prototype.init_quick_challenge_form=function() {
 
 	this.sb_quick_challenge_form.Display.Set(false);
 
-	this.quick_challenge_form=new QuickChallengeForm(this.sb_quick_challenge_form.Inner);
+	this.quick_challenge_form = new QuickChallengeForm(this.sb_quick_challenge_form.Inner);
 
 	this.quick_challenge_form.Width.Set(220);
 	this.quick_challenge_form.Padding.Set(5);
 
 	this.quick_challenge_form.Done.AddHandler(this, function(data, sender) {
-		if(data.Info===QuickChallenge.SUCCESS) {
-			var tab=this.Ctrl.Add(ILiveTableTab);
+		if(data.Info === QuickChallenge.SUCCESS) {
+			var tab = this.Ctrl.Add(ILiveTableTab);
 
 			tab.CreateTable();
 			tab.Table.Load(data.Table);
-			tab.Table.FromQuickChallenge=sender.QuickChallenge;
+			tab.Table.FromQuickChallenge = sender.QuickChallenge;
 			this.sb_quick_challenge_form.Display.Set(false);
 		}
 	});
@@ -469,29 +469,29 @@ init_user_ratings - the server gets a list of the user's ratings at load
 time for clientside use.  they won't be updated if the ratings change.
 */
 
-Tabs.prototype.init_user_ratings=function() {
+Tabs.prototype.init_user_ratings = function() {
 	//TODO
 }
 
-Tabs.prototype.init_other_login_alert=function() {
-	var other_login_alert=new GenericUpdater(GENERIC_UPDATES_LIVE_MAIN_WINDOW, Base.Request["page"]["main_page_update"]);
+Tabs.prototype.init_other_login_alert = function() {
+	var other_login_alert = new GenericUpdater(GENERIC_UPDATES_LIVE_MAIN_WINDOW, Base.Request["page"]["main_page_update"]);
 
 	other_login_alert.Updated.AddHandler(this, function() {
 		Base.LongPoll.Stop();
 
 		//alert("Another login has been detected");
 
-		window.location.href=ap("/");
+		window.location.href = ap("/");
 	});
 }
 
-Tabs.prototype.update_from_hash=function() {
-	this.updating_from_hash=true;
+Tabs.prototype.update_from_hash = function() {
+	this.updating_from_hash = true;
 
-	var hash=window.location.hash;
+	var hash = window.location.hash;
 
-	if(hash.indexOf("!")===1 && hash.length>2) {
-		this.hash_list=hash.substr(2).split(",");
+	if(hash.indexOf("!") === 1 && hash.length > 2) {
+		this.hash_list = hash.substr(2).split(",");
 
 		/*
 		add any that aren't in the tab control already
@@ -500,24 +500,24 @@ Tabs.prototype.update_from_hash=function() {
 		var str, type, id, tab;
 		var already_added;
 
-		for(var i=0; i<this.hash_list.length; i++) {
-			str=this.hash_list[i];
-			type=str.substr(0, 1);
-			id=parseInt(str.substr(1));
+		for(var i = 0; i < this.hash_list.length; i++) {
+			str = this.hash_list[i];
+			type = str.substr(0, 1);
+			id = parseInt(str.substr(1));
 
 			if((type in this.hash_tab_types) && is_number(id)) {
-				already_added=false;
+				already_added = false;
 
 				this.Ctrl.Tabs.Each(function(item) {
-					if(item.HashPrefix===type && item.Table!==null && item.Table.Id===id) {
-						already_added=true;
+					if(item.HashPrefix === type && item.Table !== null && item.Table.Id === id) {
+						already_added = true;
 
 						return true;
 					}
 				}, this);
 
 				if(!already_added) {
-					tab=this.Ctrl.Add(this.hash_tab_types[type]);
+					tab = this.Ctrl.Add(this.hash_tab_types[type]);
 					tab.CreateTable();
 					tab.Table.Load(id);
 				}
@@ -529,14 +529,14 @@ Tabs.prototype.update_from_hash=function() {
 		*/
 
 		this.Ctrl.Tabs.Each(function(item) {
-			if((item.HashPrefix in this.hash_tab_types) && item.Table!==null) {
-				var in_hash=false;
+			if((item.HashPrefix in this.hash_tab_types) && item.Table !== null) {
+				var in_hash = false;
 
-				str=item.HashPrefix+item.Table.Id;
+				str = item.HashPrefix+item.Table.Id;
 
-				for(var i=0; i<this.hash_list.length; i++) {
-					if(this.hash_list[i]===str) {
-						in_hash=true;
+				for(var i = 0; i < this.hash_list.length; i++) {
+					if(this.hash_list[i] === str) {
+						in_hash = true;
 
 						break;
 					}
@@ -550,25 +550,25 @@ Tabs.prototype.update_from_hash=function() {
 	}
 
 	else {
-		this.hash_list=[];
+		this.hash_list = [];
 	}
 
-	this.updating_from_hash=false;
+	this.updating_from_hash = false;
 }
 
-Tabs.prototype.update_hash=function() {
-	this.updating_hash=true;
-	window.location.hash="#!"+this.hash_list.join(",");
-	this.updating_hash=false;
+Tabs.prototype.update_hash = function() {
+	this.updating_hash = true;
+	window.location.hash = "#!"+this.hash_list.join(",");
+	this.updating_hash = false;
 }
 
-Tabs.prototype.init_updates=function() {
+Tabs.prototype.init_updates = function() {
 	Base.LongPoll.Url.Set(ap("/xhr/updates.php"));
 	Base.LongPoll.Start();
 }
 
 var main;
 
-Base.Ready.AddHandler(this, function() {
-	main=new Tabs();
+window.addEventListener("load", function() {
+	main = new Tabs();
 });

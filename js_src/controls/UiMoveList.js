@@ -6,17 +6,17 @@ still has Add, Remove etc like a List, but they affect nodes as well.
 
 function UiMoveList() {
 	List.implement(this);
-	this.Node=$("*span");
+	this.Node = $("*span");
 }
 
-UiMoveList.prototype.Add=function(item) {
+UiMoveList.prototype.Add = function(item) {
 	this.Insert(item, this.Length);
 }
 
-UiMoveList.prototype.Insert=function(item, index) {
-	var space=$("% ");
+UiMoveList.prototype.Insert = function(item, index) {
+	var space = $("% ");
 
-	if(index>=this.Length) {
+	if(index >= this.Length) {
 		this.Node.appendChild(item.Node);
 		this.Node.appendChild(space);
 	}
@@ -37,7 +37,7 @@ property set to whichever move needs removing.
 FIXME is any of that true?  doesn't look like it
 */
 
-UiMoveList.prototype.Remove=function(item) {
+UiMoveList.prototype.Remove = function(item) {
 	List.prototype.Remove.call(this, item);
 	Dom.RemoveNode(item.Node);
 }

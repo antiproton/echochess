@@ -1,15 +1,15 @@
 function TournamentLobby(parent, tournament) {
 	Control.implement(this, parent);
 
-	this.Tournament=tournament;
+	this.Tournament = tournament;
 
 	this.SetupHtml();
 }
 
-TournamentLobby.prototype.SetupHtml=function() {
+TournamentLobby.prototype.SetupHtml = function() {
 	this.UpdateHtml();
 }
 
-TournamentLobby.prototype.UpdateHtml=function() {
+TournamentLobby.prototype.UpdateHtml = function() {
 
 }

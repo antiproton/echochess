@@ -6,18 +6,18 @@ configurable will bring up a dialog to edit them when clicked.
 function TimeSetting(parent) {
 	Control.implement(this, parent);
 
-	this.Changed=new Event(this);
+	this.Changed = new Event(this);
 
-	this.style=TIMING_SUDDEN_DEATH;
-	this.initial=0;
-	this.increment=0;
-	this.overtime=false;
-	this.overtime_cutoff=40;
-	this.overtime_increment=0;
-	this.configurable=true;
-	this.editing=false;
+	this.style = TIMING_SUDDEN_DEATH;
+	this.initial = 0;
+	this.increment = 0;
+	this.overtime = false;
+	this.overtime_cutoff = 40;
+	this.overtime_increment = 0;
+	this.configurable = true;
+	this.editing = false;
 
-	this.overtime_styles=[
+	this.overtime_styles = [
 		TIMING_SUDDEN_DEATH,
 		TIMING_FISCHER,
 		TIMING_FISCHER_AFTER,
@@ -25,7 +25,7 @@ function TimeSetting(parent) {
 		TIMING_SIMPLE_DELAY,
 	];
 
-	this.increment_styles=[
+	this.increment_styles = [
 		TIMING_SUDDEN_DEATH,
 		TIMING_FISCHER,
 		TIMING_FISCHER_AFTER,
@@ -33,71 +33,71 @@ function TimeSetting(parent) {
 		TIMING_BRONSTEIN_DELAY
 	];
 
-	this.Style=new Property(this, function() {
+	this.Style = new Property(this, function() {
 		return this.style;
 	}, function(value) {
-		this.style=value;
+		this.style = value;
 		this.update_display();
 	});
 
-	this.Initial=new Property(this, function() {
+	this.Initial = new Property(this, function() {
 		return this.initial;
 	}, function(value) {
-		this.initial=value;
+		this.initial = value;
 		this.update_display();
 	});
 
-	this.Increment=new Property(this, function() {
+	this.Increment = new Property(this, function() {
 		return this.increment;
 	}, function(value) {
-		this.increment=value;
+		this.increment = value;
 		this.update_display();
 	});
 
-	this.Overtime=new Property(this, function() {
+	this.Overtime = new Property(this, function() {
 		return this.overtime;
 	}, function(value) {
-		this.overtime=value;
+		this.overtime = value;
 		this.update_display();
 	});
 
-	this.OvertimeIncrement=new Property(this, function() {
+	this.OvertimeIncrement = new Property(this, function() {
 		return this.overtime_increment;
 	}, function(value) {
-		this.overtime_increment=value;
+		this.overtime_increment = value;
 		this.update_display();
 	});
 
-	this.OvertimeCutoff=new Property(this, function() {
+	this.OvertimeCutoff = new Property(this, function() {
 		return this.overtime_cutoff;
 	}, function(value) {
-		this.overtime_cutoff=value;
+		this.overtime_cutoff = value;
 		this.update_display();
 	});
 
-	this.Configurable=new Property(this, function() {
+	this.Configurable = new Property(this, function() {
 		return this.configurable;
 	}, function(value) {
-		this.configurable=value;
+		this.configurable = value;
 		this.UpdateHtml();
 	});
 
-	this.Enabled=new Property(this, function() { //NOTE currently just an alias for configurable
+	this.Enabled = new Property(this, function() { //NOTE currently just an alias for configurable
 		return this.configurable;
 	}, function(value) {
-		this.configurable=value;
+		this.configurable = value;
 		this.UpdateHtml();
 	});
 
 	this.SetupHtml();
 }
 
-TimeSetting.prototype.SetupHtml=function() {
-	var self=this;
+TimeSetting.prototype.SetupHtml = function() {
+	var self = this;
 
 	Dom.AddClass(this.Node, "timesetting");
 
-	this.TimeSettingDialog=new SpeechBubbleBox(TOP, {
+	this.TimeSettingDialog = new SpeechBubbleBox(TOP, {
 		Width: 220
 	});
 
@@ -106,7 +106,7 @@ TimeSetting.prototype.SetupHtml=function() {
 	});
 
 	this.TimeSettingDialog.Hide();
-	this.TimeSettingForm=new TimeSettingForm(this.TimeSettingDialog.Inner);
+	this.TimeSettingForm = new TimeSettingForm(this.TimeSettingDialog.Inner);
 
 	this.TimeSettingForm.Done.AddHandler(this, function(data, sender) {
 		this.form_done();
@@ -116,7 +116,7 @@ TimeSetting.prototype.SetupHtml=function() {
 		this.form_dismiss();
 	});
 
-	this.inner=div(this.Node);
+	this.inner = div(this.Node);
 
 	Dom.AddEventHandler(this.Node, "click", function() {
 		Base.App.ClickedObjects.Add(self);
@@ -136,7 +136,7 @@ TimeSetting.prototype.SetupHtml=function() {
 	this.UpdateHtml();
 }
 
-TimeSetting.prototype.UpdateHtml=function() {
+TimeSetting.prototype.UpdateHtml = function() {
 	if(this.configurable && !this.editing) {
 		Dom.AddClass(this.Node, "configurable");
 	}
@@ -156,8 +156,8 @@ TimeSetting.prototype.UpdateHtml=function() {
 	this.update_display();
 }
 
-TimeSetting.prototype.update_display=function() {
-	this.inner.innerHTML=ClockTimeDisplay.EncodeFull(
+TimeSetting.prototype.update_display = function() {
+	this.inner.innerHTML = ClockTimeDisplay.EncodeFull(
 		this.style,
 		this.initial,
 		this.increment,
@@ -167,9 +167,9 @@ TimeSetting.prototype.update_display=function() {
 	);
 }
 
-TimeSetting.prototype.form_show=function() {
-	var os=Dom.GetOffsets(this.Node);
-	var dim=[this.Node.offsetWidth, this.Node.offsetHeight];
+TimeSetting.prototype.form_show = function() {
+	var os = Dom.GetOffsets(this.Node);
+	var dim = [this.Node.offsetWidth, this.Node.offsetHeight];
 
 	this.TimeSettingForm.Style.Set(this.style);
 	this.TimeSettingForm.Initial.Set(this.initial);
@@ -181,7 +181,7 @@ TimeSetting.prototype.form_show=function() {
 	this.TimeSettingDialog.Show();
 	this.TimeSettingDialog.SetArrowLocation(os[X]+Math.round(dim[X]/2), os[Y]+dim[Y]+5);
 
-	if(this.style===TIMING_NONE) {
+	if(this.style === TIMING_NONE) {
 		this.TimeSettingForm.DropDownStyle.Focus();
 	}
 
@@ -190,50 +190,50 @@ TimeSetting.prototype.form_show=function() {
 		this.TimeSettingForm.TextBoxInitial.Select();
 	}
 
-	this.editing=true;
+	this.editing = true;
 	this.UpdateHtml();
 }
 
-TimeSetting.prototype.form_done=function() {
+TimeSetting.prototype.form_done = function() {
 	if(this.editing) {
 		this.TimeSettingDialog.Hide();
 
-		this.style=this.TimeSettingForm.Style.Get();
-		this.initial=this.TimeSettingForm.Initial.Get();
+		this.style = this.TimeSettingForm.Style.Get();
+		this.initial = this.TimeSettingForm.Initial.Get();
 
 		if(in_array(this.style, this.increment_styles)) {
-			this.increment=this.TimeSettingForm.Increment.Get();
+			this.increment = this.TimeSettingForm.Increment.Get();
 		}
 
 		else {
-			this.increment=0;
+			this.increment = 0;
 		}
 
 		if(in_array(this.style, this.overtime_styles)) {
-			this.overtime=this.TimeSettingForm.Overtime.Get();
-			this.overtime_increment=this.TimeSettingForm.OvertimeIncrement.Get();
-			this.overtime_cutoff=this.TimeSettingForm.OvertimeCutoff.Get();
+			this.overtime = this.TimeSettingForm.Overtime.Get();
+			this.overtime_increment = this.TimeSettingForm.OvertimeIncrement.Get();
+			this.overtime_cutoff = this.TimeSettingForm.OvertimeCutoff.Get();
 		}
 
 		else {
-			this.overtime=false;
+			this.overtime = false;
 		}
 
-		this.editing=false;
+		this.editing = false;
 
 		this.Changed.Fire();
 		this.UpdateHtml();
 	}
 }
 
-TimeSetting.prototype.form_dismiss=function() {
+TimeSetting.prototype.form_dismiss = function() {
 	this.TimeSettingDialog.Hide();
 
-	this.editing=false;
+	this.editing = false;
 	this.UpdateHtml();
 }
 
-TimeSetting.prototype.click=function() {
+TimeSetting.prototype.click = function() {
 	if(this.editing) {
 		this.form_dismiss();
 	}

@@ -1,13 +1,13 @@
 function QuickChallengeTabBody(parent) {
 	Control.implement(this, parent);
 
-	this.updating=false;
-	this.last_xhr=null; //only update if the xhr coming back was the last one to be sent
+	this.updating = false;
+	this.last_xhr = null; //only update if the xhr coming back was the last one to be sent
 
-	this.Updating=new Property(this, function() {
+	this.Updating = new Property(this, function() {
 		return this.updating;
 	}, function(value) {
-		this.updating=value;
+		this.updating = value;
 
 		if(this.updating) {
 			this.update();
@@ -18,7 +18,7 @@ function QuickChallengeTabBody(parent) {
 	this.init_updates();
 }
 
-QuickChallengeTabBody.prototype.SetupHtml=function() {
+QuickChallengeTabBody.prototype.SetupHtml = function() {
 	Dom.Style(this.Node, {
 		//padding: 2
 	});
@@ -27,14 +27,14 @@ QuickChallengeTabBody.prototype.SetupHtml=function() {
 
 	var con;
 
-	this.filters_container=div(this.Node);
+	this.filters_container = div(this.Node);
 
 	Dom.Style(this.filters_container, {
 		fontSize: 11,
 		padding: 3
 	});
 
-	this.TableFilter=new TableFilter(this.filters_container);
+	this.TableFilter = new TableFilter(this.filters_container);
 	this.TableFilter.ContainerType.Hide();
 
 	this.TableFilter.Update.AddHandler(this, function(data) {
@@ -44,13 +44,13 @@ QuickChallengeTabBody.prototype.SetupHtml=function() {
 	//graph/list selector (acting as tabs for tab control)
 	//NOTE leaving graph for now
 
-	//con=div(this.Node);
+	//con = div(this.Node);
 	//
 	//Dom.Style(con, {
 	//	padding: "5px 0 0 5px"
 	//});
 	//
-	//this.ContainerSelector=new LabelAndInputContainer(con, {
+	//this.ContainerSelector = new LabelAndInputContainer(con, {
 	//	LabelPadding: 7
 	//});
 	//
@@ -58,17 +58,17 @@ QuickChallengeTabBody.prototype.SetupHtml=function() {
 
 	//tab control (with tabs hidden)
 
-	con=div(this.Node);
+	con = div(this.Node);
 
-	var bar_con=div(con);
-	var body_con=div(con);
+	var bar_con = div(con);
+	var body_con = div(con);
 
-	this.TabControlGraphList=new TabController(bar_con, body_con);
+	this.TabControlGraphList = new TabController(bar_con, body_con);
 
-	var tab_graph=this.TabControlGraphList.Add(IQuickChallengeListGraphTab);
-	var tab_list=this.TabControlGraphList.Add(IQuickChallengeListListTab);
+	var tab_graph = this.TabControlGraphList.Add(IQuickChallengeListGraphTab);
+	var tab_list = this.TabControlGraphList.Add(IQuickChallengeListListTab);
 
-	//this.SelectorView=new SelectorButton(this.ContainerSelector.InputInner, [
+	//this.SelectorView = new SelectorButton(this.ContainerSelector.InputInner, [
 	//	{
 	//		Value: tab_graph,
 	//		Label: "Graph"
@@ -91,19 +91,19 @@ QuickChallengeTabBody.prototype.SetupHtml=function() {
 	this.UpdateHtml();
 }
 
-QuickChallengeTabBody.prototype.UpdateHtml=function() {
+QuickChallengeTabBody.prototype.UpdateHtml = function() {
 
 }
 
-QuickChallengeTabBody.prototype.update=function() {
-	this.last_xhr=Xhr.QueryAsync(ap("/xhr/tables_quick.php"), function(data, rtt, xhr) {
-		if(xhr===this.last_xhr && is_array(data) && this.TabControlGraphList.SelectedTab!==null) {
+QuickChallengeTabBody.prototype.update = function() {
+	this.last_xhr = Xhr.QueryAsync(ap("/xhr/tables_quick.php"), function(data, rtt, xhr) {
+		if(xhr === this.last_xhr && is_array(data) && this.TabControlGraphList.SelectedTab !== null) {
 			this.TabControlGraphList.SelectedTab.Body.Update(data);
 		}
 	}, this.TableFilter.Filters.Get(), this);
 }
 
-QuickChallengeTabBody.prototype.init_updates=function() {
+QuickChallengeTabBody.prototype.init_updates = function() {
 	Base.Tick.AddHandler(this, function() {
 		if(this.updating) {
 			this.update();

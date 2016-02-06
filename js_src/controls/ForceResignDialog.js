@@ -1,20 +1,20 @@
 function ForceResignDialog(parent) {
 	Control.implement(this, parent);
 
-	this.width=300;
-	this.z_index=1;
+	this.width = 300;
+	this.z_index = 1;
 
-	this.Zindex=new Property(this, function() {
+	this.Zindex = new Property(this, function() {
 		return this.z_index;
 	}, function(value) {
-		this.z_index=value;
+		this.z_index = value;
 		this.UpdateHtml();
 	});
 
 	this.SetupHtml();
 }
 
-ForceResignDialog.prototype.SetupHtml=function() {
+ForceResignDialog.prototype.SetupHtml = function() {
 	Dom.Style(this.Node, {
 		position: "absolute",
 		display: "none",
@@ -28,7 +28,7 @@ ForceResignDialog.prototype.SetupHtml=function() {
 		backgroundColor: "#ffffff"
 	});
 
-	this.inner_container=div(this.Node);
+	this.inner_container = div(this.Node);
 
 	Dom.Style(this.inner_container, {
 		textAlign: "center",
@@ -36,9 +36,9 @@ ForceResignDialog.prototype.SetupHtml=function() {
 		padding: 6
 	});
 
-	this.title_inner=div(this.inner_container);
-	this.message_inner=div(this.inner_container);
-	this.buttons_inner=div(this.inner_container);
+	this.title_inner = div(this.inner_container);
+	this.message_inner = div(this.inner_container);
+	this.buttons_inner = div(this.inner_container);
 
 	Dom.Style(this.title_inner, {
 		fontSize: 13,
@@ -50,18 +50,18 @@ ForceResignDialog.prototype.SetupHtml=function() {
 		marginBottom: 10
 	});
 
-	//this.title_inner.innerHTML="Opponent disconnected";
+	//this.title_inner.innerHTML = "Opponent disconnected";
 
-	var msg="";
-	msg+="Your opponent has left the game."
-	//msg+="If they have abandoned a lost position, you can take this as resignation ";
-	//msg+="and force a forfeit.  If
+	var msg = "";
+	msg += "Your opponent has left the game."
+	//msg += "If they have abandoned a lost position, you can take this as resignation ";
+	//msg += "and force a forfeit.  If
 
-	this.message_inner.innerHTML=msg;
+	this.message_inner.innerHTML = msg;
 
-	this.ButtonForce=new Button(this.buttons_inner, "Force resignation");
-	//this.ButtonCancel=new Button(this.buttons_inner, "<b>Cancel game</b><br>(game not out of the opening yet)");
-	this.ButtonWait=new Button(this.buttons_inner, "Wait");
+	this.ButtonForce = new Button(this.buttons_inner, "Force resignation");
+	//this.ButtonCancel = new Button(this.buttons_inner, " < b > Cancel game < /b >  < br > (game not out of the opening yet)");
+	this.ButtonWait = new Button(this.buttons_inner, "Wait");
 
 	this.ButtonWait.Click.AddHandler(this, function() {
 		this.Hide();
@@ -70,7 +70,7 @@ ForceResignDialog.prototype.SetupHtml=function() {
 	this.UpdateHtml();
 }
 
-ForceResignDialog.prototype.UpdateHtml=function() {
+ForceResignDialog.prototype.UpdateHtml = function() {
 	Dom.Style(this.Node, {
 		zIndex: this.z_index
 	});
@@ -80,11 +80,11 @@ ForceResignDialog.prototype.UpdateHtml=function() {
 set the location of the center
 */
 
-ForceResignDialog.prototype.SetLocation=function(x, y) {
-	var height=this.Node.offsetHeight;
+ForceResignDialog.prototype.SetLocation = function(x, y) {
+	var height = this.Node.offsetHeight;
 
-	if(height===0) { //if node is hidden when location set, use a sensible default
-		height=100;
+	if(height === 0) { //if node is hidden when location set, use a sensible default
+		height = 100;
 	}
 
 	Dom.Style(this.Node, {

@@ -8,13 +8,13 @@ since the current one loaded.
 */
 
 function GenericUpdater(type, last_update) {
-	this.Type=type;
-	this.LastUpdate=last_update;
-	this.Updated=new Event(this);
+	this.Type = type;
+	this.LastUpdate = last_update;
+	this.Updated = new Event(this);
 	this.start_updates();
 }
 
-GenericUpdater.prototype.start_updates=function() {
+GenericUpdater.prototype.start_updates = function() {
 	Base.LongPoll.GatheringClientState.AddHandler(this, function(update) {
 		update.AddClientData(this, UPDATE_TYPE_GENERIC_UPDATES, {
 			"type": this.Type,
@@ -23,11 +23,11 @@ GenericUpdater.prototype.start_updates=function() {
 	});
 
 	Base.LongPoll.HaveUpdates.AddHandler(this, function(update) {
-		var data=update.GetUpdates(this);
+		var data = update.GetUpdates(this);
 
-		if(data!==null) {
-			if(data["last_update"]>this.LastUpdate) {
-				this.LastUpdate=data["update"];
+		if(data !== null) {
+			if(data["last_update"] > this.LastUpdate) {
+				this.LastUpdate = data["update"];
 				this.Updated.Fire();
 			}
 		}

@@ -1,12 +1,12 @@
 function TableListItem(data) {
-	this.Node=$("*div");
-	this.Data=data;
+	this.Node = $("*div");
+	this.Data = data;
 }
 
-TableListItem.prototype.SetupHtml=function() {
-	this.inner=div(this.Node);
+TableListItem.prototype.SetupHtml = function() {
+	this.inner = div(this.Node);
 
-	this.Cells={
+	this.Cells = {
 		Type: this.create_cell_div("12%", 4),
 		Variant: this.create_cell_div("12%"),
 		Time: this.create_cell_div("12%"),
@@ -16,7 +16,7 @@ TableListItem.prototype.SetupHtml=function() {
 		Action: this.create_cell_div("25%")
 	};
 
-	var cb=div(this.inner);
+	var cb = div(this.inner);
 
 	Dom.Style(cb, {
 		clear: "both"
@@ -26,21 +26,21 @@ TableListItem.prototype.SetupHtml=function() {
 
 	//...
 
-	this.ButtonJoinWhite=new Button(this.Cells.Action.Inner, "Join");
-	this.ButtonJoinBlack=new Button(this.Cells.Action.Inner, "Join");
-	this.ButtonJoinRandom=new Button(this.Cells.Action.Inner, "Join");
+	this.ButtonJoinWhite = new Button(this.Cells.Action.Inner, "Join");
+	this.ButtonJoinBlack = new Button(this.Cells.Action.Inner, "Join");
+	this.ButtonJoinRandom = new Button(this.Cells.Action.Inner, "Join");
 }
 
 /*
 helper for SetupHtml
 */
 
-TableListItem.prototype.create_cell_div=function(width, padding) {
-	padding=padding||0;
-	var cell={};
+TableListItem.prototype.create_cell_div = function(width, padding) {
+	padding = padding||0;
+	var cell = {};
 
-	cell.Container=div(this.inner);
-	cell.Inner=div(cell.Container);
+	cell.Container = div(this.inner);
+	cell.Inner = div(cell.Container);
 
 	Dom.Style(cell.Container, {
 		cssFloat: "left",

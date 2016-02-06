@@ -1,39 +1,39 @@
 function CastlingPrivileges() {
-	this.privs_side=[];
-	this.privs_file=[];
+	this.privs_side = [];
+	this.privs_file = [];
 
-	var colours=[WHITE, BLACK];
-	var sides=[KINGSIDE, QUEENSIDE];
+	var colours = [WHITE, BLACK];
+	var sides = [KINGSIDE, QUEENSIDE];
 
 	var side, colour;
 
-	for(var c=0; c<colours.length; c++) {
-		colour=colours[c];
+	for(var c = 0; c < colours.length; c++) {
+		colour = colours[c];
 
-		for(var s=0; s<sides.length; s++) {
-			side=sides[s];
+		for(var s = 0; s < sides.length; s++) {
+			side = sides[s];
 
 			if(!(colour in this.privs_side)) {
-				this.privs_side[colour]=[];
+				this.privs_side[colour] = [];
 			}
 
-			this.privs_side[colour][side]=false;
+			this.privs_side[colour][side] = false;
 		}
 
-		for(var file=0; file<8; file++) {
+		for(var file = 0; file < 8; file++) {
 			if(!(colour in this.privs_file)) {
-				this.privs_file[colour]=[];
+				this.privs_file[colour] = [];
 			}
 
-			this.privs_file[colour][file]=false;
+			this.privs_file[colour][file] = false;
 		}
 	}
 }
 
-CastlingPrivileges.MODE_SIDE=0;
-CastlingPrivileges.MODE_FILE=1;
+CastlingPrivileges.MODE_SIDE = 0;
+CastlingPrivileges.MODE_FILE = 1;
 
-CastlingPrivileges.SideChars=[
+CastlingPrivileges.SideChars = [
 	[
 		FEN_WHITE_CASTLE_KS,
 		FEN_WHITE_CASTLE_QS
@@ -44,7 +44,7 @@ CastlingPrivileges.SideChars=[
 	]
 ];
 
-CastlingPrivileges.FileChars=[
+CastlingPrivileges.FileChars = [
 	[
 		FEN_WHITE_CASTLE_A,
 		FEN_WHITE_CASTLE_B,
@@ -67,49 +67,49 @@ CastlingPrivileges.FileChars=[
    ]
 ];
 
-CastlingPrivileges.FileToSide=[];
-CastlingPrivileges.FileToSide[0]=QUEENSIDE;
-CastlingPrivileges.FileToSide[7]=KINGSIDE;
+CastlingPrivileges.FileToSide = [];
+CastlingPrivileges.FileToSide[0] = QUEENSIDE;
+CastlingPrivileges.FileToSide[7] = KINGSIDE;
 
-CastlingPrivileges.SideToFile=[7, 0];
+CastlingPrivileges.SideToFile = [7, 0];
 
-CastlingPrivileges.prototype.Reset=function() {
-	var colours=[WHITE, BLACK];
-	var sides=[KINGSIDE, QUEENSIDE];
+CastlingPrivileges.prototype.Reset = function() {
+	var colours = [WHITE, BLACK];
+	var sides = [KINGSIDE, QUEENSIDE];
 
 	var side, colour;
 
-	for(var c=0; c<colours.length; c++) {
-		colour=colours[c];
+	for(var c = 0; c < colours.length; c++) {
+		colour = colours[c];
 
-		for(var s=0; s<sides.length; s++) {
-			side=sides[s];
+		for(var s = 0; s < sides.length; s++) {
+			side = sides[s];
 
-			this.privs_side[colour][side]=false;
+			this.privs_side[colour][side] = false;
 		}
 
-		for(var file=0; file<8; file++) {
-			this.privs_file[colour][file]=false;
+		for(var file = 0; file < 8; file++) {
+			this.privs_file[colour][file] = false;
 		}
 	}
 }
 
-CastlingPrivileges.prototype.Set=function(colour, index, allow, mode) {
-	mode=mode||CastlingPrivileges.MODE_SIDE;
+CastlingPrivileges.prototype.Set = function(colour, index, allow, mode) {
+	mode = mode||CastlingPrivileges.MODE_SIDE;
 
 	switch(mode) {
 		case CastlingPrivileges.MODE_SIDE: {
-			this.privs_side[colour][index]=allow;
-			this.privs_file[colour][CastlingPrivileges.SideToFile[index]]=allow;
+			this.privs_side[colour][index] = allow;
+			this.privs_file[colour][CastlingPrivileges.SideToFile[index]] = allow;
 
 			break;
 		}
 
 		case CastlingPrivileges.MODE_FILE: {
-			this.privs_file[colour][index]=allow;
+			this.privs_file[colour][index] = allow;
 
 			if(index in CastlingPrivileges.FileToSide) {
-				this.privs_side[colour][CastlingPrivileges.FileToSide[index]]=allow;
+				this.privs_side[colour][CastlingPrivileges.FileToSide[index]] = allow;
 			}
 
 			break;
@@ -117,8 +117,8 @@ CastlingPrivileges.prototype.Set=function(colour, index, allow, mode) {
 	}
 }
 
-CastlingPrivileges.prototype.Get=function(colour, index, mode) {
-	mode=mode||CastlingPrivileges.MODE_SIDE;
+CastlingPrivileges.prototype.Get = function(colour, index, mode) {
+	mode = mode||CastlingPrivileges.MODE_SIDE;
 
 	switch(mode) {
 		case CastlingPrivileges.MODE_SIDE: {
@@ -131,32 +131,32 @@ CastlingPrivileges.prototype.Get=function(colour, index, mode) {
 	}
 }
 
-CastlingPrivileges.prototype.SetStr=function(str) {
+CastlingPrivileges.prototype.SetStr = function(str) {
 	this.Reset();
 
-	if(str!==FEN_NONE) {
-		var arr=str.split("");
+	if(str !== FEN_NONE) {
+		var arr = str.split("");
 		var ch, lower_char, upper_char;
 		var colour, mode, index;
 
-		for(var i=0; i<arr.length; i++) {
-			ch=arr[i];
+		for(var i = 0; i < arr.length; i++) {
+			ch = arr[i];
 
-			lower_char=ch.toLowerCase();
-			upper_char=ch.toUpperCase();
+			lower_char = ch.toLowerCase();
+			upper_char = ch.toUpperCase();
 
-			colour=(ch===upper_char)?WHITE:BLACK;
-			mode=(FILE.indexOf(lower_char)!==-1)?CastlingPrivileges.MODE_FILE:CastlingPrivileges.MODE_SIDE;
+			colour = (ch === upper_char)?WHITE:BLACK;
+			mode = (FILE.indexOf(lower_char) !== -1)?CastlingPrivileges.MODE_FILE:CastlingPrivileges.MODE_SIDE;
 
 			switch(mode) {
 				case CastlingPrivileges.MODE_SIDE: {
-					index=(FEN_BLACK_CASTLE_KS+FEN_BLACK_CASTLE_QS).indexOf(lower_char);
+					index = (FEN_BLACK_CASTLE_KS+FEN_BLACK_CASTLE_QS).indexOf(lower_char);
 
 					break;
 				}
 
 				case CastlingPrivileges.MODE_FILE: {
-					index=FILE.indexOf(lower_char);
+					index = FILE.indexOf(lower_char);
 
 					break;
 				}
@@ -167,31 +167,31 @@ CastlingPrivileges.prototype.SetStr=function(str) {
 	}
 }
 
-CastlingPrivileges.prototype.GetStr=function() {
-	var colours=[WHITE, BLACK];
-	var sides=[KINGSIDE, QUEENSIDE];
+CastlingPrivileges.prototype.GetStr = function() {
+	var colours = [WHITE, BLACK];
+	var sides = [KINGSIDE, QUEENSIDE];
 
 	var colour, side, ch;
 
-	var files=[
+	var files = [
 		7,
 		0
 	];
 
-	var privs=[
+	var privs = [
 		[],
 		[]
 	];
 
-	for(var i=0; i<colours.length; i++) {
-		colour=colours[i];
+	for(var i = 0; i < colours.length; i++) {
+		colour = colours[i];
 
-		for(var file=0; file<8; file++) {
+		for(var file = 0; file < 8; file++) {
 			if(this.privs_file[colour][file]) {
-				ch=CastlingPrivileges.FileChars[colour][file];
+				ch = CastlingPrivileges.FileChars[colour][file];
 
 				if(file in CastlingPrivileges.FileToSide) {
-					ch=CastlingPrivileges.SideChars[colour][CastlingPrivileges.FileToSide[file]];
+					ch = CastlingPrivileges.SideChars[colour][CastlingPrivileges.FileToSide[file]];
 				}
 
 				privs[colour].push(ch);
@@ -199,10 +199,10 @@ CastlingPrivileges.prototype.GetStr=function() {
 		}
 	}
 
-	var str=privs[WHITE].join("")+privs[BLACK].join("");
+	var str = privs[WHITE].join("")+privs[BLACK].join("");
 
-	if(str=="") {
-		str=FEN_NONE;
+	if(str === "") {
+		str = FEN_NONE;
 	}
 
 	return str;

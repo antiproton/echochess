@@ -1,17 +1,17 @@
-var App={
+var App = {
 	init: function() { //constructor
-		var self=this;
+		var self = this;
 
-		this.img_url="http://img.echochess.com";
+		this.img_url = "http://img.echochess.com";
 
-		this.User=new User();
-		this.UndoAction=new Event(this);
-		this.FocusedObject=null; //so only one thing catches the UndoAction event
-		this.BodyClick=new Event(this); //fires when the user clicks somewhere on the page (useful for dismissing dialog boxes etc)
-		this.UserJoinTable=new Event(this);
-		this.UserOpenTable=new Event(this);
-		this.UserQuickChallengeUpdate=new Event(this); //update the quick challenge list immediately so the user sees theirs
-		this.HashChange=new Event(this);
+		this.User = new User();
+		this.UndoAction = new Event(this);
+		this.FocusedObject = null; //so only one thing catches the UndoAction event
+		this.BodyClick = new Event(this); //fires when the user clicks somewhere on the page (useful for dismissing dialog boxes etc)
+		this.UserJoinTable = new Event(this);
+		this.UserOpenTable = new Event(this);
+		this.UserQuickChallengeUpdate = new Event(this); //update the quick challenge list immediately so the user sees theirs
+		this.HashChange = new Event(this);
 
 		/*
 		NOTE UserAcceptChallenge is no longer a thing; stuff calls QuickChallenge.Accept
@@ -21,17 +21,17 @@ var App={
 
 		/*
 		ClickedObjects - dialogs need to close if the user clicks somewhere
-		(indicated by the <body> receiving a click event) but not if the click landed
+		(indicated by the < body > receiving a click event) but not if the click landed
 		on the dialog itself.  So the dialog click handler can add an object to a
 		list of items clicked before the body, and then check that against the list
 		when it receives the BodyClick event to decide whether to close or not.
 		*/
 
-		this.ClickedObjects=new List();
+		this.ClickedObjects = new List();
 
 		Dom.AddEventHandler(window, "keydown", function(e) {
-			if(e.ctrlKey && String.fromCharCode(e.keyCode)==="Z") {
-				if(this.FocusedObject!==null) {
+			if(e.ctrlKey && String.fromCharCode(e.keyCode) === "Z") {
+				if(this.FocusedObject !== null) {
 					//event is fired at the focussed object, so handlers don't have to check whether they are focussed
 
 					self.UndoAction.Fire(null, this.FocussedObject);
@@ -50,12 +50,12 @@ var App={
 		this.User.Prefs.LoadRow(Base.Request["user_prefs"]);
 
 		Base.Ready.AddHandler(this, function() {
-			Dom.AddEventHandler($(">html")[0], "click", function() {
+			Dom.AddEventHandler($(" > html")[0], "click", function() {
 				self.BodyClick.Fire();
 				self.ClickedObjects.Clear();
 			});
 
-			this.UserButton=new UserButton(6, 7);
+			this.UserButton = new UserButton(6, 7);
 			this.UserButton.Hide();
 		});
 	},
@@ -102,4 +102,4 @@ also popups might want Base.Root.App at some point so it could be a good
 idea to keep it anyway.
 */
 
-Base.App=App;
+Base.App = App;

@@ -1,29 +1,29 @@
 function TournamentFilter(parent) {
 	Control.implement(this, parent);
 
-	this.filters={};
+	this.filters = {};
 
-	this.Filters=new Property(this, function() {
-		var filters={};
+	this.Filters = new Property(this, function() {
+		var filters = {};
 
 		for(var field in this.filters) {
-			if(this.filters[field]!==null) {
-				filters[field]=this.filters[field];
+			if(this.filters[field] !== null) {
+				filters[field] = this.filters[field];
 			}
 		}
 
 		return filters;
 	});
 
-	this.Update=new Event(this);
+	this.Update = new Event(this);
 
 	this.SetupHtml();
 }
 
-TournamentFilter.prototype.SetupHtml=function() {
+TournamentFilter.prototype.SetupHtml = function() {
 	//filters label
 
-	this.ContainerLabel=new LabelAndInputContainer(this.Node, {
+	this.ContainerLabel = new LabelAndInputContainer(this.Node, {
 		InputWidth: 0,
 		LabelPadding: 7
 	});
@@ -36,9 +36,9 @@ TournamentFilter.prototype.SetupHtml=function() {
 
 	//variant
 
-	this.ContainerVariant=new LabelAndInputContainer(this.Node);
+	this.ContainerVariant = new LabelAndInputContainer(this.Node);
 
-	var options=[];
+	var options = [];
 
 	for(var code in DbEnums[VARIANT]) {
 		options.push({
@@ -47,22 +47,22 @@ TournamentFilter.prototype.SetupHtml=function() {
 		});
 	}
 
-	this.SelectorFilterVariant=new SelectorButton(this.ContainerVariant.InputInner, options, true);
+	this.SelectorFilterVariant = new SelectorButton(this.ContainerVariant.InputInner, options, true);
 	this.SelectorFilterVariant.Value.Set(null);
 
 	this.SelectorFilterVariant.SelectionChanged.AddHandler(this, function(data, sender) {
-		this.filters["variant"]=sender.Value.Get();
+		this.filters["variant"] = sender.Value.Get();
 		this.update();
 	});
 
 	//time format
 
-	this.ContainerFormat=new LabelAndInputContainer(this.Node);
+	this.ContainerFormat = new LabelAndInputContainer(this.Node);
 
-	this.DropDownFilterTimeControl=new DropDown(this.ContainerFormat.InputInner);
+	this.DropDownFilterTimeControl = new DropDown(this.ContainerFormat.InputInner);
 	this.DropDownFilterTimeControl.Add(null, "All formats");
 
-	var formats=[
+	var formats = [
 		GAME_FORMAT_BULLET,
 		GAME_FORMAT_BLITZ,
 		GAME_FORMAT_QUICK,
@@ -70,20 +70,20 @@ TournamentFilter.prototype.SetupHtml=function() {
 		GAME_FORMAT_CORRESPONDENCE
 	];
 
-	for(var i=0; i<formats.length; i++) {
+	for(var i = 0; i < formats.length; i++) {
 		this.DropDownFilterTimeControl.Add(formats[i], DbEnums[GAME_FORMAT][formats[i]].Description);
 	}
 
 	this.DropDownFilterTimeControl.SelectionChanged.AddHandler(this, function(data, sender) {
-		this.filters["format"]=data.NewValue;
+		this.filters["format"] = data.NewValue;
 		this.update();
 	});
 
 	//rated
 
-	this.ContainerRated=new LabelAndInputContainer(this.Node);
+	this.ContainerRated = new LabelAndInputContainer(this.Node);
 
-	this.SelectorFilterRated=new SelectorButton(this.ContainerRated.InputInner, [
+	this.SelectorFilterRated = new SelectorButton(this.ContainerRated.InputInner, [
 		{
 			Value: true,
 			Label: "Rated"
@@ -97,11 +97,11 @@ TournamentFilter.prototype.SetupHtml=function() {
 	this.SelectorFilterRated.Value.Set(null);
 
 	this.SelectorFilterRated.SelectionChanged.AddHandler(this, function(data, sender) {
-		this.filters["rated"]=sender.Value.Get();
+		this.filters["rated"] = sender.Value.Get();
 		this.update();
 	});
 }
 
-TournamentFilter.prototype.update=function() {
+TournamentFilter.prototype.update = function() {
 	this.Update.Fire();
 }

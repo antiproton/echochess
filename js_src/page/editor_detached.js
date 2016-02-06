@@ -4,17 +4,17 @@ function EditorDetached() {
 
 
 var table
-var init_details=null;
+var init_details = null;
 
 Base.Ready.AddHandler(this, function() {
-	init_details=Base.GetInitDetails();
-	table=new AnalysisTable($("#table"));
+	init_details = Base.GetInitDetails();
+	table = new AnalysisTable($("#table"));
 
-	for(var i=0; i<init_details.Tab.Table.Game.History.MainLine.Line.Length; i++) {
+	for(var i = 0; i < init_details.Tab.Table.Game.History.MainLine.Line.Length; i++) {
 		table.Game.History.Move(init_details.Tab.Table.Game.History.MainLine.Line.Item(i));
 	}
 
-	var attach=$("#attach");
+	var attach = $("#attach");
 
 	if(Base.IsRoot()) {
 		Dom.Style(attach, {

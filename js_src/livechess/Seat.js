@@ -7,36 +7,36 @@ checking whether people are ready is done separately.
 function Seat(table, game_id, colour) {
 	IEventHandlerLogging.implement(this);
 
-	this.Table=table;
-	this.GameId=game_id;
-	this.Colour=colour;
-	this.ready=false;
-	this.username=null;
+	this.Table = table;
+	this.GameId = game_id;
+	this.Colour = colour;
+	this.ready = false;
+	this.username = null;
 
 	this.init_events();
 	this.init_props();
 	this.start_updates();
 }
 
-Seat.prototype.init_events=function() {
-	this.Update=new Event(this);
+Seat.prototype.init_events = function() {
+	this.Update = new Event(this);
 }
 
-Seat.prototype.init_props=function() {
-	this.Username=new Property(this, function() {
+Seat.prototype.init_props = function() {
+	this.Username = new Property(this, function() {
 		return this.username;
 	}, function(value) {
-		this.username=value;
+		this.username = value;
 	});
 
-	this.Ready=new Property(this, function() {
+	this.Ready = new Property(this, function() {
 		return this.ready;
 	}, function(value) {
-		this.ready=value;
+		this.ready = value;
 	});
 }
 
-Seat.prototype.start_updates=function() {
+Seat.prototype.start_updates = function() {
 	Base.LongPoll.GatheringClientState.AddHandler(this, function(update) {
 		update.AddClientData(this, UPDATE_TYPE_SEAT, {
 			"table": this.Table.Id,
@@ -48,10 +48,10 @@ Seat.prototype.start_updates=function() {
 	});
 
 	Base.LongPoll.HaveUpdates.AddHandler(this, function(update) {
-		var data=update.GetUpdates(this);
+		var data = update.GetUpdates(this);
 
-		if(data!==null) {
-			var event_data={
+		if(data !== null) {
+			var event_data = {
 				OldUsername: this.username
 			};
 
@@ -63,12 +63,12 @@ Seat.prototype.start_updates=function() {
 	});
 }
 
-Seat.prototype.Stand=function() {
-	var self=this;
-	var old_username=this.username;
+Seat.prototype.Stand = function() {
+	var self = this;
+	var old_username = this.username;
 
 	Xhr.QueryAsync(ap("/xhr/stand.php"), function(response) {
-		if(response!==false) {
+		if(response !== false) {
 			self.Username.Set(null);
 
 			self.Update.Fire({
@@ -82,12 +82,12 @@ Seat.prototype.Stand=function() {
 	});
 }
 
-Seat.prototype.Sit=function(username) {
-	var self=this;
-	var old_username=this.username;
+Seat.prototype.Sit = function(username) {
+	var self = this;
+	var old_username = this.username;
 
 	Xhr.QueryAsync(ap("/xhr/sit.php"), function(response) {
-		if(response!==false) {
+		if(response !== false) {
 			self.Username.Set(username);
 
 			self.Update.Fire({
@@ -101,8 +101,8 @@ Seat.prototype.Sit=function(username) {
 	});
 }
 
-Seat.prototype.SetReady=function(ready) {
-	var old_ready=this.ready;
+Seat.prototype.SetReady = function(ready) {
+	var old_ready = this.ready;
 
 	this.Ready.Set(ready);
 
@@ -111,8 +111,8 @@ Seat.prototype.SetReady=function(ready) {
 	});
 
 	Xhr.QueryAsync(ap("/xhr/ready.php"), function(response) {
-		if(response===false) {
-			this.ready=old_ready;
+		if(response === false) {
+			this.ready = old_ready;
 
 			this.Update.Fire({
 				OldUsername: this.username
@@ -124,6 +124,6 @@ Seat.prototype.SetReady=function(ready) {
 	});
 }
 
-Seat.prototype.Die=function() {
+Seat.prototype.Die = function() {
 	this.ClearEventHandlers();
 }
