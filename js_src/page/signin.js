@@ -4,7 +4,7 @@ Base.Ready.AddHandler(this, function() {
 	request including the hash (which isn't normally sent to the server)
 	*/
 	
-	var action = location.origin+location.pathname;
+	var action = location.origin + location.pathname;
 
 	if(location.search) {
 		action += location.search;

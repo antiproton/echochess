@@ -22,7 +22,7 @@ PiecesTaken.prototype.Add = function(piece) {
 		}
 	}
 
-	this.pieces.splice(next_lowest+1, 0, piece);
+	this.pieces.splice(next_lowest + 1, 0, piece);
 }
 
 PiecesTaken.prototype.Remove = function(piece) {

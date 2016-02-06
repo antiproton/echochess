@@ -73,7 +73,7 @@ var Util = {
 	},
 
 	fr_to_sq: function(f, r) {
-		return r * 8+f;
+		return r * 8 + f;
 	},
 
 	sq_colour: function(sq) { //WTF? must be a simpler way of doing this
@@ -144,7 +144,7 @@ var Util = {
 	},
 
 	rel_sq_no: function(sq, colour) {
-		return (colour === BLACK?63-sq:sq);
+		return (colour === BLACK ? 63 - sq : sq);
 	},
 
 	x: function(sq) {
@@ -152,7 +152,7 @@ var Util = {
 	},
 
 	y: function(sq) {
-		return ((sq-Util.x(sq))/8);
+		return ((sq - Util.x(sq)) / 8);
 	},
 
 	file_str: function(sq) {
@@ -180,7 +180,7 @@ var Util = {
 	},
 
 	sq_to_coords: function(sq) {
-		var x = sq%8, y = (sq-x)/8;
+		var x = sq % 8, y = (sq - x) / 8;
 		return [x, y];
 	},
 
@@ -325,7 +325,7 @@ var Util = {
 			if(distance > 0) {
 				increment = difference/distance;
 
-				for(var n = fs+increment; n < ts; n += increment) {
+				for(var n = fs + increment; n < ts; n += increment) {
 					arr.push(n);
 				}
 			}
@@ -334,7 +334,7 @@ var Util = {
 		else if(Util.regular_move(ROOK, fc, tc)) {
 			increment = difference > 7?8:1; //?vertical:horizontal
 
-			for(var n = fs+increment; n < ts; n += increment) {
+			for(var n = fs + increment; n < ts; n += increment) {
 				arr.push(n);
 			}
 		}
@@ -369,7 +369,7 @@ var Util = {
 				//double
 
 				if(relsq < 16) {
-					available.push(Util.rel_sq_no(relsq+16, colour));
+					available.push(Util.rel_sq_no(relsq + 16, colour));
 				}
 
 				//single and captures
@@ -585,7 +585,7 @@ var Util = {
 	},
 
 	get_castling: function(original, colour, side) {
-		return (original >> (colour * 2+side)) & 1;
+		return (original >> (colour * 2 + side)) & 1;
 	},
 
 	disambiguate: function(board, type, colour, fs, ts) {
@@ -613,7 +613,7 @@ var Util = {
 				}
 			}
 
-			str = disambiguation.file+disambiguation.rank;
+			str = disambiguation.file + disambiguation.rank;
 
 			//if neither rank nor file is the same, specify file
 

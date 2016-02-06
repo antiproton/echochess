@@ -265,7 +265,7 @@ Tabs.prototype.init_tab_ctrl = function() {
 		if(data.Tab.HashPrefix !== null) {
 			data.Tab.HashAdd.AddHandler(this, function(data, sender) {
 				if(!this.updating_from_hash) {
-					var str = sender.HashPrefix+data.Id;
+					var str = sender.HashPrefix + data.Id;
 					var already_added = false;
 
 					for(var i = 0; i < this.hash_list.length; i++) {
@@ -285,7 +285,7 @@ Tabs.prototype.init_tab_ctrl = function() {
 
 			data.Tab.HashRemove.AddHandler(this, function(data, sender) {
 				if(!this.updating_from_hash) {
-					var str = sender.HashPrefix+data.Id;
+					var str = sender.HashPrefix + data.Id;
 
 					for(var i = 0; i < this.hash_list.length; i++) {
 						if(this.hash_list[i] === str) {
@@ -532,7 +532,7 @@ Tabs.prototype.update_from_hash = function() {
 			if((item.HashPrefix in this.hash_tab_types) && item.Table !== null) {
 				var in_hash = false;
 
-				str = item.HashPrefix+item.Table.Id;
+				str = item.HashPrefix + item.Table.Id;
 
 				for(var i = 0; i < this.hash_list.length; i++) {
 					if(this.hash_list[i] === str) {

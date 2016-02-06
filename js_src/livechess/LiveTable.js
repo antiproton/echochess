@@ -1092,7 +1092,7 @@ LiveTable.prototype.UpdateHtml = function() {
 			});
 		}
 
-		var total_width = this.history_col_width+board_widths.Player+board_widths.Other;
+		var total_width = this.history_col_width + board_widths.Player + board_widths.Other;
 
 		Dom.Style(this.game_inner, {
 			width: total_width,

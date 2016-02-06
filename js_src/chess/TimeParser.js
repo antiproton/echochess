@@ -134,12 +134,12 @@ TimeParser.GetColonDisplay = function(mtime, display_tenths) {
 	for(var i = 0; i < section_multiples.length; i++) {
 		divisor = section_multiples[i];
 
-		for(var j = i+1; j < section_multiples.length; j++) {
+		for(var j = i + 1; j < section_multiples.length; j++) {
 			divisor *= section_multiples[j];
 		}
 
 		remainder = remaining%divisor;
-		n = (remaining-remainder)/divisor;
+		n = (remaining - remainder) / divisor;
 		str = ""+n;
 
 		if(!first_section) {
@@ -148,7 +148,7 @@ TimeParser.GetColonDisplay = function(mtime, display_tenths) {
 			}
 		}
 
-		if(n > 0 || nonzero || i >= section_multiples.length-min_sections) {
+		if(n > 0 || nonzero || i >= section_multiples.length - min_sections) {
 			sections.push(str);
 			first_section = false;
 		}

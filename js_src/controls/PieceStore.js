@@ -228,7 +228,7 @@ PieceStore.prototype.UpdateHtml = function() { //after switching colours ,changi
 
 	Dom.Style(this.Node, {
 		width: (this.border.length*2)+board_size_w,
-		height: (this.border.length*2)+board_size_h+this.hold_cb_container.offsetHeight
+		height: (this.border.length*2)+board_size_h + this.hold_cb_container.offsetHeight
 	});
 
 	Dom.Style(this.board_container, {
@@ -329,11 +329,11 @@ PieceStore.prototype.SetSquarePos = function(square, sq) {
 	var f = this.x(sq);
 
 	x = this.square_size*f;
-	y = this.square_size*((this.height-1)-r);
+	y = this.square_size*((this.height 1)-r);
 
 	Dom.Style(square.Container, {
-		top: this.border.length+y,
-		left: this.border.length+x
+		top: this.border.length + y,
+		left: this.border.length + x
 	});
 }
 
@@ -495,7 +495,7 @@ PieceStore.prototype.UnHighlightSq = function(sq) {
 }
 
 PieceStore.prototype.fr_to_sq = function(f, r) {
-	return (r*this.width+f);
+	return r * this.width + f;
 }
 
 PieceStore.prototype.Deselect = function() {

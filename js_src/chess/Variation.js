@@ -90,7 +90,7 @@ Variation.prototype.InsertAfter = function(item, prev_item, dont_update) {
 			}
 		});
 
-		this.Insert(item, i+1, dont_update);
+		this.Insert(item, i + 1, dont_update);
 	}
 }
 

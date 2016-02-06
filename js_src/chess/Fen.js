@@ -98,7 +98,7 @@ var Fen = {
 		var rank = [];
 
 		for(var i = 56; i > -1; i -= 8) {
-			rank.push(arr.slice(i, i+8));
+			rank.push(arr.slice(i, i + 8));
 		}
 
 		var n, fen_rank, next, piece;
@@ -113,7 +113,7 @@ var Fen = {
 				next = null;
 
 				if(j < 7) {
-					next = rank[r][j+1];
+					next = rank[r][j + 1];
 				}
 
 				if(piece === SQ_EMPTY) {

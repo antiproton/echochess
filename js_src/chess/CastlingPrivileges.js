@@ -150,7 +150,7 @@ CastlingPrivileges.prototype.SetStr = function(str) {
 
 			switch(mode) {
 				case CastlingPrivileges.MODE_SIDE: {
-					index = (FEN_BLACK_CASTLE_KS+FEN_BLACK_CASTLE_QS).indexOf(lower_char);
+					index = (FEN_BLACK_CASTLE_KS + FEN_BLACK_CASTLE_QS).indexOf(lower_char);
 
 					break;
 				}

@@ -6,7 +6,7 @@ var Timing = {
 	overtime_chance: function(cutoff) {
 		var high_chance = 15;
 		var low_chance = 90;
-		var scale = low_chance-high_chance;
+		var scale = low_chance - high_chance;
 
 		if(cutoff < high_chance) {
 			return 1;
@@ -17,7 +17,7 @@ var Timing = {
 		}
 
 		else {
-			return (1/scale*(cutoff-high_chance));
+			return (1/scale*(cutoff - high_chance));
 		}
 	},
 
@@ -32,7 +32,7 @@ var Timing = {
 			total_added += overtime_increment*Timing.overtime_chance(overtime_cutoff);
 		}
 
-		var total_time = initial+total_added;
+		var total_time = initial + total_added;
 		var max_time;
 
 		for(var format in Timing.MaxTimes) {

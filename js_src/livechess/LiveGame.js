@@ -508,11 +508,11 @@ LiveGame.prototype.GetPremove = function(fs, ts, promote_to, move_index) {
 		move_index = [0, 1][colour];
 
 		if(this.Premoves.List.length > 0) {
-			move_index = end(this.Premoves.List).MoveIndex+2;
+			move_index = end(this.Premoves.List).MoveIndex + 2;
 		}
 
 		else if(this.History.MainLine.Line.Length > 0) {
-			move_index = this.History.MainLine.LastMove.MoveIndex+2;
+			move_index = this.History.MainLine.LastMove.MoveIndex + 2;
 		}
 	}
 
@@ -614,7 +614,7 @@ LiveGame.prototype.GetPremove = function(fs, ts, promote_to, move_index) {
 				//find the king
 
 				var backrank_start = backrank*8;
-				var backrank_end = backrank_start+7;
+				var backrank_end = backrank_start + 7;
 
 				var king_piece = Util.piece(KING, colour);
 

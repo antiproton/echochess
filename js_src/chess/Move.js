@@ -76,11 +76,11 @@ Move.prototype.ResetPointers = function() {
 }
 
 Move.prototype.GetLabel = function() {
-	return this.Label.Piece+this.Label.Disambiguation+this.Label.Sign+this.Label.To+this.Label.Special+this.Label.Check+this.Label.Notes;
+	return this.Label.Piece + this.Label.Disambiguation + this.Label.Sign + this.Label.To + this.Label.Special + this.Label.Check + this.Label.Notes;
 }
 
 Move.prototype.GetFullLabel = function() {
-	return this.Fullmove+this.Dot+" "+this.GetLabel();
+	return this.Fullmove + this.Dot + " " + this.GetLabel();
 }
 
 Move.prototype.PointersUpdated = function() {

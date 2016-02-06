@@ -58,7 +58,7 @@ function UiBoard(parent) {
 
 		Mode: CLK or DD
 		Selected: have mousedowned on a piece
-		InProgress: (CLK) have clicked on a piece (DD) have started to drag (mousedown+moved)
+		InProgress: (CLK) have clicked on a piece (DD) have started to drag (mousedown + moved)
 		Piece: the piece being moved, or null
 		From: the square being moved from, or null
 	*/
@@ -674,7 +674,7 @@ UiBoard.prototype.UpdateHtml = function() { //after switching colours ,changing 
 		Dom.Style(this.CoordsF[i].Container, {
 			position: "absolute",
 			top: (this.border.length*2)+board_size,
-			left: coord_size_r+this.border.length+(this.square_size*i),
+			left: coord_size_r + this.border.length + (this.square_size * i),
 			width: this.square_size,
 			height: coord_display_size_f,
 			display: coords_display,
@@ -757,7 +757,7 @@ UiBoard.prototype.UpdateHtml = function() { //after switching colours ,changing 
 
 	Dom.Style(this.board_container, {
 		top: this.border.length,
-		left: container_padding_r+this.border.length,
+		left: container_padding_r + this.border.length,
 		width: board_size,
 		height: board_size
 	});

@@ -85,11 +85,11 @@ var App = {
 	},
 
 	ImgUrl: function(path) {
-		return this.img_url+path;
+		return this.img_url + path;
 	},
 
 	CssImg: function(path) {
-		return "url('"+this.img_url+path+"')";
+		return "url('" + this.img_url + path + "')";
 	}
 }
 

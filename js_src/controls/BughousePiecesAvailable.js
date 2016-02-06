@@ -228,7 +228,7 @@ BughousePiecesAvailable.prototype.SetSquarePos = function(square, sq) {
 	var f = this.x(sq);
 
 	x = this.square_size*f;
-	y = this.square_size*((this.height-1)-r);
+	y = this.square_size * ((this.height - 1) - r);
 
 	Dom.Style(square.Container, {
 		top: y,
@@ -372,7 +372,7 @@ BughousePiecesAvailable.prototype.UnHighlightSq = function(square) {
 }
 
 BughousePiecesAvailable.prototype.fr_to_sq = function(f, r) {
-	return (r*this.width+f);
+	return (r * this.width + f);
 }
 
 BughousePiecesAvailable.prototype.GetBoardSizeW = function() {

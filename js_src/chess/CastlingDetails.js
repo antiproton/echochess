@@ -18,8 +18,8 @@ function CastlingDetails(fs, ts) {
 
 		if(fs === n) {
 			king_end_pos = [ //indexed by side
-				n+2,
-				n-2
+				n + 2,
+				n - 2
 			];
 
 			for(var j = 0; j < king_end_pos.length; j++) {
@@ -28,8 +28,8 @@ function CastlingDetails(fs, ts) {
 
 				if(ts === o) {
 					rook = [
-						[o+1, o-1],
-						[o-2, o+1]
+						[o + 1, o - 1],
+						[o - 2, o + 1]
 					];
 
 					this.Side = side;

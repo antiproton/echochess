@@ -11,24 +11,24 @@ some heads change the req - this loop makes sure the new head file is
 loaded if that happens.
 */
 
-$original_path=null;
+$original_path = null;
 
-$page=Page::getinst();
+$page = Page::getinst();
 
-while($page->path!==$original_path) {
-	$original_path=$page->path;
+while($page->path !== $original_path) {
+	$original_path = $page->path;
 
 	if(file_exists($page->head)) {
 		include $page->head;
 	}
 
-	JsRequestInfo::$data["user"]=[
-		"signedin"=>$user->signedin,
-		"username"=>$user->username
+	JsRequestInfo::$data["user"] = [
+		"signedin" => $user->signedin,
+		"username" => $user->username
 	];
 
 	if($user->signedin) {
-		JsRequestInfo::$data["user_prefs"]=UserPrefs::get($user->username);
+		JsRequestInfo::$data["user_prefs"] = UserPrefs::get($user->username);
 	}
 }
 ?>
@@ -51,6 +51,7 @@ while($page->path!==$original_path) {
 		?>
 		</style>
 		<script type="text/javascript">
+		global = window;
 		<?php
 		if(file_exists($page->js)) {
 			include $page->js;

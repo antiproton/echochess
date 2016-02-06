@@ -263,7 +263,7 @@ IGameCommon.prototype.Move = function(fs, ts, promote_to, dryrun) {
 
 				if(promote_to >= KNIGHT && promote_to <= QUEEN) {
 					move.Action.push({Sq: ts, Pc: Util.piece(promote_to, colour)});
-					move.Label.Special = SIGN_PROMOTE+Fen.piece_char[Util.piece(promote_to, WHITE)];
+					move.Label.Special = SIGN_PROMOTE + Fen.piece_char[Util.piece(promote_to, WHITE)];
 					move.PromoteTo = promote_to;
 					valid_promotion = true;
 				}
@@ -272,7 +272,7 @@ IGameCommon.prototype.Move = function(fs, ts, promote_to, dryrun) {
 			if(valid_promotion || !promotion) {
 				if(moveto.Type === SQ_EMPTY) {
 					if(Util.pawn_move_double(relfs, relts)) {
-						pos.Ep = Util.rel_sq_no(relts-8, colour);
+						pos.Ep = Util.rel_sq_no(relts - 8, colour);
 						move.Valid = true;
 					}
 
@@ -380,11 +380,11 @@ IGameCommon.prototype.Move = function(fs, ts, promote_to, dryrun) {
 							var king_file = Util.x(king_sq);
 							var rook_file = Util.x(rook_sq);
 
-							if(Math.abs(edge-rook_dest_file) > Math.abs(edge-king_file)) { //rook dest is further out
+							if(Math.abs(edge - rook_dest_file) > Math.abs(edge - king_file)) { //rook dest is further out
 								outermost_sq = rook_dest_sq;
 							}
 
-							if(Math.abs(edge-king_dest_file) < Math.abs(edge-rook_file)) { //king dest is further in
+							if(Math.abs(edge - king_dest_file) < Math.abs(edge - rook_file)) { //king dest is further in
 								innermost_sq = king_dest_sq;
 							}
 
