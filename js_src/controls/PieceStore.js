@@ -38,7 +38,7 @@ function PieceStore(parent) {
 	f = 0;
 
 	for(var pc = WHITE_PAWN; pc <= WHITE_KING; pc++) {
-		this.SetBoardSquare(this.fr_to_sq(f, r)+offset, pc);
+		this.SetBoardSquare(this.fr_to_sq(f, r) + offset, pc);
 		r++;
 	}
 
@@ -46,7 +46,7 @@ function PieceStore(parent) {
 	f = 1;
 
 	for(var pc = BLACK_PAWN; pc <= BLACK_KING; pc++) {
-		this.SetBoardSquare(this.fr_to_sq(f, r)+offset, pc);
+		this.SetBoardSquare(this.fr_to_sq(f, r) + offset, pc);
 		r++;
 	}
 
@@ -132,7 +132,7 @@ PieceStore.prototype.SetupHtml = function() { //after changing style (border)
 		parent.appendChild(border);
 
 		Dom.Style(border, {
-			border: "1px solid "+this.border[i]
+			border: "1px solid " + this.border[i]
 		});
 
 		parent = border;
@@ -329,7 +329,7 @@ PieceStore.prototype.SetSquarePos = function(square, sq) {
 	var f = this.x(sq);
 
 	x = this.square_size*f;
-	y = this.square_size*((this.height 1)-r);
+	y = this.square_size*((this.height - 1) - r);
 
 	Dom.Style(square.Container, {
 		top: this.border.length + y,
