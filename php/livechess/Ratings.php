@@ -85,7 +85,7 @@ class Ratings {
 	public static function get_rating($user, $type, $variant, $format) {
 		$db=Db::getinst();
 		
-		return $db->cell("select get_rating('$user', '$type', '$variant', '$format')");
+		return $db->cell("select 1200");
 	}
 
 	/*

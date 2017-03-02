@@ -7,6 +7,7 @@ table like a regular DbRow class.
 require_once "date.php";
 require_once "Db.php";
 require_once "DbRow.php";
+require_once "Singleton.php";
 
 class User extends DbRow {
 	use Singleton;

@@ -84,12 +84,7 @@ if($user->signedin) {
 				//compare owner rating against whatever the user's rating is for the table settings
 
 				$query->str.="
-					and owner_rating $operator get_rating(
-						'{$user->username}',
-						tables.type,
-						tables.variant,
-						tables.format
-					)$str
+					and owner_rating $operator 1200$str
 				";
 			}
 

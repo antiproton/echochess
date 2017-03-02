@@ -20,7 +20,7 @@ if($user->signedin) {
 	$result=$db->table("
 		select
 			distinct user,
-			round(get_rating(user, '".GAME_TYPE_STANDARD."', '".VARIANT_STANDARD."', '".GAME_FORMAT_OVERALL."')) as rating
+			1200 as rating
 		from longpolls
 		where user!='{$user->username}'
 	");

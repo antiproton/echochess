@@ -61,12 +61,7 @@ if($user->signedin) {
 	foreach($rating_conditions as $field=>$operator) {
 		$query->str.=" and (
 			accept_$field is null
-			or get_rating(
-				'{$user->username}',
-				'".GAME_TYPE_STANDARD."',
-				tables.variant,
-				tables.format
-			) $operator accept_$field
+			or 1200 $operator accept_$field
 		)";
 	}
 
@@ -100,12 +95,7 @@ if($user->signedin) {
 				//see tables_custom for notes
 
 				$query->str.="
-					and owner_rating $operator get_rating(
-						'{$user->username}',
-						tables.type,
-						tables.variant,
-						tables.format
-					)$str
+					and owner_rating $operator 1200$str
 				";
 			}
 

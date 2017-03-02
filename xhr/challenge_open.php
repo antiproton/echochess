@@ -26,6 +26,7 @@ a message
 require_once "base.php";
 require_once "Data.php";
 require_once "Query.php";
+require_once "string_utils.php";
 require_once "dbcodes/chess.php";
 require_once "php/constants.php";
 require_once "php/init.php";

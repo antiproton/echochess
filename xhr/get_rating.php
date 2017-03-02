@@ -23,7 +23,7 @@ $q=Data::unserialise_clean($_GET["q"]);
 if(isset($q["user"]) && isset($q["type"]) && isset($q["variant"]) && isset($q["format"])) {
 	$db=Db::getinst();
 	
-	$result=$db->cell("select round(get_rating('{$q["user"]}', '{$q["type"]}', '{$q["variant"]}', '{$q["format"]}'))");
+	$result=$db->cell("select 1200");
 }
 
 echo Data::serialise($result);
