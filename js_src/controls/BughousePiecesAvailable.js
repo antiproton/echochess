@@ -37,7 +37,7 @@ function BughousePiecesAvailable(parent) {
 
 	this.square_size = 45;
 	this.img_dir_piece = ap("/img/board/piece");
-	this.piece_style = Base.App.User.Prefs.PieceStyle.Get();
+	this.piece_style = App.User.Prefs.PieceStyle.Get();
 
 	this.SquareSize = new Property(this, function() {
 		return this.square_size;
@@ -60,7 +60,7 @@ function BughousePiecesAvailable(parent) {
 		this.UpdateHtml();
 	});
 
-	Base.App.User.Prefs.PieceStyleChanged.AddHandler(this, function(data, sender) {
+	App.User.Prefs.PieceStyleChanged.AddHandler(this, function(data, sender) {
 		this.PieceStyle.Set(sender.PieceStyle.Get());
 	});
 

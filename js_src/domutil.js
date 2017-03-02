@@ -13,7 +13,7 @@ function $(selector) {
 		case "#": return document.getElementById(param);
 		case ".": return Dom.ElsByClass(param);
 		case "@": return document.getElementsByName(param);
-		case " > ": return document.getElementsByTagName(param);
+		case ">": return document.getElementsByTagName(param);
 		case "*": return document.createElement(param);
 		case "%": return document.createTextNode(param);
 	}

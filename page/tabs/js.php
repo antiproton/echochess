@@ -5,13 +5,15 @@ JsRequestInfo::output();
 
 //generic libraries
 
-//loads("/lib/js/util");
-//loads("/lib/js/data");
-//loads("/lib/js/server");
-//loads("/lib/js/events");
-//loads("/lib/js/dom");
-//loads("/lib/js/base");
-//loads("/lib/js/Base.js");
+loads("/lib/js/util");
+loads("/lib/js/time.js");
+loads("/lib/js/data");
+loads("/lib/js/server");
+loads("/lib/js/events");
+loads("/lib/js/dom");
+loads("/lib/js/base");
+loads("/lib/js/Base.js");
+loads("/lib/js/Property.js");
 
 //database constants and enums
 
@@ -20,8 +22,6 @@ loads("/lib/js/dbcodes/chess.js");
 
 //chess-specific libraries
 
-loadw("/js/constants.js");
-loadw("/js/domutil.js"); //
 loadw("/js/chess/constants.js");
 loadw("/js/chess");
 loadw("/js/analysis");

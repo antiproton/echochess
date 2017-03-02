@@ -36,7 +36,7 @@ PrefsForm.prototype.SetupHtml = function() {
 	for(var code in DbEnums[PIECE_STYLE]) {
 		pieces.push({
 			Value: code,
-			Label: " < img src = \""+Base.App.ImgUrl("/board/piece/"+code+"/20/"+Fen.piece_char[Util.piece(QUEEN, BLACK)]+".png")+"\" > "
+			Label: "<img src=\""+App.ImgUrl("/board/piece/"+code+"/20/"+Fen.piece_char[Util.piece(QUEEN, BLACK)]+".png")+"\">"
 		});
 
 		//this.DropDownPieceStyle.Add(code, DbEnums[PIECE_STYLE][code].Description);
@@ -45,7 +45,7 @@ PrefsForm.prototype.SetupHtml = function() {
 	this.SelectorPieceStyle = new SelectorButton(container.InputInner, pieces);
 
 	this.SelectorPieceStyle.SelectionChanged.AddHandler(this, function(data, sender) {
-		Base.App.User.Prefs.PieceStyle.Set(sender.Value.Get());
+		App.User.Prefs.PieceStyle.Set(sender.Value.Get());
 	});
 
 	//board size
@@ -69,7 +69,7 @@ PrefsForm.prototype.SetupHtml = function() {
 	}
 
 	this.DropDownBoardSize.SelectionChanged.AddHandler(this, function(data, sender) {
-		Base.App.User.Prefs.BoardSize.Set(parseInt(sender.Value.Get()));
+		App.User.Prefs.BoardSize.Set(parseInt(sender.Value.Get()));
 	});
 
 	//board style
@@ -96,7 +96,7 @@ PrefsForm.prototype.SetupHtml = function() {
 
 		if(i < BoardStylePresets.length) {
 			style = BoardStylePresets[i];
-			Base.App.User.Prefs.BoardColour.Set(style.Light, style.Dark);
+			App.User.Prefs.BoardColour.Set(style.Light, style.Dark);
 		}
 	});
 
@@ -106,7 +106,7 @@ PrefsForm.prototype.SetupHtml = function() {
 	this.CheckboxShowCoords = new Checkbox(tmp, "Show coords");
 
 	this.CheckboxShowCoords.CheckedChanged.AddHandler(this, function(data, sender) {
-		Base.App.User.Prefs.ShowCoords.Set(sender.Checked.Get());
+		App.User.Prefs.ShowCoords.Set(sender.Checked.Get());
 	});
 
 	//highlight last move
@@ -115,7 +115,7 @@ PrefsForm.prototype.SetupHtml = function() {
 	this.CheckboxHighlightLastMove = new Checkbox(tmp, "Highlight last move");
 
 	this.CheckboxHighlightLastMove.CheckedChanged.AddHandler(this, function(data, sender) {
-		Base.App.User.Prefs.HighlightLastMove.Set(sender.Checked.Get());
+		App.User.Prefs.HighlightLastMove.Set(sender.Checked.Get());
 	});
 
 	//behaviour prefs
@@ -136,7 +136,7 @@ PrefsForm.prototype.SetupHtml = function() {
 	this.CheckboxPremove = new Checkbox(container, "Premove");
 
 	this.CheckboxPremove.CheckedChanged.AddHandler(this, function(data, sender) {
-		Base.App.User.Prefs.Premove.Set(sender.Checked.Get());
+		App.User.Prefs.Premove.Set(sender.Checked.Get());
 	});
 
 	//auto promote
@@ -145,7 +145,7 @@ PrefsForm.prototype.SetupHtml = function() {
 	this.CheckboxAutoQueen = new Checkbox(container, "Always queen");
 
 	this.CheckboxAutoQueen.CheckedChanged.AddHandler(this, function(data, sender) {
-		Base.App.User.Prefs.AutoQueen.Set(sender.Checked.Get());
+		App.User.Prefs.AutoQueen.Set(sender.Checked.Get());
 	});
 
 	//container.Label.For.Set(this.CheckboxPremove.Id);
@@ -154,7 +154,7 @@ PrefsForm.prototype.SetupHtml = function() {
 }
 
 PrefsForm.prototype.Init = function() {
-	var prefs = Base.App.User.Prefs;
+	var prefs = App.User.Prefs;
 
 	this.SelectorPieceStyle.Value.Set(prefs.PieceStyle.Get());
 	this.DropDownBoardSize.Value.Set(prefs.BoardSize.Get());

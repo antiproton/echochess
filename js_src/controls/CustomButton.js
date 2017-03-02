@@ -36,7 +36,7 @@ CustomButton.prototype.SetupHtml = function() {
 
 
 	Dom.AddEventHandler(this.Node, "click", function() {
-		Base.App.ClickedObjects.Add(self);
+		App.ClickedObjects.Add(self);
 	});
 }
 

@@ -119,17 +119,17 @@ TimeSetting.prototype.SetupHtml = function() {
 	this.inner = div(this.Node);
 
 	Dom.AddEventHandler(this.Node, "click", function() {
-		Base.App.ClickedObjects.Add(self);
+		App.ClickedObjects.Add(self);
 		self.click();
 	});
 
-	Base.App.BodyClick.AddHandler(this, function(data) {
-		if(!Base.App.ClickedObjects.Contains(this.TimeSettingDialog) && !Base.App.ClickedObjects.Contains(this)) {
+	App.BodyClick.AddHandler(this, function(data) {
+		if(!App.ClickedObjects.Contains(this.TimeSettingDialog) && !App.ClickedObjects.Contains(this)) {
 			this.form_dismiss();
 		}
 	});
 
-	Base.App.HashChange.AddHandler(this, function() {
+	App.HashChange.AddHandler(this, function() {
 		this.form_dismiss();
 	});
 

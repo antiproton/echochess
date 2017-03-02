@@ -21,14 +21,14 @@ function CustomTableTabBody(parent) {
 			Title: "Type",
 			Width: 45,
 			Value: function(row) {
-				return " < img src = \""+ap("/img/icon/code/"+GAME_TYPE+"/"+row["type"]+"-20.png")+"\" title = \""+DbEnums[GAME_TYPE][row["type"]].Description+"\" > ";
+				return "<img src=\""+ap("/img/icon/code/"+GAME_TYPE+"/"+row["type"]+"-20.png")+"\" title=\""+DbEnums[GAME_TYPE][row["type"]].Description+"\">";
 			}
 		},
 		{
 			Title: "Variant",
 			Width: 60,
 			Value: function(row) {
-				return " < img src = \""+ap("/img/icon/code/"+VARIANT+"/"+row["variant"]+"-20.png")+"\" title = \""+DbEnums[VARIANT][row["variant"]].Description+"\" > ";
+				return "<img src=\""+ap("/img/icon/code/"+VARIANT+"/"+row["variant"]+"-20.png")+"\" title=\""+DbEnums[VARIANT][row["variant"]].Description+"\">";
 			}
 		},
 		{
@@ -93,7 +93,7 @@ function CustomTableTabBody(parent) {
 							button.innerHTML = "Join";
 
 							button.onclick = function(e) {
-								Base.App.JoinTable(row["id"], game_id, colour_fields[field].Colour);
+								App.JoinTable(row["id"], game_id, colour_fields[field].Colour);
 
 								if(e.stopPropagation) {
 									e.stopPropagation();
@@ -148,13 +148,13 @@ CustomTableTabBody.prototype.SetupHtml = function() {
 	this.Grid = new Grid(this.Node, this.cols);
 
 	this.Grid.RowClick.AddHandler(this, function(data) {
-		Base.App.OpenTable(data.Row["id"]);
+		App.OpenTable(data.Row["id"]);
 	});
 
 	this.Grid.BeforeRowDraw.AddHandler(this, function(data) {
 		Dom.AddClass(data.RowDiv, "table_list_grid_row");
 
-		if(data.Row["owner"] === Base.App.User.Username) {
+		if(data.Row["owner"] === App.User.Username) {
 			Dom.AddClass(data.RowDiv, "grid_row_custom_table_owner");
 		}
 	});

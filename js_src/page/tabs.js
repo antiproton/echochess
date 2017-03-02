@@ -14,7 +14,7 @@ function Tabs() {
 	this.init_direct_challenge_listener();
 	this.init_updates();
 
-	Base.App.UserButton.Show();
+	App.UserButton.Show();
 
 	//DEBUG:
 
@@ -163,7 +163,7 @@ displaying a message if it was unsuccessful).
 */
 
 Tabs.prototype.init_game_setup_handlers = function() {
-	Base.App.UserOpenTable.AddHandler(this, function(data) {
+	App.UserOpenTable.AddHandler(this, function(data) {
 		var tab = null;
 
 		this.Ctrl.Tabs.Each(function(item) {
@@ -188,7 +188,7 @@ Tabs.prototype.init_game_setup_handlers = function() {
 		}
 	});
 
-	Base.App.UserJoinTable.AddHandler(this, function(data) {
+	App.UserJoinTable.AddHandler(this, function(data) {
 		var tab = null;
 
 		this.Ctrl.Tabs.Each(function(item) {
@@ -325,7 +325,7 @@ load tables the user is sat at
 */
 
 Tabs.prototype.init_seated_tables = function() {
-	var tables = Base.Request["page"]["tables"];
+	var tables = Request["page"]["tables"];
 	var id;
 	var already_added;
 
@@ -357,7 +357,7 @@ Tabs.prototype.init_new_tab_links = function() {
 	};
 
 	Dom.AddEventHandler(this.new_tab_links.Quick, "click", function() {
-		Base.App.ClickedObjects.Add(this.new_tab_links.Quick);
+		App.ClickedObjects.Add(this.new_tab_links.Quick);
 
 		if(this.sb_quick_challenge_form.Display.Get()) {
 			this.sb_quick_challenge_form.Display.Set(false);
@@ -374,7 +374,7 @@ Tabs.prototype.init_new_tab_links = function() {
 	}, this);
 
 	Dom.AddEventHandler(this.new_tab_links.Custom, "click", function() {
-		Base.App.ClickedObjects.Add(this.new_tab_links.Custom);
+		App.ClickedObjects.Add(this.new_tab_links.Custom);
 
 		if(this.sb_custom_table_dialog.Display.Get()) {
 			this.sb_custom_table_dialog.Display.Set(false);
@@ -415,13 +415,13 @@ Tabs.prototype.init_custom_table_form = function() {
 		this.sb_custom_table_dialog.Display.Set(false);
 	});
 
-	Base.App.BodyClick.AddHandler(this, function() {
-		if(!Base.App.ClickedObjects.Contains(this.new_tab_links.Custom) && !Base.App.ClickedObjects.Contains(this.sb_custom_table_dialog)) {
+	App.BodyClick.AddHandler(this, function() {
+		if(!App.ClickedObjects.Contains(this.new_tab_links.Custom) && !App.ClickedObjects.Contains(this.sb_custom_table_dialog)) {
 			this.sb_custom_table_dialog.Display.Set(false);
 		}
 	});
 
-	Base.App.HashChange.AddHandler(this, function() {
+	App.HashChange.AddHandler(this, function() {
 		this.sb_custom_table_dialog.Display.Set(false);
 	});
 }
@@ -451,15 +451,15 @@ Tabs.prototype.init_quick_challenge_form = function() {
 		}
 	});
 
-	Base.App.BodyClick.AddHandler(this, function() {
-		if(!Base.App.ClickedObjects.Contains(this.new_tab_links.Quick) && !Base.App.ClickedObjects.Contains(this.sb_quick_challenge_form)) {
+	App.BodyClick.AddHandler(this, function() {
+		if(!App.ClickedObjects.Contains(this.new_tab_links.Quick) && !App.ClickedObjects.Contains(this.sb_quick_challenge_form)) {
 			if(!this.quick_challenge_form.ChallengeWaiting.Get()) {
 				this.sb_quick_challenge_form.Display.Set(false);
 			}
 		}
 	});
 
-	Base.App.HashChange.AddHandler(this, function() {
+	App.HashChange.AddHandler(this, function() {
 		this.sb_quick_challenge_form.Display.Set(false);
 	});
 }
@@ -474,7 +474,7 @@ Tabs.prototype.init_user_ratings = function() {
 }
 
 Tabs.prototype.init_other_login_alert = function() {
-	var other_login_alert = new GenericUpdater(GENERIC_UPDATES_LIVE_MAIN_WINDOW, Base.Request["page"]["main_page_update"]);
+	var other_login_alert = new GenericUpdater(GENERIC_UPDATES_LIVE_MAIN_WINDOW, Request["page"]["main_page_update"]);
 
 	other_login_alert.Updated.AddHandler(this, function() {
 		Base.LongPoll.Stop();

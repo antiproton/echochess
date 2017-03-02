@@ -34,7 +34,7 @@ QuickChallenge.CANCELLED = 2;
 QuickChallenge.prototype.Submit = function() {
 	var self = this;
 	this.waiting = true;
-	Base.App.UpdateQuickChallenge();
+	App.UpdateQuickChallenge();
 
 	Xhr.QueryAsync(ap("/xhr/challenge_open.php"), function(response) {
 		if(self.waiting) {
@@ -72,7 +72,7 @@ QuickChallenge.prototype.Submit = function() {
 QuickChallenge.prototype.Cancel = function() {
 	this.waiting = false;
 	this.ClearEventHandlers();
-	Base.App.UpdateQuickChallenge();
+	App.UpdateQuickChallenge();
 	Xhr.RunAsync(ap("/xhr/challenge_cancel.php"));
 
 	this.Done.Fire({

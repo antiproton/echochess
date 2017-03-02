@@ -44,7 +44,7 @@ ILiveTableTab.prototype.CreateTable = function() {
 		this.update_tab_title();
 
 		if(this.Selected) {
-			Base.App.FocussedObject = this.Table.CurrentPlayerGame;
+			App.FocussedObject = this.Table.CurrentPlayerGame;
 		}
 
 		if(!this.Table.PlayerPresent) {
@@ -124,7 +124,7 @@ ILiveTableTab.prototype.Select = function() {
 	Tab.prototype.Select.call(this);
 
 	if(this.Table !== null) {
-		Base.App.FocusedObject = this.Table.CurrentPlayerGame;
+		App.FocusedObject = this.Table.CurrentPlayerGame;
 	}
 }
 

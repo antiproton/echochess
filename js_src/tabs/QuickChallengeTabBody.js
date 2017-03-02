@@ -110,7 +110,7 @@ QuickChallengeTabBody.prototype.init_updates = function() {
 		}
 	});
 
-	Base.App.UserQuickChallengeUpdate.AddHandler(this, function() {
+	App.UserQuickChallengeUpdate.AddHandler(this, function() {
 		if(this.updating) {
 			this.update();
 		}

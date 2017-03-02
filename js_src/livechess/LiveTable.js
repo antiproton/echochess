@@ -412,13 +412,13 @@ LiveTable.prototype.init_seats = function() {
 					var from_plr_seat = (sender === this.PlayerSeat); //this might become "was the player seat"
 
 					if(from_plr_seat) {
-						if(username !== Base.App.User.Username) {
+						if(username !== App.User.Username) {
 							this.PlayerSeat = null;
 						}
 					}
 
 					else {
-						if(username === Base.App.User.Username) {
+						if(username === App.User.Username) {
 							this.take_seat(sender);
 						}
 					}
@@ -540,7 +540,7 @@ LiveTable.prototype.update = function(row) {
 	}
 
 	else if(this.challenge_type === CHALLENGE_TYPE_QUICK) {
-		var is_owner = (this.owner === Base.App.User.Username);
+		var is_owner = (this.owner === App.User.Username);
 
 		var rematch_ready = {
 			Player: is_owner?this.owner_rematch_ready:this.guest_rematch_ready,
@@ -551,7 +551,7 @@ LiveTable.prototype.update = function(row) {
 			var opp_seat = this.Seats[this.PlayerSeat.GameId][Util.opp_colour(this.PlayerSeat.Colour)];
 
 			this.opp_rematch_ready = true;
-			this.TableChat.AddMessage(" < b > "+opp_seat.Username.Get()+" has offered you a rematch. < /b > ");
+			this.TableChat.AddMessage("<b>"+opp_seat.Username.Get()+" has offered you a rematch. < /b>");
 		}
 
 		this.opp_rematch_ready = rematch_ready.Opponent;
@@ -1301,7 +1301,7 @@ LiveTable.prototype.update_current_player_game = function() {
 }
 
 LiveTable.prototype.Sit = function(game_id, colour) {
-	this.Seats[game_id][colour].Sit(Base.App.User.Username);
+	this.Seats[game_id][colour].Sit(App.User.Username);
 }
 
 LiveTable.prototype.take_seat = function(seat) {
@@ -1328,7 +1328,7 @@ LiveTable.prototype.Ready = function(ready) {
 
 LiveTable.prototype.update_table_panel = function() {
 	if(this.html_is_setup) {
-		var is_owner = (this.owner === Base.App.User.Username);
+		var is_owner = (this.owner === App.User.Username);
 		var no_games_in_progress = true;
 		var game;
 
@@ -1592,12 +1592,12 @@ LiveTable.prototype.setup_comments = function() { //DEBUG .. this is basically d
 	this.TableChatComments = new Comments(COMMENT_TYPE_TABLE, this.Id);
 
 	this.TableChatComments.CommentReceived.AddHandler(this, function(comment) {
-		this.TableChat.AddMessage(" < b > "+comment["user"]+": < /b > "+comment["body"]);
+		this.TableChat.AddMessage("<b>"+comment["user"]+": < /b>"+comment["body"]);
 	});
 
 	this.TableChat.MessageSent.AddHandler(this, function(data) {
 		if(is_string(data.Message) && data.Message.length > 0) {
-			this.TableChat.AddMessage(" < b > "+Base.App.User.Username+": < /b > "+data.Message);
+			this.TableChat.AddMessage("<b>"+App.User.Username+": < /b>"+data.Message);
 			this.TableChatComments.Post(data.Message);
 		}
 	});
@@ -1607,7 +1607,7 @@ LiveTable.prototype.setup_team_chat = function() {
 	if(this.type === GAME_TYPE_BUGHOUSE) {
 		this.BughousePartnerChat.MessageSent.AddHandler(this, function(data) {
 			if(is_string(data.Message) && data.Message.length > 0) {
-				this.BughousePartnerChat.AddMessage(" < b > "+Base.App.User.Username+": < /b > "+data.Message);
+				this.BughousePartnerChat.AddMessage("<b>"+App.User.Username+": < /b>"+data.Message);
 
 				var partner = null;
 
@@ -1855,7 +1855,7 @@ LiveTable.prototype.setup_game_panel = function() {
 					}
 				});
 
-				this.GamePanel.ButtonNew.Text.Set(" < img src = \"/img/loading.gif\" > Cancel");
+				this.GamePanel.ButtonNew.Text.Set("<img src=\"/img/loading.gif\">Cancel");
 
 				this.NewQuickChallenge.Submit();
 			}
@@ -1936,16 +1936,16 @@ respond to messages
 */
 
 LiveTable.prototype.MessageRematchDeclined = function(sender) {
-	this.TableChat.AddMessage(" < b > "+sender+" has declined a rematch. < /b > ");
+	this.TableChat.AddMessage("<b>"+sender+" has declined a rematch. < /b>");
 }
 
 LiveTable.prototype.MessageRematchCancelled = function(sender) {
-	this.TableChat.AddMessage(" < b > "+sender+" has cancelled their rematch offer. < /b > ");
+	this.TableChat.AddMessage("<b>"+sender+" has cancelled their rematch offer. < /b>");
 }
 
 LiveTable.prototype.MessageOpponentConnected = function(sender) {
 	if(this.opp_disconnected_flag[sender]) {
-		this.TableChat.AddMessage(" < b > "+sender+" has connected. < /b > ");
+		this.TableChat.AddMessage("<b>"+sender+" has connected. < /b>");
 		this.opp_disconnected_flag[sender] = false;
 
 		if(this.force_resign_timer !== null) {
@@ -1961,7 +1961,7 @@ LiveTable.prototype.MessageOpponentDisconnected = function(sender) {
 		var self = this;
 		var opponent = this.Seats[this.PlayerSeat.GameId][Util.opp_colour(this.PlayerSeat.Colour)].Username.Get();
 
-		this.TableChat.AddMessage(" < b > "+sender+" has disconnected. < /b > ");
+		this.TableChat.AddMessage("<b>"+sender+" has disconnected. < /b>");
 		this.opp_disconnected_flag[sender] = true;
 
 		if(
@@ -1979,7 +1979,7 @@ LiveTable.prototype.MessageOpponentDisconnected = function(sender) {
 }
 
 LiveTable.prototype.MessageTeamChat = function(sender, body) {
-	this.BughousePartnerChat.AddMessage(" < b > "+sender+": < /b > "+body);
+	this.BughousePartnerChat.AddMessage("<b>"+sender+": < /b>"+body);
 }
 
 LiveTable.prototype.show_force_resign_dialog = function() {
@@ -2156,7 +2156,7 @@ LiveTable.prototype.game_update = function(game) {
 					if(game.Position.Active === this.PlayerSeat.Colour) {
 						var opp_seat = this.Seats[this.PlayerSeat.GameId][Util.opp_colour(this.PlayerSeat.Colour)];
 
-						this.TableChat.AddMessage(" < b > "+opp_seat.Username.Get()+" has offered you a draw. < /b > ");
+						this.TableChat.AddMessage("<b>"+opp_seat.Username.Get()+" has offered you a draw. < /b>");
 					}
 				}
 

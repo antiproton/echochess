@@ -37,6 +37,7 @@ while($page->path !== $original_path) {
 	<head>
 		<title>Chess</title>
 		<meta charset="UTF-8">
+		<script src="/live.js"></script>
 		<style type="text/css">
 		<?php
 		loads("/lib/css/reset.css");

@@ -2,7 +2,7 @@ var App = {
 	init: function() { //constructor
 		var self = this;
 
-		this.img_url = "http://img.echochess.com";
+		this.img_url = "http://img.echochess.com/img";
 
 		this.User = new User();
 		this.UndoAction = new Event(this);
@@ -43,14 +43,14 @@ var App = {
 			self.HashChange.Fire();
 		});
 
-		if(Base.Request["user"]["signedin"]) {
-			this.User.SignIn(Base.Request["user"]["username"]);
+		if(Request["user"]["signedin"]) {
+			this.User.SignIn(Request["user"]["username"]);
 		}
 
-		this.User.Prefs.LoadRow(Base.Request["user_prefs"]);
+		this.User.Prefs.LoadRow(Request["user_prefs"]);
 
 		Base.Ready.AddHandler(this, function() {
-			Dom.AddEventHandler($(" > html")[0], "click", function() {
+			Dom.AddEventHandler($(">html")[0], "click", function() {
 				self.BodyClick.Fire();
 				self.ClickedObjects.Clear();
 			});
@@ -96,10 +96,10 @@ var App = {
 App.init();
 
 /*
-NOTE keeping a reference in Base to avoid changing all Base.App to App
+NOTE keeping a reference in Base to avoid changing all App to App
 
 also popups might want Base.Root.App at some point so it could be a good
 idea to keep it anyway.
 */
 
-Base.App = App;
+App = App;

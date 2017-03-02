@@ -12,7 +12,7 @@ QuickChallengeListListTabBody.prototype.SetupHtml = function() {
 			Title: "Variant",
 			Width: 60,
 			Value: function(row) {
-				return " < img src = \""+ap("/img/icon/code/"+VARIANT+"/"+row["variant"]+"-20.png")+"\" title = \""+DbEnums[VARIANT][row["variant"]].Description+"\" > ";
+				return "<img src=\""+ap("/img/icon/code/"+VARIANT+"/"+row["variant"]+"-20.png")+"\" title=\""+DbEnums[VARIANT][row["variant"]].Description+"\">";
 			}
 		},
 		{
@@ -59,16 +59,16 @@ QuickChallengeListListTabBody.prototype.SetupHtml = function() {
 					dot = Util.colour_name(Util.opp_colour(row["challenge_colour"]));
 				}
 
-				return " < img src = \""+ap("/img/icon/colour_dot/"+dot+".png")+"\" > ";
+				return "<img src=\""+ap("/img/icon/colour_dot/"+dot+".png")+"\">";
 			}
 		}
 	]);
 
 	this.Grid.RowClick.AddHandler(this, function(data) {
-		if(data.Row["owner"] !== Base.App.User.Username) {
+		if(data.Row["owner"] !== App.User.Username) {
 			QuickChallenge.Accept(data.Row["id"], function(response) {
 				if(response !== false) {
-					Base.App.OpenTable(data.Row["id"]);
+					App.OpenTable(data.Row["id"]);
 				}
 			});
 		}
@@ -77,7 +77,7 @@ QuickChallengeListListTabBody.prototype.SetupHtml = function() {
 	this.Grid.BeforeRowDraw.AddHandler(this, function(data) {
 		Dom.AddClass(data.RowDiv, "table_list_grid_row");
 
-		if(data.Row["owner"] === Base.App.User.Username) {
+		if(data.Row["owner"] === App.User.Username) {
 			Dom.AddClass(data.RowDiv, "grid_row_quick_challenge_owner");
 		}
 	});
@@ -107,7 +107,7 @@ QuickChallengeListListTabBody.prototype.SetupHtml = function() {
 	});
 
 	var msg = "";
-	var users_online = Base.Request["page"]["users_online"]-1;
+	var users_online = Request["page"]["users_online"]-1;
 	var singular = (users_online === 1);
 
 	if(users_online < 0) {
@@ -122,7 +122,7 @@ QuickChallengeListListTabBody.prototype.SetupHtml = function() {
 	msg += "  There "+(singular?"is":"are")+" ";
 
 	if(users_online > 0) {
-		msg += " < a href = \"javascript:void(0)\" > "+users_online+" other user"+s(users_online)+" < /a > ";
+		msg += "<a href=\"javascript:void(0)\">"+users_online+" other user"+s(users_online)+"</a>";
 	}
 
 	else {

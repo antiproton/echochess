@@ -48,7 +48,7 @@ UserButton.prototype.SetupHtml = function() {
 
 	Dom.AddClass(this.button, "user_button");
 
-	this.button.innerHTML = Base.App.User.Username;
+	this.button.innerHTML = App.User.Username;
 
 	Dom.AddEventHandler(this.button, "click", function() {
 		this.dialog_open = !this.dialog_open;
@@ -60,15 +60,15 @@ UserButton.prototype.SetupHtml = function() {
 	this.container_dialog = new Container(this.Node);
 
 	Dom.AddEventHandler(this.container_dialog.Node, "click", function() {
-		Base.App.ClickedObjects.Add(this.container_dialog);
+		App.ClickedObjects.Add(this.container_dialog);
 	}, this);
 
 	Dom.AddEventHandler(this.button, "click", function() {
-		Base.App.ClickedObjects.Add(this.button);
+		App.ClickedObjects.Add(this.button);
 	}, this);
 
-	Base.App.BodyClick.AddHandler(this, function() {
-		if(this.dialog_open && !Base.App.ClickedObjects.Contains(this.container_dialog) && !Base.App.ClickedObjects.Contains(this.button)) {
+	App.BodyClick.AddHandler(this, function() {
+		if(this.dialog_open && !App.ClickedObjects.Contains(this.container_dialog) && !App.ClickedObjects.Contains(this.button)) {
 			this.dialog_open = false;
 			this.UpdateHtml();
 		}

@@ -87,27 +87,27 @@ UsersTabBody.prototype.SetupHtml = function() {
 
 	this.quick_challenge_form.Done.AddHandler(this, function(data, sender) {
 		if(data.Info === QuickChallenge.SUCCESS) {
-			Base.App.OpenTable(data.Table);
+			App.OpenTable(data.Table);
 			this.sb_quick_challenge_form.Display.Set(false);
 		}
 	});
 
-	Base.App.BodyClick.AddHandler(this, function() {
-		if(!Base.App.ClickedObjects.Contains(this.current_challenge_link) && !Base.App.ClickedObjects.Contains(this.sb_quick_challenge_form)) {
+	App.BodyClick.AddHandler(this, function() {
+		if(!App.ClickedObjects.Contains(this.current_challenge_link) && !App.ClickedObjects.Contains(this.sb_quick_challenge_form)) {
 			if(!this.quick_challenge_form.ChallengeWaiting.Get()) {
 				this.sb_quick_challenge_form.Display.Set(false);
 			}
 		}
 	});
 
-	Base.App.HashChange.AddHandler(this, function() {
+	App.HashChange.AddHandler(this, function() {
 		this.sb_quick_challenge_form.Display.Set(false);
 	});
 }
 
 UsersTabBody.prototype.challenge_user = function(user, link) {
 	this.current_challenge_link = link;
-	Base.App.ClickedObjects.Add(link);
+	App.ClickedObjects.Add(link);
 
 	var os = Dom.GetOffsets(link);
 	var dim = [link.offsetWidth, link.offsetHeight];

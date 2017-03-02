@@ -292,7 +292,7 @@ PieceStore.prototype.SetBoardSquare = function(sq, pc) {
 PieceStore.prototype.SetHtmlSquare = function(sq, pc) {
 	if(this.GetSquare(sq) !== null) {
 		if(this.img_dir_piece !== null) {
-			this.Squares[sq].Node.style.backgroundImage = Base.App.CssImg(this.img_dir_piece+"/"+this.piece_style+"/"+this.square_size+"/"+Fen.get_piece_char(pc)+".png");
+			this.Squares[sq].Node.style.backgroundImage = App.CssImg(this.img_dir_piece+"/"+this.piece_style+"/"+this.square_size+"/"+Fen.get_piece_char(pc)+".png");
 		}
 	}
 }

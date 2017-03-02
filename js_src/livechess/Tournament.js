@@ -1,5 +1,5 @@
 function Tournament() {
-	this.Owner = Base.App.User.Username;
+	this.Owner = App.User.Username;
 	this.Title = "Untitled Tournament";
 	this.Format = TOURNAMENT_FORMAT_WARZONE;
 	this.Rounds = 5;

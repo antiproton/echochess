@@ -3,7 +3,7 @@ function OptionsPanel(parent) {
 
 	this.load_prefs();
 
-	Base.App.User.Prefs.PrefsChanged.AddHandler(this, function() {
+	App.User.Prefs.PrefsChanged.AddHandler(this, function() {
 		this.load_prefs();
 	});
 }
@@ -63,11 +63,11 @@ OptionsPanel.prototype.SetupHtml = function() {
 }
 
 OptionsPanel.prototype.load_prefs = function() {
-	this.CheckboxLastMove.Checked.Set(Base.App.User.Prefs.HighlightLastMove.Get());
-	//this.CheckboxPossibleMoves.Checked.Set(Base.App.User.Prefs.HighlightPossibleMoves.Get());
-	//this.CheckboxSound.Checked.Set(Base.App.User.Prefs.Sound.Get());
-	//this.CheckboxAnimation.Checked.Set(Base.App.User.Prefs.AnimateMoves.Get());
-	this.CheckboxShowCoords.Checked.Set(Base.App.User.Prefs.ShowCoords.Get());
-	this.DropDownSize.Value.Set(Base.App.User.Prefs.BoardSize.Get());
-	this.DropDownPieceStyle.Value.Set(Base.App.User.Prefs.PieceStyle.Get());
+	this.CheckboxLastMove.Checked.Set(App.User.Prefs.HighlightLastMove.Get());
+	//this.CheckboxPossibleMoves.Checked.Set(App.User.Prefs.HighlightPossibleMoves.Get());
+	//this.CheckboxSound.Checked.Set(App.User.Prefs.Sound.Get());
+	//this.CheckboxAnimation.Checked.Set(App.User.Prefs.AnimateMoves.Get());
+	this.CheckboxShowCoords.Checked.Set(App.User.Prefs.ShowCoords.Get());
+	this.DropDownSize.Value.Set(App.User.Prefs.BoardSize.Get());
+	this.DropDownPieceStyle.Value.Set(App.User.Prefs.PieceStyle.Get());
 }

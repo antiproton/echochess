@@ -4,7 +4,7 @@ function UiPiecesTaken(parent) {
 	this.view_as = WHITE;
 	this.square_size = 20;
 	this.img_dir = "/board/piece";
-	this.piece_style = Base.App.User.Prefs.PieceStyle.Get();
+	this.piece_style = App.User.Prefs.PieceStyle.Get();
 
 	this.ViewAs = new Property(this, function() {
 		return this.view_as;
@@ -192,7 +192,7 @@ UiPiecesTaken.prototype.Remove = function(pc) {
 
 UiPiecesTaken.prototype.set_piece_div = function(div, pc) {
 	var width = (pc === SQ_EMPTY?0:this.square_size);
-	var bgimg = (pc === SQ_EMPTY?"none":Base.App.CssImg(this.img_dir+"/"+this.piece_style+"/"+this.square_size+"/"+Fen.get_piece_char(pc)+".png"));
+	var bgimg = (pc === SQ_EMPTY?"none":App.CssImg(this.img_dir+"/"+this.piece_style+"/"+this.square_size+"/"+Fen.get_piece_char(pc)+".png"));
 
 	Dom.Style(div, {
 		width: width,

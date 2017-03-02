@@ -356,7 +356,7 @@ QuickChallengeForm.prototype.SetupHtml = function() {
 
 	this.loading_gif = $("*img");
 	this.message_inner.appendChild(this.loading_gif);
-	this.loading_gif.src = Base.App.ImgUrl("/loading.gif");
+	this.loading_gif.src = App.ImgUrl("/loading.gif");
 
 	Dom.Style(this.loading_gif, {
 		verticalAlign: "middle",

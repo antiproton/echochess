@@ -43,7 +43,7 @@ DirectChallengeAlert.prototype.SetupHtml = function() {
 		+" "+ClockTimeDisplay.Encode(TIMING_FISCHER_AFTER, row["timing_initial"], row["timing_increment"])
 		+" "+(row["rated"]?"rated":"unrated")
 		+"; you play "+(row["choose_colour"]?Util.colour_name(Util.opp_colour(row["challenge_colour"])):"random"+")")
-		+" < br >  < br > ";
+		+"<br >  < br>";
 
 	var link_accept = $("*a");
 	this.inner.appendChild(link_accept);
@@ -61,7 +61,7 @@ DirectChallengeAlert.prototype.SetupHtml = function() {
 			this.Hide();
 
 			if(response !== false) {
-				Base.App.OpenTable(row["id"]);
+				App.OpenTable(row["id"]);
 			}
 
 			else {

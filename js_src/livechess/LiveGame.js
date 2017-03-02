@@ -61,7 +61,7 @@ function LiveGame(table, gid, board, history, pieces_taken, clock) {
 		if(!this.History.BulkUpdate) {
 			this.Position.SetFen(move.Fen); //this will happen again when SelectedMoveChanged fires, but we need it here for the premoves to work
 
-			if(move.Colour === Util.opp_colour(this.user_colour) && Base.App.User.Prefs.AnimateMoves.Get()) {
+			if(move.Colour === Util.opp_colour(this.user_colour) && App.User.Prefs.AnimateMoves.Get()) {
 				var self = this;
 				var pos = new Position(this.StartingPosition.GetFen());
 				var fs = move.Fs;
@@ -105,9 +105,9 @@ function LiveGame(table, gid, board, history, pieces_taken, clock) {
 	this.ui_is_setup = false;
 	this.init_events();
 
-	this.highlight_last_move = Base.App.User.Prefs.HighlightLastMove.Get();
+	this.highlight_last_move = App.User.Prefs.HighlightLastMove.Get();
 
-	Base.App.User.Prefs.HighlightLastMoveChanged.AddHandler(this, function(data, sender) {
+	App.User.Prefs.HighlightLastMoveChanged.AddHandler(this, function(data, sender) {
 		this.HighlightLastMove.Set(sender.HighlightLastMove.Get());
 	});
 
@@ -127,7 +127,7 @@ function LiveGame(table, gid, board, history, pieces_taken, clock) {
 	this.setup_board();
 	this.setup_pieces_taken();
 
-	Base.App.UndoAction.AddHandler(this, function() {
+	App.UndoAction.AddHandler(this, function() {
 		this.UndoPremove();
 	});
 
@@ -212,7 +212,7 @@ LiveGame.prototype.setup_board = function() {
 		}
 
 		else {
-			if(Base.App.User.Prefs.Premove.Get()) {
+			if(App.User.Prefs.Premove.Get()) {
 				this.UserPremove(data.From, data.To);
 			}
 		}
@@ -374,7 +374,7 @@ LiveGame.prototype.UserPremove = function(fs, ts, promote_to) {
 	if(Util.type(piece) === PAWN && (Util.y(ts) === 0 || Util.y(ts) === 7) && !promote_to) {
 		promotion = true;
 
-		if(Base.App.User.Prefs.AutoQueen.Get()) {
+		if(App.User.Prefs.AutoQueen.Get()) {
 			promote_to = QUEEN;
 		}
 
@@ -1153,7 +1153,7 @@ LiveGame.prototype.UserMove = function(fs, ts, promote_to) {
 		if(Util.type(piece) === PAWN && (Util.y(ts) === 0 || Util.y(ts) === 7) && !promote_to) {
 			promotion = true;
 
-			if(Base.App.User.Prefs.AutoQueen.Get()) {
+			if(App.User.Prefs.AutoQueen.Get()) {
 				promote_to = QUEEN;
 			}
 

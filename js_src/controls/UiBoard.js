@@ -81,19 +81,19 @@ function UiBoard(parent) {
 
 	this.border = ["#5f5f5f", "#5f5f5f"]; //colour of each pixel of border, from outside to inside
 	this.show_coords_padding = true; //whether to have gaps around bottom and left to fit coordinates
-	this.show_coords = Base.App.User.Prefs.ShowCoords.Get(); //whether to show the coordinates
+	this.show_coords = App.User.Prefs.ShowCoords.Get(); //whether to show the coordinates
 	this.coord_size_r = 18; //how big a gap to have for coordinates on the left
 	this.coord_size_f = 18; //how big a gap to have for coordinates on the bottom
 	this.coords_font_family = "sans-serif";
 	this.coords_font_size = 11;
 	this.coords_font_color = "#303030";
-	this.square_size = Base.App.User.Prefs.BoardSize.Get();
+	this.square_size = App.User.Prefs.BoardSize.Get();
 	this.view_as = WHITE;
 	this.img_dir_board = "/board/board";
 	this.img_dir_piece = "/board/piece";
 	this.board_style = null;
-	this.piece_style = Base.App.User.Prefs.PieceStyle.Get();
-	this.square_colour = Base.App.User.Prefs.BoardColour.Get();
+	this.piece_style = App.User.Prefs.PieceStyle.Get();
+	this.square_colour = App.User.Prefs.BoardColour.Get();
 	this.square_highlight_border = 0; //gap around the edge of the highlight div to fit a border in
 	this.html_updates_enabled = true; //visual updates can be temporarily turned off entirely to ensure consistency when multiple events are causing updates
 	this.container_border = true;
@@ -102,20 +102,20 @@ function UiBoard(parent) {
 	this.container_border_border_width = 1;
 	this.container_border_border_colour = "#dfdfdf";
 
-	Base.App.User.Prefs.PieceStyleChanged.AddHandler(this, function(data, sender) {
+	App.User.Prefs.PieceStyleChanged.AddHandler(this, function(data, sender) {
 		this.PieceStyle.Set(sender.PieceStyle.Get());
 	});
 
-	Base.App.User.Prefs.BoardColourChanged.AddHandler(this, function(data, sender) {
+	App.User.Prefs.BoardColourChanged.AddHandler(this, function(data, sender) {
 		this.square_colour = sender.BoardColour.Get();
 		this.UpdateHtml();
 	});
 
-	Base.App.User.Prefs.BoardSizeChanged.AddHandler(this, function(data, sender) {
+	App.User.Prefs.BoardSizeChanged.AddHandler(this, function(data, sender) {
 		this.SquareSize.Set(sender.BoardSize.Get());
 	});
 
-	Base.App.User.Prefs.ShowCoordsChanged.AddHandler(this, function(data, sender) {
+	App.User.Prefs.ShowCoordsChanged.AddHandler(this, function(data, sender) {
 		this.ShowCoords.Set(sender.ShowCoords.Get());
 	});
 
@@ -765,7 +765,7 @@ UiBoard.prototype.UpdateHtml = function() { //after switching colours ,changing 
 	var bgimg = "none";
 
 	if(this.board_style !== null) {
-		bgimg = Base.App.CssImg(this.img_dir_board+"/"+this.board_style+"/"+this.square_size+".png");
+		bgimg = App.CssImg(this.img_dir_board+"/"+this.board_style+"/"+this.square_size+".png");
 	}
 
 	Dom.Style(this.board, {
@@ -833,7 +833,7 @@ UiBoard.prototype.SetHtmlSquare = function(sq, pc) {
 	var bgimg = "none";
 
 	if(pc !== SQ_EMPTY) {
-		bgimg = Base.App.CssImg(this.img_dir_piece+"/"+this.piece_style+"/"+this.square_size+"/"+Fen.get_piece_char(pc)+".png");
+		bgimg = App.CssImg(this.img_dir_piece+"/"+this.piece_style+"/"+this.square_size+"/"+Fen.get_piece_char(pc)+".png");
 	}
 
 	if(this.Squares[sq].Node.style.backgroundImage !== bgimg) { //performance is better with this check

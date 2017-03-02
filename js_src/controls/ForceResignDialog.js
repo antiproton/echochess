@@ -60,7 +60,7 @@ ForceResignDialog.prototype.SetupHtml = function() {
 	this.message_inner.innerHTML = msg;
 
 	this.ButtonForce = new Button(this.buttons_inner, "Force resignation");
-	//this.ButtonCancel = new Button(this.buttons_inner, " < b > Cancel game < /b >  < br > (game not out of the opening yet)");
+	//this.ButtonCancel = new Button(this.buttons_inner, "<b > Cancel game < /b >  < br > (game not out of the opening yet)");
 	this.ButtonWait = new Button(this.buttons_inner, "Wait");
 
 	this.ButtonWait.Click.AddHandler(this, function() {

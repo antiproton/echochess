@@ -10,7 +10,7 @@ function LiveTableDetached() {
 	this.init_quit_cleanup();
 	this.init_updates();
 
-	Base.App.UserButton.Y.Set(2);
+	App.UserButton.Y.Set(2);
 }
 
 LiveTableDetached.prototype.init_attach_button = function() {
@@ -91,7 +91,7 @@ LiveTableDetached.prototype.update_window_title = function() {
 
 LiveTableDetached.prototype.init_table = function() {
 	this.CreateTable();
-	this.Table.Load(Base.Request["page"]["id"]);
+	this.Table.Load(Request["page"]["id"]);
 }
 
 LiveTableDetached.prototype.init_quit_cleanup = function() {

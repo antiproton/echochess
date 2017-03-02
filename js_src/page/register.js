@@ -9,7 +9,7 @@ function Register() {
 }
 
 Register.prototype.init_captcha = function() {
-	this.cap_fen = Base.Request["page"]["captcha"];
+	this.cap_fen = Request["page"]["captcha"];
 	this.cap_answer = $("#cap_answer");
 
 	this.board = new UiBoard($("#captcha_board"));
