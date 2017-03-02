@@ -48,6 +48,7 @@ if($user->signedin) {
 	//echo $realtime;
 
 	$userbl=[
+		"test",
 		"gus",
 		"bob",
 		"nick",
