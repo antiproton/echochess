@@ -39,8 +39,8 @@ log - for debugging
 */
 
 function msg($str, $logfile="/meta/log.txt") {
-	$file=fopen(WWWROOT.$logfile, "a+");
-	fwrite($file, "$str\n");
-	fclose($file);
+	//$file=fopen(WWWROOT.$logfile, "a+");
+	//fwrite($file, "$str\n");
+	//fclose($file);
 }
 ?>
