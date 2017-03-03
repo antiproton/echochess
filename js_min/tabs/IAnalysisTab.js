@@ -1,3 +1,0 @@
-function _______qZ(){this._uZZ=true;this._vZZ=false;this.___bZZZZ=null;this._sZZ.___l.BZZ("Editor "+(++_______qZ._______MZ));this._sZZ.jZZZ.DZZ();}
-_______qZ._______MZ=0;_______qZ.prototype.____WZZ=function(){if(this.___bZZZZ!==null){this.___bZZZZ.__jZZ();}
-v._BZ(this._tZZ.__KZ);this.___bZZZZ=new _xZZZ(this._tZZ.__KZ);this.___bZZZZ._EZZZ._zZZ(this,function(data,sender){this.bZZ.t(sender.sZZ);});this.___bZZZZ._FZZZ._zZZ(this,function(data,sender){this.cZZ.t(sender.sZZ);});}

@@ -1,2 +1,0 @@
-function __kZZ(type,__lZZ){this._cZ=type;this.__mZZ=__lZZ;this.__nZZ=new h(this);this.__gZZ();}
-__kZZ.prototype.__gZZ=function(){_.j.____f._zZZ(this,function(__hZZ){__hZZ.____L(this,__S,{"type":this._cZ,"last_update":this.__mZZ});});_.j.____g._zZZ(this,function(__hZZ){var data=__hZZ.____N(this);if(data!==null){if(data["last_update"]>this.__mZZ){this.__mZZ=data["update"];this.__nZZ.t();}}});}

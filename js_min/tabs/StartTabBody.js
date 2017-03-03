@@ -1,4 +1,0 @@
-function _______VZ(parent){hZZ.iZZ(this,parent);this.nZZ();}
-_______VZ.prototype.nZZ=function(){var __jZ;__jZ=UZZ(this.pZZ);v._rZ(__jZ,{padding:"1em .8em"});this.______jZZ=UZZ(__jZ);__jZ=UZZ(this.______jZZ);var ______kZZ=UZZ(__jZ);var ______lZZ=UZZ(__jZ);v._WZ(______kZZ,"tab_bar_table_list");v._WZ(______lZZ,"tab_body_table_list");this._______XZ=new sZZZ(______kZZ,______lZZ,"tab_button_table_list","tab_button_table_list_on");this._______XZ._EZZ._LZZ.BZZ(5);var ______mZZ={______nZZ:this._______XZ._P(_______TZ),RZZZZZZZ:this._______XZ._P(_______NZ),______oZZ:this._______XZ._P(_______YZ)};this._______XZ.EZZZ(______mZZ.______oZZ);for(var _F in ______mZZ){______mZZ[_F]._uZZ=false;______mZZ[_F]._vZZ=false;______mZZ[_F]._sZZ.gZZZ.BZZ(false);______mZZ[_F]._sZZ.fZZZ.BZZ(false);}
-this.mZZ();}
-_______VZ.prototype.mZZ=function(){}

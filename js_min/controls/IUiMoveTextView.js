@@ -1,1 +1,0 @@
-function __tZZZZ(){__kZZZZ.iZZ(this);}

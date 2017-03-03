@@ -1,4 +1,0 @@
-function ________P(){this.________Q();}
-________P.prototype.________Q=function(){this.________R=_.Request["page"]["captcha"];this.________S=_hZ("#cap_answer");this.__SZZ=new _fZZZ(_hZ("#captcha_board"));this.__SZZ.____dZZ.BZZ(30);this.__SZZ._____fZZ.BZZ([___ZZ[0].__$ZZ,___ZZ[0].__aZZ]);this.__SZZ.__CZZ.BZZ(__n);this.__SZZ.__FZZ.BZZ(true);this.________T=new __RZZ(this.__SZZ);this.________T._oZZZ(this.________R);this.__SZZ._lZZZ._zZZ(this,function(data){___iZZZZ.prototype.___JZZZZ.call(this.________T);___iZZZZ.prototype.__bZZZZZ.call(this.________T);this.________S.value=this.________T._HZZZ.___WZZ.$ZZZZZ.yZZZZ();});v.w(_hZ("#captcha_reset"),"click",function(){this.________U();},this);}
-________P.prototype.________U=function(){this.________T._oZZZ(this.________R);___iZZZZ.prototype.___JZZZZ.call(this.________T);this.________S.value="";}
-var ________O;_.g._zZZ(this,function(){________O=new ________P();});

@@ -1,5 +1,0 @@
-function __uZZZZ(parent){hZZ.iZZ(this,parent);this.nZZ();}
-__uZZZZ.prototype.nZZ=function(){var self=this;var _KZZZ;this.TZZ=UZZ(this.pZZ);_KZZZ=wZZ(this.TZZ);this.__vZZZZ=new JZZ(_KZZZ);v._rZ(this.__vZZZZ.pZZ,{marginRight:4});for(var code in _bZ[jZ]){this.__vZZZZ._P(code,_bZ[jZ][code]._fZ);}
-_KZZZ=wZZ(this.TZZ);this.__wZZZZ=new JZZ(_KZZZ);v._rZ(this.__wZZZZ.pZZ,{marginRight:4});_KZZZ=wZZ(this.TZZ);this.__xZZZZ=new JZZ(_KZZZ);for(var code in _bZ[sZ]){this.__xZZZZ._P(code,_bZ[sZ][code]._fZ);}
-_KZZZ=wZZ(this.TZZ);this.__yZZZZ=new __yZZZZ(_KZZZ);v._rZ(_KZZZ,{marginRight:5,marginLeft:5});_KZZZ=wZZ(this.TZZ);this.__zZZZZ=new Checkbox(_KZZZ,"Rated");v._rZ(_KZZZ,{marginRight:5});_KZZZ=wZZ(this.TZZ);this.__AZZZZ=new Checkbox(_KZZZ,"Alternate colours");v._rZ(this.TZZ,{fontSize:12});this.mZZ();}
-__uZZZZ.prototype.mZZ=function(){}

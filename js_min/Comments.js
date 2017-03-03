@@ -1,6 +1,0 @@
-function __bZZ(type,subject){_pZZ.iZZ(this);this.__cZZ=[];this.mtime_last_post=0;this._cZ=type;this.__dZZ=subject;this.__eZZ=new h(this);this.__fZZ();}
-__bZZ.prototype.__fZZ=function(){____v.____T(G("/xhr/comments_load.php"),function(____x){if(___x(____x)){var ___p;for(var O=0;O<____x.length;O++){___p=____x[O];this.__cZZ.push(___p);this.mtime_last_post=___p["mtime_posted"];this.__eZZ.t(___p);}}
-this.__gZZ();},{"type":this._cZ,"subject":this.__dZZ},this);}
-__bZZ.prototype.__gZZ=function(){_.j.____f._zZZ(this,function(__hZZ){__hZZ.____L(this,__P,{"type":this._cZ,"subject":this.__dZZ,"mtime_last_post":this.mtime_last_post});});_.j.____g._zZZ(this,function(__hZZ){var data=__hZZ.____N(this);if(data!==null){var ___p;for(var O=0;O<data.length;O++){___p=data[O];this.__cZZ.push(___p);this.mtime_last_post=___p["mtime_posted"];this.__eZZ.t(___p);}}});}
-__bZZ.prototype.__iZZ=function(body,subject_line){subject_line=subject_line||"";____v.____X(G("/xhr/comment_post.php"),{"type":this._cZ,"subject":this.__dZZ,"body":body,"subject_line":subject_line});}
-__bZZ.prototype.__jZZ=function(){this._DZZ();}

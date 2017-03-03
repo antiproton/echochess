@@ -1,2 +1,0 @@
-function ____YZZZ(){this.____ZZZZ=new h(this);this.___$ZZZZ=0;this._______u();}
-____YZZZ.prototype._______u=function(){_.j.____f._zZZ(this,function(__hZZ){__hZZ.____L(this,__Q,{"last_challenge_mtime":this.___$ZZZZ});});_.j.____g._zZZ(this,function(__hZZ){var data=__hZZ.____N(this);var ___p;if(___x(data)){for(var O=0;O<data.length;O++){___p=data[O];this.____ZZZZ.t(___p);if(___p["mtime_created"]>this.___$ZZZZ){this.___$ZZZZ=___p["mtime_created"];}}}});}
