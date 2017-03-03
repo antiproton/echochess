@@ -833,7 +833,7 @@ class Table{
 	}
 
 	public static function cancel_open_challenges($user) {
-		return $this->db->remove("tables", [
+		return Db::getinst()->remove("tables", [
 			"owner"=>$user,
 			"challenge_type"=>CHALLENGE_TYPE_QUICK,
 			"challenge_accepted"=>false
