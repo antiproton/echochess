@@ -61,7 +61,7 @@ class Seat extends DbRow {
 	}
 
 	public static function is_seated($user, $gid) {
-		return ($this->db->cell("
+		return (Db::getinst()->cell("
 			select colour
 			from seats
 			where user='$user'

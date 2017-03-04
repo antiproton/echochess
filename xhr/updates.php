@@ -23,9 +23,6 @@ require_once "php/Messages.php";
 require_once "php/GenericUpdates.php";
 require_once "php/livechess/Premoves.php";
 
-$db=$db->getinst();
-$user=User::getinst();
-
 session_commit();
 
 $update=[];
